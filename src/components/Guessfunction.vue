@@ -1,5 +1,12 @@
 <template>
-    <div class="counter">
+<div class="brain">
+        <p> Guess the number homie </p>
+        <input type='number'  v-model="number">
+        <button @click="testNumber()" > Submit Number</button>
+
+        <span>
+            {{ randomNumber() }}
+        </span>
         <p class="counte_display">
             {{ count }}
         </p>
@@ -15,11 +22,21 @@
 export default {
     name: 'Guessfunction',
     computed: {
+        data() {
+            return {
+                number: 0
+            }
+            
+        },
         count() {
             return this.$store.state.count;
         }
     },
     methods: {
+        randomNumber: function () {
+            return Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+
+        },
         increment() {
             this.$store.commit('increment')
         },
@@ -37,3 +54,12 @@ export default {
 }
 </script>
 
+<style scoped>
+
+p{
+    color: midnightblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+</style>
