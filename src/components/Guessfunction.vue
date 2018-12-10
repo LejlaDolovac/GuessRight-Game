@@ -44,7 +44,7 @@ export default {
             this.$store.commit('decrement')
         },
         testingNumbers() {
-            if(this.$store.state.number == this.count) {
+            if(randomNumber == this.count) {
                 alert("Whaaaa!")
             } else {
                 alert("Whööööö!")
