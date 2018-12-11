@@ -3,7 +3,7 @@
         <h3> Guess the number homie </h3>
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ number }} </p>
-        <input type="number" v-model="guessedNumber">
+        <input type="number" min="1" max="10" v-model="guessedNumber">
         <button @click="guessNumber">Submit Number</button>
         <br>
         <br>
