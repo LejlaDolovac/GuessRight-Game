@@ -1,19 +1,15 @@
 <template>
 <div class="brain">
         <p> Guess the number homie </p>
-        <input type='number'  v-model="number">
-        <button @click="testNumber()" > Submit Number</button>
+        <input type='number'  v-model="number" ref="submitNumber">
+        <!--<button @click="testNumber()" > Submit Number</button>-->
 
-        <span>
+        <span ref="randomNum">
             {{ randomNumber() }}
         </span>
-        <p class="counte_display">
-            {{ count }}
-        </p>
         <div class="counter_buttons">
-            <button class="button_counter_increment" @click="increment">Plus</button>
-            <button class="button_counter_decrement" @click="decrement">Minus</button>
-            <button class="button_counter_testing" @click="testingNumbers">Test</button>
+            <button class="button_counter_increment" @click="randomNumber()">Random</button>
+            <button class="button_counter_testing" @click="testingNumbers()">Test</button>
         </div>
     </div>
 </template>
@@ -25,17 +21,13 @@ export default {
         data() {
             return {
                 number: 0
-            }
-            
-        },
-        count() {
-            return this.$store.state.count;
+            } 
         }
     },
     methods: {
         randomNumber: function () {
-            return Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-
+            this.$store.state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1
+            return this.$store.state.number;
         },
         increment() {
             this.$store.commit('increment')
@@ -44,13 +36,19 @@ export default {
             this.$store.commit('decrement')
         },
         testingNumbers() {
-            if(randomNumber == this.count) {
-                alert("Whaaaa!")
+            if(this.$store.state.number == this.$refs.submitNumber.value) {
+                alert("Right!")
+                this.randomNumber()
             } else {
-                alert("Whööööö!")
+                if (this.$store.state.number >= this.$refs.submitNumber.value){
+                alert("Wrong! Higher, dude")
+                } else {
+                    alert("Wrong! Lower, dude")
+                }
+
             }
         }
-    }
+    },
 }
 </script>
 

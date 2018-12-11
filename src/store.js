@@ -6,8 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    count: 0,
-    number: 6
+    number: 0,
   },
   mutations: {
     increment(state) {
