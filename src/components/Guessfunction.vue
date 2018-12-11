@@ -11,9 +11,8 @@
             {{ count }}
         </p>
         <div class="counter_buttons">
-            <button class="button_counter_increment" @click="increment">Plus</button>
-            <button class="button_counter_decrement" @click="decrement">Minus</button>
-            <button class="button_counter_testing" @click="testingNumbers">Test</button>
+            <button class="button_counter_increment" @click="randomNumber()">Random</button>
+            <button class="button_counter_testing" @click="testingNumbers()">Test</button>
         </div>
     </div>
 </template>
@@ -37,7 +36,7 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.number == this.guessedNumber) {
-              this.message = "Correct!"; 
+              this.message = "Correct!";
               this.hideNum = !this.hideNum;
           } else if (this.number > this.guessedNumber) {
               this.message = "The number is higher!";
@@ -52,13 +51,19 @@ export default {
             this.$store.commit('decrement')
         },
         testingNumbers() {
-            if(this.$store.state.number == this.count) {
-                alert("Whaaaa!")
+            if(this.$store.state.number == this.$refs.submitNumber.value) {
+                alert("Right!")
+                this.randomNumber()
             } else {
-                alert("Whööööö!")
+                if (this.$store.state.number >= this.$refs.submitNumber.value){
+                alert("Wrong! Higher, dude")
+                } else {
+                    alert("Wrong! Lower, dude")
+                }
+
             }
         }
-    }
+    },
 }
 </script>
 
