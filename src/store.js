@@ -6,19 +6,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    count: 0,
-    number: 6
+    number: Math.floor(Math.random() * (10 - 1 + 1)) + 1,
   },
   mutations: {
-    increment(state) {
-      if (state.count < 100) {
-        state.count += 1;
-      }
-    },
-    decrement(state) {
-      if (state.count > 0) {
-        state.count += -1;
-      }
+    newRandomNumber(state) {
+      state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1
+      console.log(state.number)
     }
   },
   actions: {
