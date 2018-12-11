@@ -1,56 +1,39 @@
 <template>
 <div class="brain">
-        <p> Guess the number homie </p>
-        <div id="message">{{ message }}</div>
-        <input type='number'  v-model="number" ref="submitNumber">
-        <!--<button @click="testNumber()" > Submit Number</button>-->
-
-        <span ref="randomNum">
-            {{ randomNumber() }}
-        </span>
-        <div class="counter_buttons">
-            <button class="button_counter_testing" @click="testingNumbers()">Test</button>
-        </div>
+        <h3> Guess the number homie </h3>
+        <p> {{ message }} </p>
+        <p v-show="hideNum"> {{ this.$store.state.number }} </p>
+        <input type="number" v-model="guessedNumber">
+        <button @click="guessNumber">Submit Number</button>
+        <br>
+        <br>
     </div>
 </template>
 
 <script>
 export default {
     name: 'Guessfunction',
+    data() {
+      return {
+        guessedNumber: 0,
+        message: '',
+        hideNum: false
+      }
+    },
     computed: {
-        data() {
-            return {
-                number: 0,
-                message: '',
-                bloo: ''
-            } 
-        }
     },
     methods: {
-        randomNumber: function () {
-            this.$store.state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1
-            return this.$store.state.number;
+        guessNumber: function () {
+          if (this.$store.state.number == this.guessedNumber) {
+              this.message = "Correct!"; 
+              this.hideNum = !this.hideNum;
+          } else if (this.$store.state.number > this.guessedNumber) {
+              this.message = "The number is higher!";
+          } else if (this.$store.state.number < this.guessedNumber) {
+              this.message = "The number is lower!";
+          }
         },
-        increment() {
-            this.$store.commit('increment')
-        },
-        decrement() {
-            this.$store.commit('decrement')
-        },
-        testingNumbers() {
-            if(this.$store.state.number == this.$refs.submitNumber.value) {
-                this.message = "My Man!"
-                this.randomNumber()
-            } else if (this.$store.state.number >= this.$refs.submitNumber.value){
-                    this.message = "Wrong! Higher, dude"
-                    console.log("higher")
-            } else {
-                    this.message = "Wrong! Lower, dude"
-                    console.log("lower")
-            }
-
-        }
-    },
+    }
 }
 </script>
 
@@ -60,10 +43,6 @@ p{
     color: midnightblue;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
-}
-#message {
-    margin: 10px;
-    font-weight: bolder;
 }
 
 </style>
