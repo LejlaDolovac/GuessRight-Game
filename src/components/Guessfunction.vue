@@ -1,6 +1,7 @@
 <template>
 <div class="brain">
         <p> Guess the number homie </p>
+        <div id="message">{{ message }}</div>
         <input type='number'  v-model="number" ref="submitNumber">
         <!--<button @click="testNumber()" > Submit Number</button>-->
 
@@ -8,7 +9,6 @@
             {{ randomNumber() }}
         </span>
         <div class="counter_buttons">
-            <button class="button_counter_increment" @click="randomNumber()">Random</button>
             <button class="button_counter_testing" @click="testingNumbers()">Test</button>
         </div>
     </div>
@@ -20,7 +20,9 @@ export default {
     computed: {
         data() {
             return {
-                number: 0
+                number: 0,
+                message: '',
+                bloo: ''
             } 
         }
     },
@@ -37,16 +39,16 @@ export default {
         },
         testingNumbers() {
             if(this.$store.state.number == this.$refs.submitNumber.value) {
-                alert("Right!")
+                this.message = "My Man!"
                 this.randomNumber()
+            } else if (this.$store.state.number >= this.$refs.submitNumber.value){
+                    this.message = "Wrong! Higher, dude"
+                    console.log("higher")
             } else {
-                if (this.$store.state.number >= this.$refs.submitNumber.value){
-                alert("Wrong! Higher, dude")
-                } else {
-                    alert("Wrong! Lower, dude")
-                }
-
+                    this.message = "Wrong! Lower, dude"
+                    console.log("lower")
             }
+
         }
     },
 }
@@ -58,6 +60,10 @@ p{
     color: midnightblue;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
+}
+#message {
+    margin: 10px;
+    font-weight: bolder;
 }
 
 </style>
