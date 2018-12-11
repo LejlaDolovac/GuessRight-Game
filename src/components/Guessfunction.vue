@@ -36,6 +36,7 @@ export default {
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
               this.inputDisabled = true;
+              clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
                 this.$store.commit('newRandomNumber')
@@ -43,6 +44,7 @@ export default {
                 this.guessedNumber = 0;
                 this.inputDisabled = false;
                 clearInterval(this.numberInterval)
+                this.timer = 10
               }, 2000);
           } else if (this.$store.state.number > this.guessedNumber) {
               this.message = "The number is higher!";
@@ -58,7 +60,7 @@ export default {
                     clearInterval(this.timerInterval)
                     this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
-                    this.timer = "Times up, loser"
+                    this.timer = "Loser!"
                 }
               }, 1000);
         }
