@@ -27,7 +27,7 @@
         </div>
         <button class="btn" @click="guessNumber">Press</button>
             <input type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
-        </div>
+
         <button @click="guessNumber">Submit Number</button>
         <br>
         <br>
@@ -114,6 +114,7 @@ export default {
           }
 >>>>>>> 395547381326acc68a839905a8c156e107068d21
         },
+<<<<<<< HEAD
         testingNumbers() {
             if(this.$store.state.number == this.count) {
                 alert("Whaaaa!")
@@ -123,6 +124,24 @@ export default {
         }
     }
 }
+=======
+
+        timerFunction() {
+            this.timerInterval = setInterval(() => {
+                this.timer--
+                if(this.timer == 0) {
+                    clearInterval(this.timerInterval)
+                    this.$store.commit('newRandomNumber')
+                    this.inputDisabled = true
+                    this.timer = "Loser!"
+                    this.startShow = true
+                    this.message = ''
+                }
+              }, 1000);
+        }
+    }
+
+>>>>>>> 9560afcc4f47413b6c5f9f914952d8fcf7b85af5
 </script>
 
 <style scoped>
