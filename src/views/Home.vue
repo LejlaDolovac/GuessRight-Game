@@ -1,8 +1,12 @@
 <template>
   <div class="home">
+<<<<<<< HEAD
+    <Guessfunction/>
+=======
     <img alt="Vue logo" src="../assets/logo.png">
       <Lobby/>
       <Guessfunction/>
+>>>>>>> 395547381326acc68a839905a8c156e107068d21
   </div>
 </template>
 
