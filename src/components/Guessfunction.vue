@@ -11,7 +11,7 @@
         </div>
         <button class="btn" @click="guessNumber">Press</button>
             <input type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
-        </div>
+
         <button @click="guessNumber">Submit Number</button>
         <br>
         <br>
@@ -67,7 +67,6 @@ export default {
           
           }
         },
-    }
 
         timerFunction() {
             this.timerInterval = setInterval(() => {
@@ -82,8 +81,8 @@ export default {
                 }
               }, 1000);
         }
-    },
-}
+    }
+
 </script>
 
 <style scoped>
