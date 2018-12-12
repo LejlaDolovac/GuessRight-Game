@@ -1,13 +1,13 @@
 <template>
-<div class="brain">
-        <h3> Guess the number homie </h3>
-        <p> {{ message }} </p>
-        <p v-show="hideNum"> {{ this.$store.state.number }} </p>
-        <input type="number" v-model="guessedNumber">
-        <button @click="guessNumber">Submit Number</button>
-        <br>
-        <br>
-    </div>
+  <div class="brain">
+    <h3> Guess the number homie </h3>
+    <p> {{ message }} </p>
+    <p v-show="hideNum"> {{ this.$store.state.number }} </p>
+    <input type="number" v-model="guessedNumber">
+    <button @click="guessNumber">Submit Number</button>
+    <br>
+    <br>
+  </div>
 </template>
 
 <script>
