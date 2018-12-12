@@ -1,7 +1,7 @@
 <template>
 <div class="brain">
         <h3> Guess the number homie </h3>
-        <button @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow" >Start</button>
+        <button @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow">Start</button>
         <p>Time left: <span>{{ timer }}</span></p>
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
@@ -11,6 +11,7 @@
         <button @click="guessNumber">Submit Number</button>
         <br>
         <br>
+        <p>Your result is: <span>{{ this.$store.state.correctAnswers }}</span> </p>
     </div>
 </template>
 
@@ -36,6 +37,8 @@ export default {
           if (this.$store.state.number == this.guessedNumber) {
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
+              this.$store.state.correctAnswers++;
+              console.log(this.correctAnswers);
               this.inputDisabled = true;
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
