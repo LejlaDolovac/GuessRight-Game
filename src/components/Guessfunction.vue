@@ -7,12 +7,10 @@
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
         <div>
 
-        <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber">
+        <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
         </div>
         <button class="btn" @click="guessNumber">Press</button>
-            <input type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
-        </div>
-        <button @click="guessNumber">Submit Number</button>
+
         <br>
         <br>
         <p>Your result is: <span>{{ this.$store.state.correctAnswers }}</span> </p>
@@ -64,11 +62,7 @@ export default {
           } else if (this.$store.state.number < this.guessedNumber) {
               this.message = "The number is lower!";
           }
-          
-          }
-        },
-    }
-
+          },
         timerFunction() {
             this.timerInterval = setInterval(() => {
                 this.timer--
@@ -83,17 +77,14 @@ export default {
               }, 1000);
         }
     },
-}
+    }
 </script>
 
 <style scoped>
-
 p{
     color: midnightblue;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
 }
-
 .search{
 	width: 150px;
 	height: 17px;
