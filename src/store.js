@@ -11,6 +11,8 @@ export default new Vuex.Store({
   },
   mutations: {
     newRandomNumber(state) {
+      state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+      console.log(state.number);
       state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1
     }
   },

@@ -6,6 +6,10 @@
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
         <div>
+
+        <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber">
+        </div>
+        <button class="btn" @click="guessNumber">Press</button>
             <input type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
         </div>
         <button @click="guessNumber">Submit Number</button>
@@ -23,6 +27,7 @@ export default {
         guessedNumber: Number,
         message: '',
         hideNum: false,
+        rightAnswers: 0,
         numberInterval: '',
         timerInterval: '',
         timer: 10,
@@ -35,6 +40,9 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
+              this.message = "Correct!"; 
+              this.rightAnswers++;
+              console.log(this.rightAnswers);
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
@@ -56,7 +64,11 @@ export default {
           } else if (this.$store.state.number < this.guessedNumber) {
               this.message = "The number is lower!";
           }
+          
+          }
         },
+    }
+
         timerFunction() {
             this.timerInterval = setInterval(() => {
                 this.timer--
@@ -82,4 +94,34 @@ p{
 
 }
 
+.search{
+	width: 150px;
+	height: 17px;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+    z-index: 10;
+    border-radius: 50px;
+}
+.search:hover {
+	box-shadow: 0px 0px 150px grey;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.5);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.5);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.5);
+    transition: all 200ms ease-in;
+    transform: scale(1.8);
+}
+.btn{
+    margin-top: 20px;
+    border-radius: 200%;
+    height: 100px;
+    width: 100px;
+    color: black;
+    background-color: red;
+    
+}
+.btn:focus {outline:0;}
 </style>
