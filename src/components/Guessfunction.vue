@@ -1,7 +1,7 @@
 <template>
 <div class="brain">
         <h3> Guess the number homie </h3>
-        <button @click="timerFunction">Start</button>
+        <button @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow" >Start</button>
         <p>Time left: <span>{{ timer }}</span></p>
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
@@ -19,13 +19,14 @@ export default {
     name: 'Guessfunction',
     data() {
       return {
-        guessedNumber: 0,
+        guessedNumber: Number,
         message: '',
         hideNum: false,
         numberInterval: '',
         timerInterval: '',
         timer: 10,
-        inputDisabled: true
+        inputDisabled: true,
+        startShow: true
       }
     },
     computed: {
@@ -41,10 +42,11 @@ export default {
                 this.hideNum = false
                 this.$store.commit('newRandomNumber')
                 this.message = '';
-                this.guessedNumber = 0;
-                this.inputDisabled = false;
-                clearInterval(this.numberInterval)
+                this.guessedNumber = Number;
+                this.inputDisabled = true
                 this.timer = 10
+                this.startShow = true
+                clearInterval(this.numberInterval)
               }, 2000);
           } else if (this.$store.state.number > this.guessedNumber) {
               this.message = "The number is higher!";
@@ -54,13 +56,14 @@ export default {
         },
         timerFunction() {
             this.timerInterval = setInterval(() => {
-                this.inputDisabled = false
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
                     this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
                     this.timer = "Loser!"
+                    this.startShow = true
+                    this.message = ''
                 }
               }, 1000);
         }
