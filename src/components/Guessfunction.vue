@@ -11,8 +11,9 @@
             {{ count }}
         </p>
         <div class="counter_buttons">
-            <button class="button_counter_increment" @click="randomNumber()">Random</button>
-            <button class="button_counter_testing" @click="testingNumbers()">Test</button>
+            <button class="button_counter_increment" @click="increment">Plus</button>
+            <button class="button_counter_decrement" @click="decrement">Minus</button>
+            <button class="button_counter_testing" @click="testingNumbers">Test</button>
         </div>
     </div>
 </template>
@@ -51,19 +52,13 @@ export default {
             this.$store.commit('decrement')
         },
         testingNumbers() {
-            if(this.$store.state.number == this.$refs.submitNumber.value) {
-                alert("Right!")
-                this.randomNumber()
+            if(this.$store.state.number == this.count) {
+                alert("Whaaaa!")
             } else {
-                if (this.$store.state.number >= this.$refs.submitNumber.value){
-                alert("Wrong! Higher, dude")
-                } else {
-                    alert("Wrong! Lower, dude")
-                }
-
+                alert("Whööööö!")
             }
         }
-    },
+    }
 }
 </script>
 
