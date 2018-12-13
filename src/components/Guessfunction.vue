@@ -22,7 +22,7 @@ export default {
     name: 'Guessfunction',
     data() {
       return {
-        guessedNumber: Number,
+        guessedNumber: '',
         message: '',
         hideNum: false,
         rightAnswers: 0,
@@ -38,20 +38,17 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
-              this.message = "Correct!"; 
-              this.rightAnswers++;
-              console.log(this.rightAnswers);
-              this.message = "Correct, my man!"; 
+              this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
-              console.log(this.correctAnswers);
+              console.log(this.$store.state.correctAnswers);
               this.inputDisabled = true;
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
                 this.$store.commit('newRandomNumber')
                 this.message = '';
-                this.guessedNumber = Number;
+                this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 10
                 this.startShow = true
@@ -75,8 +72,8 @@ export default {
                     this.message = ''
                 }
               }, 1000);
-        }
-    },
+          }
+      },
     }
 </script>
 
@@ -99,7 +96,7 @@ p{
     -webkit-transition: all 200ms ease-in;
     -webkit-transform: scale(1.5);
     -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.5);   
+    -ms-transform: scale(1.5);
     -moz-transition: all 200ms ease-in;
     -moz-transform: scale(1.5);
     transition: all 200ms ease-in;
@@ -112,7 +109,7 @@ p{
     width: 100px;
     color: black;
     background-color: red;
-    
+
 }
 .btn:focus {outline:0;}
 </style>
