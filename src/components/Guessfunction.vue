@@ -13,7 +13,7 @@
 
         <br>
         <br>
-        <p>Your result is: <span>{{ this.$store.state.correctAnswers }}</span> </p>
+        <p>Your result is: <span> {{ this.$store.state.correctAnswers }} </span></p>
     </div>
 </template>
 
@@ -22,10 +22,9 @@ export default {
     name: 'Guessfunction',
     data() {
       return {
-        guessedNumber: Number,
+        guessedNumber: '',
         message: '',
         hideNum: false,
-        rightAnswers: 0,
         numberInterval: '',
         timerInterval: '',
         timer: 10,
@@ -38,20 +37,16 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
-              this.message = "Correct!"; 
-              this.rightAnswers++;
-              console.log(this.rightAnswers);
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
-              console.log(this.correctAnswers);
               this.inputDisabled = true;
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
                 this.$store.commit('newRandomNumber')
                 this.message = '';
-                this.guessedNumber = Number;
+                this.guessedNumber = ''
                 this.inputDisabled = true
                 this.timer = 10
                 this.startShow = true
