@@ -6,10 +6,9 @@
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
         <div>
-
         <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
         </div>
-        <button class="btn" @click="guessNumber">Press</button>
+        <button class="btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
 
         <br>
         <br>
