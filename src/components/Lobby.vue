@@ -1,10 +1,12 @@
 <template>
   <div class="container">
-    <h1>Guess Right</h1>
-    <div class="nav">
-      <router-link to="/gamepage"><button>Start game</button></router-link>
-      <button @click="openRules()">Rules</button>
-      <button>High score</button>
+    <div class="header is-centered">
+      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
+    </div>
+    <div class="nav buttons is-centered">
+      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
+      <button class="purple button" @click="openRules()">Rules</button>
+      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
     </div>
   </div>
 </template>
@@ -14,7 +16,8 @@ export default {
     name: 'Lobby',
     data() {
       return {
-        numbers: []
+        numbers: [],
+        active: true
       }
     },
     computed: {
@@ -23,6 +26,10 @@ export default {
       openRules: function() {
         alert("HON HETER ANNA. ANNA HETER HON.")
         // öppna regelmodulen
+      },
+      close: function() {
+        this.active = !this.active
+        console.log("hi")
       }
     }
   }
@@ -31,9 +38,13 @@ export default {
 <style scoped>
 
 .container {
-  width: 90%;
+  width: 95%;
   margin: auto;
   margin-top: 60px;
+}
+
+h1 {
+  margin-bottom: 30px;
 }
 
 .nav {
@@ -41,37 +52,34 @@ export default {
   margin: auto;
 }
 
-button {
+.button {
   width: 200px;
-  display: inline-block;
-  clear: left;
-  background-color: LightSteelBlue;
+  background-color: Black;
   color: White;
-  border: none;
-  padding: 15px;
-  margin-top: 25px;
-  cursor: pointer;
-  font-size: 1.2em;
+  border-width: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
 
+.button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+
+.pink {border-color: #ab0e86;}
+.purple {border-color: #59057b;}
+.yellow {border-color: #fae100;}
+
 @media (min-width: 600px) {
-  h1 {
-    font-size: 2.2em;
-  }
-  button {
+  .button {
     width: 300px;
     font-size: 1.4em;
   }
 }
 
 @media (min-width: 992px) {
-  h1 {
-    font-size: 3em;
-  }
   .nav {
     max-width: 400px;
   }
-  button {
+  .button {
     width: 400px;
     font-size: 1.6em;
   }
