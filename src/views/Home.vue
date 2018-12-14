@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-      <Lobby/>
+      <Rules/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Lobby from '@/components/Lobby.vue'
+import Rules from '@/components/Rules.vue'
 
 export default {
   name: 'home',
   components: {
-    Lobby
+    Rules
   }
 }
 </script>
