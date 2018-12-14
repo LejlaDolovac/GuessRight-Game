@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <h2>Welcome to Guess Right</h2>
-    <p>{{ rules }} <br> {{ rules }} <br> {{ rules }}</p>
-    <div class="difficulty">
-      <button @click="easyNumbers()">Easy</button>
-      <button @click="mediumNumbers()">Medium</button>
-      <button @click="hardNumbers()">Hard</button>
+    <h1>Guess Right</h1>
+    <div class="nav">
+      <router-link to="/gamepage"><button>Start game</button></router-link>
+      <button @click="openRules()">Rules</button>
+      <button>High score</button>
     </div>
-    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
   </div>
 </template>
 
@@ -16,57 +14,68 @@ export default {
     name: 'Lobby',
     data() {
       return {
-        numbers: [],
-        rules: "This is how you play the game. Lorem ipsum dolor sit amet."
+        numbers: []
       }
     },
     computed: {
     },
     methods: {
-      easyNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
-      },
-      mediumNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
-      },
-      hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+      openRules: function() {
+        alert("HON HETER ANNA. ANNA HETER HON.")
+        // öppna regelmodulen
       }
     }
-}
+  }
 </script>
 
 <style scoped>
 
-.difficulty {
+.container {
+  width: 90%;
+  margin: auto;
+  margin-top: 60px;
 }
 
-.container button {
-  width: 150px;
-  background-color: #42b883;
+.nav {
+  max-width: 300px;
+  margin: auto;
+}
+
+button {
+  width: 200px;
+  display: inline-block;
+  clear: left;
+  background-color: LightSteelBlue;
   color: White;
   border: none;
-  padding: 10px;
-  margin: 1px;
-  cursor: pointer
+  padding: 15px;
+  margin-top: 25px;
+  cursor: pointer;
+  font-size: 1.2em;
 }
 
-#start-game {
-  width: 200px;
-  margin-top: 20px;
-  font-size: 1.5em;
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.2em;
+  }
+  button {
+    width: 300px;
+    font-size: 1.4em;
+  }
 }
+
+@media (min-width: 992px) {
+  h1 {
+    font-size: 3em;
+  }
+  .nav {
+    max-width: 400px;
+  }
+  button {
+    width: 400px;
+    font-size: 1.6em;
+  }
+}
+
 
 </style>
