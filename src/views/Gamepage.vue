@@ -9,7 +9,7 @@
 import Guessfunction from '@/components/Guessfunction.vue'
 
 export default {
-  name: 'home',
+  name: 'gamepage',
   components: {
     Guessfunction
   }

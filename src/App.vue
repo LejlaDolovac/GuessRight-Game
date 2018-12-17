@@ -2,14 +2,17 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/gamepage">Gamepage</router-link>
+      <router-link to="/gamepage">Gamepage</router-link> |
+      <router-link to="/highscore">Highscore</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
-<style lang="css">
-@import '../node_modules/bulma/css/bulma.css';
+<style>
+
+  @import '../node_modules/bulma/css/bulma.css';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
