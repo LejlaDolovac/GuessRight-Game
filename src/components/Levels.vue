@@ -3,14 +3,14 @@
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
      <div class="difficulty">
     <div class='row'>
-      <div class="column" id="pic1">
-      <img src="../assets/Wall-E.png" alt="easy level" @click="easyNumber"/> <!-- easy -->
+      <div class="column">
+      <img src="../assets/Wall-E.png"  id="pic2" alt="easy level" @click="easyNumber"/> <!-- easy -->
       </div>
-      <div class="column" id="pic2">
-      <img src="../assets/R2D2.png" alt=" medium level" @click="mediumNumbers()"/> <!-- medium -->
+      <div class="column">
+      <img src="../assets/R2D2.png"  id="pic2" alt="medium level" @click="mediumNumbers()"/> <!-- medium -->
       </div>
-      <div class="column" id="pic3">
-      <img src="../assets/terminator.png" alt=" hard level" @click="hardNumbers()"/> <!-- hard -->
+      <div class="column">
+      <img src="../assets/terminator.png" id="pic3" alt=" hard level" @click="hardNumbers()"/> <!-- hard -->
       </div>
        </div>
     </div>
@@ -123,6 +123,9 @@ h2{
    margin-right: auto;
    width: 27%;
  }
-
+#pic3{
+height: 100px;
+width: 150;
+}
 
 </style>
