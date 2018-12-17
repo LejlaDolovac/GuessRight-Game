@@ -1,9 +1,10 @@
 <template>
-  <transition name="rules">
-    <div id="rules" v-show="!showRules">
+  <div>
+    <button @click="close">test</button>
+    <div id="rules" v-if="showRules">
        <div class="modal-background"></div>
-        <div class="modal-content">
-          <h1 class="title is-2">RULES</h1>
+        <div class="modal-content is-fluid-mobile is-size-5 has-background-black has-text-white">
+          <h1 class="title is-2">Game Rules</h1>
             <ul>
               <li>It is a turned based game.</li>
               <li>The Player starts to guess a number between 1-10.</li>
@@ -12,10 +13,12 @@
               <li>First to guess the right number gets one point. Get as many points as you can within the countdown.</li>
               <li>Compete for the #1 rank at the highscore board.</li>
             </ul>
+          <br>
+
           <button class="button is-medium is-dark" @click="close">Oki-doki!</button>
         </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 
@@ -37,23 +40,18 @@ export default {
 
 
 <style scoped>
-.modal-content {
-    background-color: linen;
-    padding: 2%;
+h1 {
+    color: purple;
 }
-.container {
-    width: 80%;
-    padding: 2%;
-    background-color: linen;
+.modal-content {
+    padding: 45px;
+    margin-top: -5%;
 }
 .button:hover {
     background-color: limegreen;
 }
-ul {
-    list-style-type: none;
-}
 li {
-    margin: 2%;
+    margin: 1.5%;
 }
 
 </style>
