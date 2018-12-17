@@ -30,6 +30,11 @@ export default new Router({
       path: '/rules',
       name: 'rules',
         component: () => import( './components/Rules.vue')
+    },
+    {
+      path: '/levels',
+      name: 'levels',
+      component: () => import(/* webpackChunkName: "about" */ './components/Levels.vue')
     }
   ]
 });
