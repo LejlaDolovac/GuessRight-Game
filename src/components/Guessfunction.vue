@@ -17,9 +17,9 @@
         </div>
         <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-   
+
 </template>
-    
+
 <script>
 export default {
     name: 'Guessfunction',
@@ -42,7 +42,7 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
-              this.message = "Correct, my man!"; 
+              this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;

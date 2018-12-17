@@ -19,6 +19,10 @@
 
 @import '../node_modules/bulma/css/bulma.css';
 
+html {
+  background-color: Black;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,12 +53,6 @@
 .fade-enter,
 .fade-leave-active {
   opacity: 0
-}
-body{
-  height: 1000px;
-  width: 100%;
-  background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
-
 }
 
 </style>
