@@ -20,7 +20,7 @@
 
 <script>
 export default {
-    name: 'Lobby',
+    name: 'Levels',
     data() {
       return {
         numbers: [],
