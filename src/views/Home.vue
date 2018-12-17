@@ -1,7 +1,6 @@
 <template>
   <div class="home">
       <Lobby/>
-      <!--<Rules/>-->
   </div>
 </template>
 
@@ -17,7 +16,7 @@ export default {
 }
 </script>
 
-<style scoop>
+<style>
 
 
 </style>

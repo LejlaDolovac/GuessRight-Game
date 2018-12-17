@@ -1,4 +1,5 @@
 <template>
+
 <div class="brain">
         <div id="player-bot-div modal">
            <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
@@ -16,6 +17,7 @@
         </div>
         <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
+   
 </template>
     
 <script>
@@ -96,7 +98,6 @@ export default {
 
 <style scoped>
 * {
-    background-color: #ffba43;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 h3 {
@@ -220,5 +221,12 @@ p{
         margin: 5px;
     }
 
+.button{
+ background-color:black;
+ color:white;
+ width: 30%;
+ border: 3px solid purple;
+ font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 }
 </style>

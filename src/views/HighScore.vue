@@ -82,6 +82,7 @@ h1 {
 
 .highscore {
   background-image: linear-gradient(to bottom right, yellow, #e01171, #ab0e86, #59057b, #0f0766);
+  height: 1000px;
 }
 
 th {
