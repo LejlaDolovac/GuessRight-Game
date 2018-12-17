@@ -4,11 +4,19 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/gamepage">Gamepage</router-link>
     </div>
-    <router-view/>
+    <transition
+        name="fade"
+        mode="out-in"
+      >
+        <router-view/>
+      </transition>
   </div>
 </template>
 
 <style>
+
+@import '../node_modules/bulma/css/bulma.css';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,4 +36,23 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
+body{
+  height: 1000px;
+  width: 100%;
+  background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
+
+}
+
 </style>

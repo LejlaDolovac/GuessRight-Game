@@ -1,11 +1,18 @@
 <template>
   <div class="container">
-    <h2>Welcome to Guess Right</h2>
-    <p>{{ rules }} <br> {{ rules }} <br> {{ rules }}</p>
-    <div class="difficulty">
-      <button @click="easyNumbers()">Easy</button>
-      <button @click="mediumNumbers()">Medium</button>
-      <button @click="hardNumbers()">Hard</button>
+    <h2> Please choose one level <br> <span>&#8595;</span></h2>
+     <div class="difficulty">
+    <div class='row'>
+      <div class="column">
+      <img src="../assets/Wall-E.png"  @click="easyNumber"/> <!-- easy -->
+      </div>
+      <div class="column">
+      <button class="button"  @click="mediumNumbers()">Medium</button>
+      </div>
+      <div class="column">
+      <button class=" button" @click="hardNumbers()">Hard</button>
+      </div>
+       </div>
     </div>
     <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
   </div>
@@ -17,7 +24,7 @@ export default {
     data() {
       return {
         numbers: [],
-        rules: "This is how you play the game. Lorem ipsum dolor sit amet."
+        level: 'Please choose one level'
       }
     },
     computed: {
@@ -27,6 +34,7 @@ export default {
         this.numbers = [];
         for(var i = 1; i <= 10; i++) {
           this.numbers.push(i);
+          
         }
         console.log(this.numbers)
       },
@@ -50,17 +58,15 @@ export default {
 
 <style scoped>
 
-.difficulty {
-}
-
 .container button {
-  width: 150px;
-  background-color: #42b883;
-  color: White;
+  width: 100px;
+  background-color:black;
+  color:darksalmon;
   border: none;
   padding: 10px;
-  margin: 1px;
+  margin: 20px;
   cursor: pointer
+  
 }
 
 #start-game {
@@ -68,5 +74,38 @@ export default {
   margin-top: 20px;
   font-size: 1.5em;
 }
+p{
+  color: midnightblue;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px;
+  box-sizing: border-box;
+  
+}
+
+h2{
+  border: 5px solid orange;
+  text-align: center;
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  height:auto;
+  color: black;
+  box-sizing: border-box;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+@media only screen and (max-width: 1000px){
+    h2{
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+}
+
+.column{
+  float: left;
+  height: 80px;
+  margin: 20px;
+  width: 80px;
+}
+
 
 </style>

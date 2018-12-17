@@ -1,7 +1,10 @@
 <template>
+
 <div class="brain">
+       <div class="intro">
         <h3> Guess the number homie </h3>
-        <button @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow">Start</button>
+        </div>
+        <button class="button" @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow">Start</button>
         <p>Time left: <span>{{ timer }}</span></p>
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
@@ -9,12 +12,13 @@
 
         <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
         </div>
-        <button class="btn" @click="guessNumber">Press</button>
+        <button  class="button btn" @click="guessNumber">Press</button>
 
         <br>
         <br>
         <p>Your result is: <span>{{ this.$store.state.correctAnswers }}</span> </p>
     </div>
+   
 </template>
 
 <script>
@@ -25,7 +29,6 @@ export default {
         guessedNumber: '',
         message: '',
         hideNum: false,
-        rightAnswers: 0,
         numberInterval: '',
         timerInterval: '',
         timer: 10,
@@ -78,6 +81,7 @@ export default {
 </script>
 
 <style scoped>
+
 p{
     color: midnightblue;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -103,13 +107,18 @@ p{
     transform: scale(1.8);
 }
 .btn{
-    margin-top: 20px;
-    border-radius: 200%;
-    height: 100px;
-    width: 100px;
-    color: black;
-    background-color: red;
+background-color:black;
+color: white;
+}
 
+.button{
+ background-color:black;
+ color:white;
+ width: 30%;
+ border: 3px solid purple;
+ font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .btn:focus {outline:0;}
+
+
 </style>
