@@ -1,5 +1,5 @@
 <template>
-  <div class="game-page">
+  <div class="about">
     <Guessfunction/>
   </div>
 </template>

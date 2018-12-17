@@ -1,17 +1,20 @@
 <template>
   <div id="app">
+    <router-view/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/gamepage">Gamepage</router-link> |
       <router-link to="/highscore">Highscore</router-link>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style>
+<style lang="css">
+@import '../node_modules/bulma/css/bulma.css';
 
-  @import '../node_modules/bulma/css/bulma.css';
+html {
+  background-color: Black;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
