@@ -1,6 +1,7 @@
 <template>
   <div class="home">
       <Lobby/>
+      <!--<Rules/>-->
   </div>
 </template>
 

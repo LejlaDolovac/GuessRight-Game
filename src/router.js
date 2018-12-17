@@ -25,6 +25,11 @@ export default new Router({
       path: '/highScore',
       name: 'highscore',
         component: () => import( './views/HighScore.vue')
+    },
+    {
+      path: '/rules',
+      name: 'rules',
+        component: () => import( './components/Rules.vue')
     }
   ]
 });
