@@ -7,7 +7,7 @@
       <button @click="mediumNumbers()">Medium</button>
       <button @click="hardNumbers()">Hard</button>
     </div>
-    <button id="start-game">Starta spelet</button>
+    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
   </div>
 </template>
 

@@ -2,15 +2,21 @@
 <div class="brain">
         <h3> Guess the number homie </h3>
         <button @click="timerFunction(); startShow = false; inputDisabled = false; timer = 10" v-show="startShow">Start</button>
-        <p>Time left: <span>{{ timer }}</span></p>
+        <p ref="timeLeft">Time left: <span>{{ timer }}</span></p>
         <p> {{ message }} </p>
         <p v-show="hideNum"> {{ this.$store.state.number }} </p>
         <div>
+<<<<<<< HEAD
 
         <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
         </div>
         <button class="btn" @click="guessNumber">Press</button>
 
+=======
+        <input  class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        </div>
+        <button class="btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
+>>>>>>> b375067feb06fef6fcb0504ba1ab940540fd326f
         <br>
         <br>
         <p>Your result is: <span>{{ this.$store.state.correctAnswers }}</span> </p>
@@ -30,7 +36,8 @@ export default {
         timerInterval: '',
         timer: 10,
         inputDisabled: true,
-        startShow: true
+        startShow: true,
+        numberOfTries: 5
       }
     },
     computed: {
@@ -38,13 +45,17 @@ export default {
     methods: {
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
+<<<<<<< HEAD
               this.message = "Correct!";
               this.rightAnswers++;
               console.log(this.rightAnswers);
               this.message = "Correct, my man!";
+=======
+              this.message = "Correct, my man!"; 
+              this.rightAnswers++;
+>>>>>>> b375067feb06fef6fcb0504ba1ab940540fd326f
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
-              console.log(this.correctAnswers);
               this.inputDisabled = true;
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
@@ -55,6 +66,11 @@ export default {
                 this.inputDisabled = true
                 this.timer = 10
                 this.startShow = true
+                if(this.numberOfTries == 0) {
+                    this.message = "Tries up, my man! Winner?"
+                    this.startShow = false
+                    this.$refs.timeLeft.value = '';
+                }
                 clearInterval(this.numberInterval)
               }, 2000);
           } else if (this.$store.state.number > this.guessedNumber) {
@@ -64,6 +80,7 @@ export default {
           }
           },
         timerFunction() {
+            this.numberOfTries--
             this.timerInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 0) {
@@ -73,10 +90,20 @@ export default {
                     this.timer = "Loser!"
                     this.startShow = true
                     this.message = ''
+                    if (this.numberOfTries == 0) {
+                        this.message = "Tries up! loser?"
+                        this.startShow = false;
+                        this.$refs.timeLeft.value = '';
+                    }
                 }
               }, 1000);
+<<<<<<< HEAD
         }
     },
+=======
+          }
+      },
+>>>>>>> b375067feb06fef6fcb0504ba1ab940540fd326f
     }
 </script>
 
