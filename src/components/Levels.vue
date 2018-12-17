@@ -4,13 +4,13 @@
      <div class="difficulty">
     <div class='row'>
       <div class="column" id="pic1">
-      <img src="../assets/Wall-E.png" alt="easy level" @click="easyNumber"/> <!-- easy -->
+      <img src="../assets/Wall-E.png" class="pics" alt="easy level" @click="easyNumbers()"/> <!-- easy -->
       </div>
       <div class="column" id="pic2">
-      <img src="../assets/R2D2.png" alt=" medium level" @click="mediumNumbers()"/> <!-- medium -->
+      <img src="../assets/R2D2.png" class="pics" alt=" medium level" @click="mediumNumbers()"/> <!-- medium -->
       </div>
       <div class="column" id="pic3">
-      <img src="../assets/terminator.png" alt=" hard level" @click="hardNumbers()"/> <!-- hard -->
+      <img src="../assets/terminator.png" class="pics" alt=" hard level" @click="hardNumbers()"/> <!-- hard -->
       </div>
        </div>
     </div>
@@ -123,6 +123,9 @@ h2{
    margin-right: auto;
    width: 27%;
  }
-
+.pics {
+  border: 2px solid black;
+  border-radius: 50%;
+}
 
 </style>
