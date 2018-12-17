@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/gamepage">Gamepage</router-link> |
-      <router-link to="/highscore">Highscore</router-link>
+      <router-link to="/highscore">Highscore</router-link> |
        <router-link to="/levels">Levels</router-link>
     </div>
     <transition
