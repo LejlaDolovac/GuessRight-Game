@@ -13,11 +13,7 @@
               <li>Compete for the #1 rank at the highscore board.</li>
             </ul>
           <br>
-<<<<<<< HEAD
           <button class="button is-medium is-primary" @click="close">Oki-doki!</button>
-=======
-          <button class="button is-medium is-dark" @click="close">Oki-doki!</button>
->>>>>>> master
         </div>
       </div>
   </div>
@@ -44,9 +40,6 @@ export default {
 .modal-content {
     padding: 3%;
     overflow-x: hidden;
-}
-.button:hover {
-    background-color: limegreen;
 }
 li {
     margin: 1.5%;

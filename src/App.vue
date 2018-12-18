@@ -15,15 +15,8 @@
   </div>
 </template>
 
-<<<<<<< HEAD
 <style lang="scss">
 @import '~bulma/css/bulma.css';
-=======
-<style>
-
-@import '../node_modules/bulma/css/bulma.css';
-
->>>>>>> master
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
