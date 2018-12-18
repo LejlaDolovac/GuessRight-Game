@@ -1,34 +1,39 @@
 <template>
   <div class="container">
-    <Rules v-show="showRules"></Rules>
     <div class="header is-centered">
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
       <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
+        <Rules v-show="showRules"></Rules>
       <button class="pink button">High score</button> <!-- router-link till high score-sida -->
     </div>
   </div>
 </template>
 
 <script>
-import Rules from './components/Rules.vue'
+import Rules from './Rules.vue'
 
 export default {
     name: 'Lobby',
     data() {
       return {
         numbers: [],
-        active: true,
-        showRules: false
+        active: true
       }
     },
+    components: {
+      Rules
+    },
     computed: {
+      showRules() {
+        return this.$store.state.show;
+      }
     },
     methods: {
       openRules: function() {
-        this.showRules = !this.showRules;
+         this.$store.state.show = !this.$store.state.show
       },
       close: function() {
         this.active = !this.active
