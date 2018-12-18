@@ -4,7 +4,7 @@
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
-      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
+      <router-link to="/levels"><button  @click="openLevels" class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
       <button class="pink button">High score</button> <!-- router-link till high score-sida -->
     </div>
@@ -26,8 +26,14 @@ export default {
       openRules: function() {
         alert("HON HETER ANNA. ANNA HETER HON.")
         // öppna regelmodulen
+        
       },
-      close: function() {
+     // {
+       // openLevels: function() {
+        //  alert('you choose ..')
+         //har ej skapat en funktion än men denna ska öppna levels sidan 
+      //  },
+        close: function() {
         this.active = !this.active
         console.log("hi")
       }
@@ -76,4 +82,5 @@ h1 {
     font-size: 1.6em;
   }
 }
+
 </style>
