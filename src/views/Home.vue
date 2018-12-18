@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
       <Lobby/>
   </div>
 </template>
@@ -13,11 +12,12 @@ export default {
   name: 'home',
   components: {
     Lobby
+    
   }
 }
 </script>
 
-<style scoop>
+<style>
 
 
 </style>

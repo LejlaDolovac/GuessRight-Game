@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <h2>Welcome to Guess Right</h2>
-    <p>{{ rules }} <br> {{ rules }} <br> {{ rules }}</p>
-    <div class="difficulty">
-      <button @click="easyNumbers()">Easy</button>
-      <button @click="mediumNumbers()">Medium</button>
-      <button @click="hardNumbers()">Hard</button>
+    <div class="header is-centered">
+      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
-    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
+    <div class="nav buttons is-centered">
+      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
+      <button class="purple button" @click="openRules()">Rules</button>
+      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
+    </div>
   </div>
 </template>
 
@@ -17,56 +17,63 @@ export default {
     data() {
       return {
         numbers: [],
-        rules: "This is how you play the game. Lorem ipsum dolor sit amet."
+        active: true
       }
     },
     computed: {
     },
     methods: {
-      easyNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+      openRules: function() {
+        alert("HON HETER ANNA. ANNA HETER HON.")
+        // öppna regelmodulen
       },
-      mediumNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
-      },
-      hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+      close: function() {
+        this.active = !this.active
+        console.log("hi")
       }
     }
-}
+  }
 </script>
 
 <style scoped>
-
-.difficulty {
+.container {
+  width: 95%;
+  margin: auto;
+  margin-top: 60px;
 }
-
-.container button {
-  width: 150px;
-  background-color: #42b883;
-  color: White;
-  border: none;
-  padding: 10px;
-  margin: 1px;
-  cursor: pointer
+h1 {
+  margin-bottom: 30px;
 }
-
-#start-game {
+.nav {
+  max-width: 300px;
+  margin: auto;
+}
+.button {
   width: 200px;
-  margin-top: 20px;
-  font-size: 1.5em;
+  background-color: Black;
+  color: White;
+  border-width: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
-
+.button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+.pink {border-color: #ab0e86;}
+.purple {border-color: #59057b;}
+.yellow {border-color: #fae100;}
+@media (min-width: 600px) {
+  .button {
+    width: 300px;
+    font-size: 1.4em;
+  }
+}
+@media (min-width: 992px) {
+  .nav {
+    max-width: 400px;
+  }
+  .button {
+    width: 400px;
+    font-size: 1.6em;
+  }
+}
 </style>
