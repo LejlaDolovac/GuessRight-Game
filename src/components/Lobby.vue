@@ -1,20 +1,13 @@
 <template>
   <div class="container">
-    <h2> Please choose one level <br> <span>&#8595;</span></h2>
-     <div class="difficulty">
-    <div class='row'>
-      <div class="column" id="pic1">
-      <img src="../assets/Wall-E.png" alt="easy level" @click="easyNumber"/> <!-- easy -->
-      </div>
-      <div class="column" id="pic2">
-      <img src="../assets/R2D2.png" alt=" medium level" @click="mediumNumbers()"/> <!-- medium -->
-      </div>
-      <div class="column" id="pic3">
-      <img src="../assets/terminator.png" alt=" hard level" @click="hardNumbers()"/> <!-- hard -->
-      </div>
-       </div>
+    <div class="header is-centered">
+      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
-    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
+    <div class="nav buttons is-centered">
+      <router-link to="/levels"><button  @click="openLevels" class="yellow button">Play</button></router-link>
+      <button class="purple button" @click="openRules()">Rules</button>
+      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
+    </div>
   </div>
 </template>
 
@@ -24,105 +17,70 @@ export default {
     data() {
       return {
         numbers: [],
-        level: 'Please choose one level'
+        active: true
       }
     },
     computed: {
     },
     methods: {
-      easyNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-          
-        }
-        console.log(this.numbers)
+      openRules: function() {
+        alert("HON HETER ANNA. ANNA HETER HON.")
+        // öppna regelmodulen
+        
       },
-      mediumNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
-      },
-      hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+     // {
+       // openLevels: function() {
+        //  alert('you choose ..')
+         //har ej skapat en funktion än men denna ska öppna levels sidan 
+      //  },
+        close: function() {
+        this.active = !this.active
+        console.log("hi")
       }
     }
-}
+  }
 </script>
 
 <style scoped>
-
-.container button {
-  width: 100px;
-  background-color:black;
-  color:darksalmon;
-  border: none;
-  padding: 10px;
-  margin: 20px;
-  cursor: pointer
-  
+.container {
+  width: 95%;
+  margin: auto;
+  margin-top: 60px;
 }
-
-#start-game {
+h1 {
+  margin-bottom: 30px;
+}
+.nav {
+  max-width: 300px;
+  margin: auto;
+}
+.button {
   width: 200px;
-  margin-top: 20px;
-  font-size: 1.5em;
-  background-color: none;
+  background-color: Black;
+  color: White;
+  border-width: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
-p{
-  color: midnightblue;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 20px;
-  box-sizing: border-box;
-  
+.button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+.pink {border-color: #ab0e86;}
+.purple {border-color: #59057b;}
+.yellow {border-color: #fae100;}
+@media (min-width: 600px) {
+  .button {
+    width: 300px;
+    font-size: 1.4em;
+  }
 }
-
-h2{
-  border: 5px solid orange;
-  text-align: center;
-  padding: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  height:auto;
-  width: 200px;
-  margin: 0 auto;
-  color: black;
-  box-sizing: border-box;
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+@media (min-width: 992px) {
+  .nav {
+    max-width: 400px;
+  }
+  .button {
+    width: 400px;
+    font-size: 1.6em;
+  }
 }
-@media only screen and (max-width: 1000px){
-    h2{
-      margin-left: 100px;
-      margin-right: 100px;
-    }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.column{
-  width: 30%;
-  padding: 5px;
-  float: left;
-}
-
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
- .row{
-   margin-left: auto;
-   margin-right: auto;
-   width: 27%;
- }
-
 
 </style>
