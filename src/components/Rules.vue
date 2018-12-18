@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="close">test</button>
       <div class="modal is-three-quarters-mobile is-active" v-show="showRules">
        <div class="modal-background"></div>
         <div class="modal-content is-size-5 has-background-black has-text-white">
@@ -14,7 +13,11 @@
               <li>Compete for the #1 rank at the highscore board.</li>
             </ul>
           <br>
+<<<<<<< HEAD
           <button class="button is-medium is-primary" @click="close">Oki-doki!</button>
+=======
+          <button class="button is-medium is-dark" @click="close">Oki-doki!</button>
+>>>>>>> master
         </div>
       </div>
   </div>
@@ -24,16 +27,16 @@
 <script>
 export default {
     name: 'rules',
-    data() {
-        return {
-            showRules: false
-        }
-    },
     methods: {
-        close() {
-            this.showRules = !this.showRules
-        }
-    }
+      close() {
+        this.$store.state.show = !this.$store.state.show 
+      }
+    },
+    computed: {
+      showRules() {
+        return this.$store.state.show;
+      }
+    },
 }
 </script>
 

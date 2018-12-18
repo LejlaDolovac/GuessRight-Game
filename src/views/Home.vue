@@ -1,22 +1,22 @@
 <template>
   <div class="home">
-      <Rules/>
+      <Lobby/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Rules from '@/components/Rules.vue'
+import Lobby from '@/components/Lobby.vue'
 
 export default {
   name: 'home',
   components: {
-    Rules
+    Lobby
   }
 }
 </script>
 
-<style scoop>
+<style>
 
 
 </style>
