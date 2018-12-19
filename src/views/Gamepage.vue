@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Welcome</h1>
     <Guessfunction/>
   </div>
 </template>
@@ -10,7 +10,7 @@
 import Guessfunction from '@/components/Guessfunction.vue'
 
 export default {
-  name: 'home',
+  name: 'gamepage',
   components: {
     Guessfunction
   }
