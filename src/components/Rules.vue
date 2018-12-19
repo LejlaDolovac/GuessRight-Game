@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="modal is-three-quarters-mobile is-active" v-show="showRules">
+      <div class="modal is-three-quarters-mobile is-active" v-show="showRulesPage">
        <div class="modal-background"></div>
         <div class="modal-content is-size-5 has-background-black has-text-white">
           <h1 class="title is-2 has-text-warning">Game Rules</h1>
@@ -25,12 +25,12 @@ export default {
     name: 'rules',
     methods: {
       close() {
-        this.$store.state.show = !this.$store.state.show 
+        this.$store.state.showRules = !this.$store.state.showRules
       }
     },
     computed: {
-      showRules() {
-        return this.$store.state.show;
+      showRulesPage() {
+        return this.$store.state.showRules;
       }
     },
 }

@@ -70,6 +70,8 @@
       <td>2041-11-13</td>
     </tr>
   </table>
+  <br>
+  <router-link to="/"><button class="button is-black">Back to start page</button></router-link>
 </div>
 </template>
 
