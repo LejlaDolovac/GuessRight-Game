@@ -19,16 +19,12 @@
     <div>
     <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
     </div>
-<<<<<<< HEAD
-
-=======
     <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
     <br>
     </div>
     <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
 </div>
-   
->>>>>>> eb83a3079fa4cb2094a3733beb59c76d8d7968d7
+
 </template>
 
 <script>
@@ -66,13 +62,8 @@ export default {
             },1000)
         },
         guessNumber: function () {
-<<<<<<< HEAD
-          if (this.$store.state.number == this.guessedNumber) {
-              this.message = "Correct, my man!";
-=======
           if (this.$store.state.randomNumber == this.guessedNumber) {
-              this.message = "Correct, my man!"; 
->>>>>>> eb83a3079fa4cb2094a3733beb59c76d8d7968d7
+              this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
