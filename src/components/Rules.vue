@@ -44,5 +44,4 @@ export default {
 li {
     margin: 1.5%;
 }
-
 </style>
