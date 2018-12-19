@@ -1,17 +1,20 @@
 <template>
   <div class="container">
-    <div class="header is-centered">
-      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
-    </div>
+    <figure class="imageis-16by9">
+      <img src="../assets/loggo.png" />
+    </figure>
     <div class="nav buttons is-centered">
       <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRules"></Rules>
       <button class="pink button">Highscores</button> <!-- router-link till high score-sida -->
     </div>
-    <span class="icon">
-  <i class="fas fa-user"></i>
-</span>
+    <div class="icon">
+      <font-awesome-icon icon="user-secret"></font-awesome-icon>
+      <P>
+        Login
+      </P>
+    </div>
   </div>
 </template>
 

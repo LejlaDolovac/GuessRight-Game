@@ -17,13 +17,8 @@
       </div>
        </div>
     </div>
-<<<<<<< HEAD
     <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
 
-=======
-
-    
->>>>>>> 8cb887d1e0ef0352d10ce766aa16cd938cfa5f4e
   </div>
 </template>
 
@@ -39,28 +34,18 @@ export default {
     computed: {
     },
     methods: {
-<<<<<<< HEAD
       easyNumbers: function() {
-        this.numbers = [1-10];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-
-        }
-        console.log(this.numbers)
-=======
-      easyNumbers: function() { 
       this.$store.state.easy = true,
       this.$store.state.medium = false,
       this.$store.state.hard= false
-      
->>>>>>> 8cb887d1e0ef0352d10ce766aa16cd938cfa5f4e
+
       },
       mediumNumbers: function() {
         this.$store.state.meadium = true,
         this.$store.state.easy = false,
         this.$store.state.hard = false
         }
-        
+
       },
       hardNumbers: function() {
         this.$store.state.hard = true,
@@ -68,7 +53,7 @@ export default {
         this.$store.state.medium = false
         }
       }
-    
+
 
 </script>
 <!-- STYLES GOES DOWN HERE -->
