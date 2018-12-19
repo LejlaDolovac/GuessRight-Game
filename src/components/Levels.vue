@@ -17,8 +17,13 @@
       </div>
        </div>
     </div>
+<<<<<<< HEAD
     <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
 
+=======
+
+    
+>>>>>>> 8cb887d1e0ef0352d10ce766aa16cd938cfa5f4e
   </div>
 </template>
 
@@ -34,6 +39,7 @@ export default {
     computed: {
     },
     methods: {
+<<<<<<< HEAD
       easyNumbers: function() {
         this.numbers = [1-10];
         for(var i = 1; i <= 10; i++) {
@@ -41,23 +47,29 @@ export default {
 
         }
         console.log(this.numbers)
+=======
+      easyNumbers: function() { 
+      this.$store.state.easy = true,
+      this.$store.state.medium = false,
+      this.$store.state.hard= false
+      
+>>>>>>> 8cb887d1e0ef0352d10ce766aa16cd938cfa5f4e
       },
       mediumNumbers: function() {
-        this.numbers = [10-50];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
+        this.$store.state.meadium = true,
+        this.$store.state.easy = false,
+        this.$store.state.hard = false
         }
-        console.log(this.numbers)
+        
       },
       hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
+        this.$store.state.hard = true,
+        this.$store.state.easy = false,
+        this.$store.state.medium = false
         }
-        console.log(this.numbers)
       }
-    }
-}
+    
+
 </script>
 <!-- STYLES GOES DOWN HERE -->
 <style scoped>
@@ -73,13 +85,7 @@ export default {
 
 }
 
-#start-game {
-  width: 200px;
-  margin-top: 20px;
-  font-size: 1.5em;
-  border: 1px solid rgb(185, 77, 185);
-   box-shadow: 0 0 10px rgb(185, 94, 185);
-}
+
 
 
 h2{

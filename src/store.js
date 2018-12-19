@@ -8,7 +8,10 @@ export default new Vuex.Store({
   state: {
     number: Math.floor(Math.random() * (10 - 1 + 1)) + 1,
     correctAnswers: 0,
-    show: false
+    show: false,
+    easy: false,
+    medium: false,
+    hard: false,
   },
   mutations: {
     newRandomNumber(state) {
