@@ -4,31 +4,22 @@
       <img src="../assets/loggo.png" />
     </figure>
     <div class="nav buttons is-centered">
-      <button class="yellow button" @click="openLevels()">Play</button>
-        <Levels v-show="showLevelsPage"></Levels>
+      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
-<<<<<<< HEAD
         <Rules v-show="showRules"></Rules>
       <button class="pink button">Highscores</button> <!-- router-link till high score-sida -->
     </div>
-    <div class="icon">
+    <!-- Här ligger test för font awesome ikon. <div class="icon">
       <font-awesome-icon icon="user-secret"></font-awesome-icon>
       <P>
         Login
       </P>
-=======
-        <Rules v-show="showRulesPage"></Rules>
-      <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
->>>>>>> eb83a3079fa4cb2094a3733beb59c76d8d7968d7
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Rules from './Rules.vue'
-import Levels from './Levels.vue'
-import HighScore from '../views/HighScore.vue'
-
 export default {
     name: 'Lobby',
     data() {
@@ -38,24 +29,16 @@ export default {
       }
     },
     components: {
-      Rules,
-      HighScore,
-      Levels
+      Rules
     },
     computed: {
-      showRulesPage() {
-        return this.$store.state.showRules;
-      },
-      showLevelsPage() {
-        return this.$store.state.showLevels;
-      },
+      showRules() {
+        return this.$store.state.show;
+      }
     },
     methods: {
       openRules: function() {
-         this.$store.state.showRules = !this.$store.state.showRules
-      },
-      openLevels: function() {
-         this.$store.state.showLevels = !this.$store.state.showLevels
+         this.$store.state.show = !this.$store.state.show
       },
       close: function() {
         this.active = !this.active
@@ -72,10 +55,10 @@ export default {
 .container {
   width: 95%;
   margin: auto;
+  margin-top: 60px;
 }
 h1 {
   margin-bottom: 30px;
-  padding-top: 3%;
 }
 .nav {
   max-width: 300px;
@@ -86,6 +69,7 @@ h1 {
   background-color: Black;
   color: White;
   border-width: 5px;
+  padding: 20px;
   margin-top: 10px;
   text-transform: uppercase;
 }
