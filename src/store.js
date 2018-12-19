@@ -12,6 +12,7 @@ export default new Vuex.Store({
     easy: false,
     medium: false,
     hard: false,
+    levelChosen: false,
     randomNumbers: '',
     timer: ''
   },

@@ -110,9 +110,13 @@ export default {
           }
       },
       mounted() {
-        this.$store.commit('levelNumber');
-        this.$store.commit('newRandomNumber')
-        this.startCountdown()
+        if(this.$store.state.levelChosen == true) {
+            this.$store.commit('levelNumber');
+            this.$store.commit('newRandomNumber')
+            this.startCountdown()
+        } else {
+            window.location.href = '/'
+        }
       }
     }
 </script>

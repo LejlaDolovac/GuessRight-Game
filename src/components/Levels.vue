@@ -36,21 +36,23 @@ export default {
     },
     methods: {
       easyNumbers: function() { 
-      this.$store.state.easy = true,
-      this.$store.state.medium = false,
+      this.$store.state.easy = true
+      this.$store.state.medium = false
       this.$store.state.hard= false
-      
+      this.$store.state.levelChosen = true
       },
       mediumNumbers: function() {
-        this.$store.state.medium = true,
-        this.$store.state.easy = false,
+        this.$store.state.medium = true
+        this.$store.state.easy = false
         this.$store.state.hard = false
+        this.$store.state.levelChosen = true
         console.log(this.$store.state.medium)
       },
       hardNumbers: function() {
-        this.$store.state.hard = true;
-        this.$store.state.easy = false;
-        this.$store.state.medium = false;
+        this.$store.state.hard = true
+        this.$store.state.easy = false
+        this.$store.state.medium = false
+        this.$store.state.levelChosen = true
         console.log(this.$store.state.hard)
         }
       }
