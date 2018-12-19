@@ -4,7 +4,7 @@
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
-      <router-link to="/levels"><button  @click="openLevels" class="yellow button">Play</button></router-link>
+      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRules"></Rules>
       <button class="pink button">High score</button> <!-- router-link till high score-sida -->
@@ -14,7 +14,6 @@
 
 <script>
 import Rules from './Rules.vue'
-
 export default {
     name: 'Lobby',
     data() {
@@ -35,12 +34,7 @@ export default {
       openRules: function() {
          this.$store.state.show = !this.$store.state.show
       },
-     // {
-       // openLevels: function() {
-        //  alert('you choose ..')
-         //har ej skapat en funktion än men denna ska öppna levels sidan 
-      //  },
-        close: function() {
+      close: function() {
         this.active = !this.active
         console.log("hi")
       }
@@ -89,5 +83,4 @@ h1 {
     font-size: 1.6em;
   }
 }
-
 </style>
