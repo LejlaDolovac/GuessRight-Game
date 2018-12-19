@@ -4,7 +4,7 @@
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
-      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
+      <router-link to="/levels"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRules"></Rules>
       <button class="pink button">High score</button> <!-- router-link till high score-sida -->

@@ -18,19 +18,26 @@ export default new Vuex.Store({
   mutations: {
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
-      console.log(state.number)
-      console.log(state.randomNumber)
+      console.log("ran n " + state.number)
+      console.log("ran r " + state.randomNumber)
     },
     showRules(state) {
       state.show = !state.show
     },
     levelNumber(state) {
       if (state.hard == true) {
-        state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
         state.timer = 15;
         state.number = 50;
-        console.log(state.number)
-        console.log(state.randomNumber)
+        state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+        console.log("lev n " + state.number)
+        console.log("lev r " + state.randomNumber)
+      } else if (state.medium == true) {
+        
+        state.timer = 10;
+        state.number = 30;
+        state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
+        console.log("lev n " + state.number)
+        console.log("lev r " + state.randomNumber)
       }
     }
   },

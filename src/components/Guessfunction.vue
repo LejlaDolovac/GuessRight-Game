@@ -37,6 +37,7 @@ export default {
         startShow: true,
         numberOfTries: 5,
         timerShow: true,
+        ran: this.$store.randomNumber
       }
     },
     computed: {
@@ -80,9 +81,9 @@ export default {
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
-          } else if (this.$store.state.number > this.guessedNumber) {
+          } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.message = "The number is higher!";
-          } else if (this.$store.state.number < this.guessedNumber) {
+          } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.message = "The number is lower!";
           } 
         },
@@ -109,8 +110,9 @@ export default {
           }
       },
       mounted() {
-        this.startCountdown()
         this.$store.commit('levelNumber');
+        this.$store.commit('newRandomNumber')
+        this.startCountdown()
       }
     }
 </script>

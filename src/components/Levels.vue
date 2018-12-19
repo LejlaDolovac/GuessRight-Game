@@ -9,12 +9,12 @@
       </div>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
-      <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
+      <router-link to="/gamepage"><button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button></router-link>
       </div>
       <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
       
-      <router-link to="/gamepage"><button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>      </router-link>
+      <router-link to="/gamepage"><button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button></router-link>
       </div>
        </div>
     </div>
@@ -42,14 +42,16 @@ export default {
       
       },
       mediumNumbers: function() {
-        this.$store.state.meadium = true,
+        this.$store.state.medium = true,
         this.$store.state.easy = false,
         this.$store.state.hard = false
+        console.log(this.$store.state.medium)
       },
       hardNumbers: function() {
         this.$store.state.hard = true;
         this.$store.state.easy = false;
         this.$store.state.medium = false;
+        console.log(this.$store.state.hard)
         }
       }
     
