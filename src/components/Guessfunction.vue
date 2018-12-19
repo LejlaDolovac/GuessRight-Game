@@ -5,8 +5,9 @@
            <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
         </div>
         <div class="game-div">
-        <button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>
-        <div v-else ref="timeLeft" class="message-body timer">{{ timer }}</div>
+        <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
+        <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
+        <div v-else class="message-body timer">END</div>
         <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
         <!--<p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
         <div>
@@ -30,22 +31,36 @@ export default {
         hideNum: false,
         numberInterval: '',
         timerInterval: '',
-        timer: 10,
+        countdownInterval: '',
+        timer: 3,
         inputDisabled: true,
         startShow: true,
         numberOfTries: 5,
-        timerShow: false,
+        timerShow: true,
       }
     },
     computed: {
     },
     methods: {
+        startCountdown: function () {
+            this.countdownInterval = setInterval(() => { 
+                this.timer--
+                if(this.timer == 0) {
+                    clearInterval(this.countdownInterval)
+                    this.startShow = false
+                    this.timer = 10
+                    this.inputDisabled = false
+                    this.timerFunction()
+                }
+            },1000)
+        },
         guessNumber: function () {
           if (this.$store.state.number == this.guessedNumber) {
               this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
+              this.numberOfTries--;
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
@@ -53,13 +68,15 @@ export default {
                 this.message = '';
                 this.guessedNumber = '';
                 this.inputDisabled = true
-                this.timer = 10
+                this.timer = 3
                 this.startShow = true
-                this.timerShow = false
                 if(this.numberOfTries == 0) {
-                    this.message = "Tries up, my man! Winner?"
+                    this.message = "Tries up, my man!"
                     this.startShow = true
-                    this.$refs.timeLeft.value = '';
+                    this.$refs.timeLeft.value = ''
+                    this.timerShow = false
+                } else {
+                    this.startCountdown()
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
@@ -67,10 +84,9 @@ export default {
               this.message = "The number is higher!";
           } else if (this.$store.state.number < this.guessedNumber) {
               this.message = "The number is lower!";
-          }
-          },
+          } 
+        },
         timerFunction() {
-            this.numberOfTries--
             this.message = ''
             this.timerInterval = setInterval(() => {
                 this.timer--
@@ -78,21 +94,23 @@ export default {
                     clearInterval(this.timerInterval)
                     this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
-                    this.timer = "Loser!"
-                    this.startShow = true
-                    this.message = ''
-                    this.timerShow = false
+                    this.timer = 3
+                    this.numberOfTries--
                     if (this.numberOfTries == 0) {
-                        this.message = "Tries up! loser?"
-                        this.startShow = false;
-                        this.$refs.timeLeft.value = '';
+                        this.message = "Tries up, my man!"
                         this.startShow = true
-                        this.numberOfTries = 5;
+                        this.$refs.timeLeft.value = ''
+                        this.timerShow = false
+                    } else {
+                        this.startCountdown()
                     }
                 }
               }, 1000);
           }
       },
+      mounted() {
+          this.startCountdown()
+      }
     }
 </script>
 

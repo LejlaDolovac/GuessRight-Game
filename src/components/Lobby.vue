@@ -6,15 +6,14 @@
     <div class="nav buttons is-centered">
       <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
-      <router-link to="/highscore"><button class="pink button">High score</button></router-link>
-      <Rules />
+        <Rules v-show="showRules"></Rules>
+      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
     </div>
   </div>
 </template>
 
 <script>
-import Rules from '@/components/Rules.vue'
-
+import Rules from './Rules.vue'
 export default {
     name: 'Lobby',
     components: {
@@ -25,13 +24,21 @@ export default {
         showRules: true // något med detta för att visa regler
       }
     },
+    components: {
+      Rules
+    },
     computed: {
+      showRules() {
+        return this.$store.state.show;
+      }
     },
     methods: {
       openRules: function() {
-        alert("HON HETER ANNA. ANNA HETER HON.")
-        this.showRules = !this.showRules
-        // öppna regelmodulen
+         this.$store.state.show = !this.$store.state.show
+      },
+      close: function() {
+        this.active = !this.active
+        console.log("hi")
       }
     }
   }

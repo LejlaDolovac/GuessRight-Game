@@ -3,8 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/gamepage">Gamepage</router-link> |
-      <router-link to="/highscore">Highscore</router-link>
-       <router-link to="/levels">Levels</router-link>
+      <router-link to="/highscore">Highscore</router-link> |
+       <router-link to="/levels">Levels</router-link> |
     </div>
     <transition
         name="fade"
@@ -15,14 +15,8 @@
   </div>
 </template>
 
-<style>
-
-@import '../node_modules/bulma/css/bulma.css';
-
-html {
-  background-color: Black;
-}
-
+<style lang="scss">
+@import '~bulma/css/bulma.css';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

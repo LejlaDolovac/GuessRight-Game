@@ -12,7 +12,6 @@ export default {
   name: 'home',
   components: {
     Lobby
-    
   }
 }
 </script>
