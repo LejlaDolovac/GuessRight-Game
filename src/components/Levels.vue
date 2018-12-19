@@ -4,15 +4,15 @@
      <div class="difficulty">
     <div class='row'>
       <div class="column">
-    <router-link to="/gamepage">  <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button></router-link>
-     <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/> <!-- easy -->
+    <router-link to="/gamepage">  <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button></router-link>  <!-- länk till gamepage när man trycker på easy -->
+     <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>   easy -->
       </div>
       <div class="column">
-    <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/> <!-- medium -->
-      <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
+    <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
+   <router-link to="/gamepage">   <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button></router-link>
       </div>
       <div class="column">
-     <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/> <!-- hard -->
+     <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  -->
       <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
       </div>
        </div>
@@ -44,7 +44,7 @@ export default {
         this.$store.state.meadium = true,
         this.$store.state.easy = false,
         this.$store.state.hard = false
-        }
+        
         
       },
       hardNumbers: function() {
@@ -54,7 +54,7 @@ export default {
         }
       }
     
-
+}
 </script>
 
 <style scoped>
@@ -69,9 +69,6 @@ export default {
   cursor: pointer
   
 }
-
-
-
 
 h2{
   text-align: center;

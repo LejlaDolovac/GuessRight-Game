@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import Rules from '/Rules.vue'
 export default {
     name: 'Lobby',
     data() {
@@ -20,6 +21,9 @@ export default {
         active: true
       }
     },
+    components: (
+      Rules
+    )
     computed: {
     },
     methods: {
