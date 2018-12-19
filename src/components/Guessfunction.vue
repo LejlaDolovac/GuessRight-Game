@@ -55,14 +55,14 @@ export default {
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
-                    this.timer = 10
+                    this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
                 }
             },1000)
         },
         guessNumber: function () {
-          if (this.$store.state.number == this.guessedNumber) {
+          if (this.$store.state.randomNumber == this.guessedNumber) {
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
@@ -88,9 +88,9 @@ export default {
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
-          } else if (this.$store.state.number > this.guessedNumber) {
+          } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.message = "The number is higher!";
-          } else if (this.$store.state.number < this.guessedNumber) {
+          } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.message = "The number is lower!";
           } 
         },
@@ -117,7 +117,13 @@ export default {
           }
       },
       mounted() {
-          this.startCountdown()
+        if(this.$store.state.levelChosen == true) {
+            this.$store.commit('levelNumber');
+            this.$store.commit('newRandomNumber')
+            this.startCountdown()
+        } else {
+            window.location.href = '/'
+        }
       }
     }
 </script>

@@ -40,37 +40,38 @@ export default {
         numbers: []
       }
     },
-    methods: {
-      close() {
-        this.$store.state.showLevels = !this.$store.state.showLevels
-      }
-    },
     computed: {
       showLevelsPage() {
         return this.$store.state.showLevels;
+      }
     },
     
     methods: {
+      close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
       easyNumbers: function() { 
-      this.$store.state.easy = true,
-      this.$store.state.medium = false,
-      this.$store.state.hard = false
+      this.$store.state.easy = true
+      this.$store.state.medium = false
+      this.$store.state.hard= false
+      this.$store.state.levelChosen = true
       },
       mediumNumbers: function() {
-        this.$store.state.medium = true,
-        this.$store.state.easy = false,
+        this.$store.state.medium = true
+        this.$store.state.easy = false
         this.$store.state.hard = false
-        }
-        
+        this.$store.state.levelChosen = true
+        console.log(this.$store.state.medium)
       },
       hardNumbers: function() {
-        this.$store.state.hard = true,
-        this.$store.state.easy = false,
+        this.$store.state.hard = true
+        this.$store.state.easy = false
         this.$store.state.medium = false
-        }
-        
+        this.$store.state.levelChosen = true
+        console.log(this.$store.state.hard)
       }
-}
+     }
+  }
     
 </script>
 
@@ -86,13 +87,7 @@ export default {
   
 }
 
-#start-game {
-  width: 200px;
-  margin-top: 20px;
-  font-size: 1.5em;
-  border: 1px solid rgb(185, 77, 185);
-   box-shadow: 0 0 10px rgb(185, 94, 185);
-}
+
 
 
 h2{
