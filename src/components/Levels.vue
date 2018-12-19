@@ -18,7 +18,7 @@
        </div>
     </div>
     <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
-    
+
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
         this.numbers = [1-10];
         for(var i = 1; i <= 10; i++) {
           this.numbers.push(i);
-          
+
         }
         console.log(this.numbers)
       },
@@ -59,7 +59,7 @@ export default {
     }
 }
 </script>
-
+<!-- STYLES GOES DOWN HERE -->
 <style scoped>
 
 .container button {
@@ -70,7 +70,7 @@ export default {
   padding: 10px;
   margin: 20px;
   cursor: pointer
-  
+
 }
 
 #start-game {
@@ -137,9 +137,9 @@ h2{
   max-width: 100px;
   margin: 0 auto;
   padding: 15px;
-  margin-top: 25px; 
+  margin-top: 25px;
   font-size: 15px;
-  
+
 }
 button:focus { outline: none; }
 

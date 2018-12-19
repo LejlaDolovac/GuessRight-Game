@@ -7,8 +7,11 @@
       <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRules"></Rules>
-      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
+      <button class="pink button">Highscores</button> <!-- router-link till high score-sida -->
     </div>
+    <span class="icon">
+  <i class="fas fa-user"></i>
+</span>
   </div>
 </template>
 
@@ -42,6 +45,9 @@ export default {
   }
 </script>
 
+
+
+<!-- STYLES GOES DOWN HERE -->
 <style scoped>
 .container {
   width: 95%;
