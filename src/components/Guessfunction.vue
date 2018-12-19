@@ -48,14 +48,14 @@ export default {
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
-                    this.timer = 10
+                    this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
                 }
             },1000)
         },
         guessNumber: function () {
-          if (this.$store.state.number == this.guessedNumber) {
+          if (this.$store.state.randomNumber == this.guessedNumber) {
               this.message = "Correct, my man!"; 
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
@@ -109,7 +109,8 @@ export default {
           }
       },
       mounted() {
-          this.startCountdown()
+        this.startCountdown()
+        this.$store.commit('levelNumber');
       }
     }
 </script>

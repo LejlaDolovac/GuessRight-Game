@@ -13,7 +13,8 @@
       </div>
       <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
-      <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
+      
+      <router-link to="/gamepage"><button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>      </router-link>
       </div>
        </div>
     </div>
@@ -44,17 +45,15 @@ export default {
         this.$store.state.meadium = true,
         this.$store.state.easy = false,
         this.$store.state.hard = false
-        }
-        
       },
       hardNumbers: function() {
-        this.$store.state.hard = true,
-        this.$store.state.easy = false,
-        this.$store.state.medium = false
+        this.$store.state.hard = true;
+        this.$store.state.easy = false;
+        this.$store.state.medium = false;
         }
       }
     
-
+}
 </script>
 
 <style scoped>
