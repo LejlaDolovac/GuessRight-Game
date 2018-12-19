@@ -1,24 +1,34 @@
 <template>
-
 <div class="brain">
-        <div id="player-bot-div modal">
-           <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
-        </div>
-        <div class="game-div">
-        <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
-        <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-        <div v-else class="message-body timer">END</div>
-        <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
-        <!--<p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
-        <div>
-        <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
-        </div>
-        <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
-        <br>
-        </div>
-        <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
+    <router-link to="/">
+      <button class="button is-black is-pulled-left">&#8592;</button>
+    </router-link>
+    <br>
+    <div id="player-bot-div modal">
+        <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
     </div>
+    <div class="game-div">
+    <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
+    <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
+    <div v-else class="message-body timer">END</div>
+    <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
+    <router-link to="/highScore">
+        <button class="button is-black" v-show="this.showHighScore">View highscore</button>
+    </router-link>
+    <!--<p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
+    <div>
+    <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+    </div>
+<<<<<<< HEAD
 
+=======
+    <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
+    <br>
+    </div>
+    <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
+</div>
+   
+>>>>>>> eb83a3079fa4cb2094a3733beb59c76d8d7968d7
 </template>
 
 <script>
@@ -37,6 +47,7 @@ export default {
         startShow: true,
         numberOfTries: 5,
         timerShow: true,
+        showHighScore: false
       }
     },
     computed: {
@@ -48,15 +59,20 @@ export default {
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
-                    this.timer = 10
+                    this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
                 }
             },1000)
         },
         guessNumber: function () {
+<<<<<<< HEAD
           if (this.$store.state.number == this.guessedNumber) {
               this.message = "Correct, my man!";
+=======
+          if (this.$store.state.randomNumber == this.guessedNumber) {
+              this.message = "Correct, my man!"; 
+>>>>>>> eb83a3079fa4cb2094a3733beb59c76d8d7968d7
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
@@ -75,14 +91,15 @@ export default {
                     this.startShow = true
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
+                    this.showHighScore = true
                 } else {
                     this.startCountdown()
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
-          } else if (this.$store.state.number > this.guessedNumber) {
+          } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.message = "The number is higher!";
-          } else if (this.$store.state.number < this.guessedNumber) {
+          } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.message = "The number is lower!";
           }
         },
@@ -109,7 +126,13 @@ export default {
           }
       },
       mounted() {
-          this.startCountdown()
+        if(this.$store.state.levelChosen == true) {
+            this.$store.commit('levelNumber');
+            this.$store.commit('newRandomNumber')
+            this.startCountdown()
+        } else {
+            window.location.href = '/'
+        }
       }
     }
 </script>
