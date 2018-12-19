@@ -1,25 +1,35 @@
 <template>
+<div class="modal is-active" v-show="showLevelsPage">
+  <div class="modal-background"></div>
+  <div class="modal-content has-background-primary has-text-white">
   <div class="container">
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
      <div class="difficulty">
     <div class='row'>
       <div class="column">
-      <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
+      <router-link to="/gamepage">
+        <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
+      </router-link>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
       </div>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
-      <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
+      <router-link to="/gamepage">
+        <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
+      </router-link>
       </div>
       <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
-      <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
+      <router-link to="/gamepage">
+        <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
+      </router-link>
+      <button class="modal-close is-large has-background-black" @click="close">x</button>
       </div>
-       </div>
+      </div>
     </div>
-    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
-    
+    </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -27,41 +37,44 @@ export default {
     name: 'Levels',
     data() {
       return {
-        numbers: [],
-        level: 'Please choose one level'
+        numbers: []
+      }
+    },
+    methods: {
+      close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels
       }
     },
     computed: {
+      showLevelsPage() {
+        return this.$store.state.showLevels;
     },
+    
     methods: {
-      easyNumbers: function() {
-        this.numbers = [1-10];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-          
-        }
-        console.log(this.numbers)
+      easyNumbers: function() { 
+      this.$store.state.easy = true,
+      this.$store.state.medium = false,
+      this.$store.state.hard = false
       },
       mediumNumbers: function() {
-        this.numbers = [10-50];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
+        this.$store.state.medium = true,
+        this.$store.state.easy = false,
+        this.$store.state.hard = false
         }
-        console.log(this.numbers)
+        
       },
       hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
+        this.$store.state.hard = true,
+        this.$store.state.easy = false,
+        this.$store.state.medium = false
         }
-        console.log(this.numbers)
+        
       }
-    }
 }
+    
 </script>
 
 <style scoped>
-
 .container button {
   background-color: transparent;
   width: 100px;
@@ -87,7 +100,6 @@ h2{
   padding: 10px;
   height:auto;
   max-width: 400px;
-  margin: 0 auto;
   color: black;
   box-sizing: border-box;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -101,34 +113,27 @@ h2{
       width: 100%;
     }
 }
-
 * {
   box-sizing: border-box;
 }
-
 .column{
   max-width: 30%;
   padding: 5px;
   float: left;
 }
-
 .row::after {
   content: "";
   clear: both;
   display: table;
 }
  .row{
-   margin-left: auto;
-   margin-right: auto;
    max-width: 27%;
  }
 .pic{
   border: 3px solid rgb(185, 74, 185);
   border-radius: 50%;
   margin: 20px 5px 20px;
-
 }
-
 #eButton{
   border: 1px solid rgb(185, 78, 185);
   box-sizing: border-box;
@@ -139,10 +144,7 @@ h2{
   padding: 15px;
   margin-top: 25px; 
   font-size: 15px;
-  
 }
+
 button:focus { outline: none; }
-
-
-
 </style>
