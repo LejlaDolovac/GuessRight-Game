@@ -4,9 +4,10 @@
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
-      <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
+      <button class="yellow button" @click="openLevels()">Play</button>
+        <Levels v-show="showLevelsPage"></Levels>
       <button class="purple button" @click="openRules()">Rules</button>
-        <Rules v-show="showRules"></Rules>
+        <Rules v-show="showRulesPage"></Rules>
       <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
     </div>
   </div>
@@ -14,6 +15,7 @@
 
 <script>
 import Rules from './Rules.vue'
+import Levels from './Levels.vue'
 import HighScore from '../views/HighScore.vue'
 
 export default {
@@ -25,16 +27,24 @@ export default {
       }
     },
     components: {
-      Rules
+      Rules,
+      HighScore,
+      Levels
     },
     computed: {
-      showRules() {
-        return this.$store.state.show;
-      }
+      showRulesPage() {
+        return this.$store.state.showRules;
+      },
+      showLevelsPage() {
+        return this.$store.state.showLevels;
+      },
     },
     methods: {
       openRules: function() {
-         this.$store.state.show = !this.$store.state.show
+         this.$store.state.showRules = !this.$store.state.showRules
+      },
+      openLevels: function() {
+         this.$store.state.showLevels = !this.$store.state.showLevels
       },
       close: function() {
         this.active = !this.active
@@ -48,10 +58,10 @@ export default {
 .container {
   width: 95%;
   margin: auto;
-  margin-top: 60px;
 }
 h1 {
   margin-bottom: 30px;
+  padding-top: 3%;
 }
 .nav {
   max-width: 300px;
