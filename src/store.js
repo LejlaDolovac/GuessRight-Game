@@ -14,9 +14,6 @@ export default new Vuex.Store({
     newRandomNumber(state) {
       state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
     },
-    showRules(state) {
-      state.show = !state.show
-    }
   },
   actions: {
 

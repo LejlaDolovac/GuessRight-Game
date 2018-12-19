@@ -7,13 +7,14 @@
       <router-link to="/gamepage"><button class="yellow button">Play</button></router-link>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRules"></Rules>
-      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
+      <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
     </div>
   </div>
 </template>
 
 <script>
 import Rules from './Rules.vue'
+import HighScore from '../views/HighScore.vue'
 
 export default {
     name: 'Lobby',
@@ -61,7 +62,6 @@ h1 {
   background-color: Black;
   color: White;
   border-width: 5px;
-  padding: 20px;
   margin-top: 10px;
   text-transform: uppercase;
 }
