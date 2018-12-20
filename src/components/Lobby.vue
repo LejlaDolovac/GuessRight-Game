@@ -10,7 +10,13 @@
         <Rules v-show="showRulesPage"></Rules>
       <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
     </div>
-  </div>
+</div>
+    <!-- Här ligger test för font awesome ikon. <div class="icon">
+      <font-awesome-icon icon="user-secret"></font-awesome-icon>
+      <P>
+        Login
+      </P>
+    </div> -->
 </template>
 
 <script>
