@@ -17,13 +17,10 @@ export default new Vuex.Store({
     levelChosen: false,
     randomNumbers: '',
     timer: '',
-    botTimer: ''
   },
   mutations: {
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
-      console.log("ran n " + state.number)
-      console.log("ran r " + state.randomNumber)
     },
     showRules(state) {
       state.show = !state.show
@@ -33,15 +30,10 @@ export default new Vuex.Store({
         state.timer = 15;
         state.number = 50;
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
-        console.log("lev n " + state.number)
-        console.log("lev r " + state.randomNumber)
       } else if (state.medium == true) {
-        
         state.timer = 10;
         state.number = 30;
         state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
-        console.log("lev n " + state.number)
-        console.log("lev r " + state.randomNumber)
       }
     }
   },

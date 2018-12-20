@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="header is-centered">
-      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
-    </div>
     <div class="nav buttons is-centered">
+   <figure class="image">
+     <img src="../assets/loggo.png">
+   </figure>
       <button class="yellow button" @click="openLevels()">Play</button>
         <Levels v-show="showLevelsPage"></Levels>
       <button class="purple button" @click="openRules()">Rules</button>
