@@ -17,13 +17,12 @@
         Login
       </P>
     </div> -->
-  </div>
 </template>
 
 <script>
 import Rules from './Rules.vue'
 import Levels from './Levels.vue'
-import HighScore from '../views/HighScore.vue'
+
 export default {
     name: 'Lobby',
     data() {
@@ -34,7 +33,6 @@ export default {
     },
     components: {
       Rules,
-      HighScore,
       Levels
     },
     computed: {
