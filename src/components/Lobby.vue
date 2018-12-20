@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <figure class="imageis-16by9">
-      <img src="../assets/loggo.png" />
-    </figure>
         <div class="nav buttons is-centered">
+            <figure class="image">
+              <img src="../assets/loggo.png" />
+            </figure>
           <button class="yellow button" @click="openLevels()">Play</button>
             <Levels v-show="showLevelsPage"></Levels>
           <button class="purple button" @click="openRules()">Rules</button>
