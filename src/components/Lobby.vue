@@ -17,7 +17,6 @@
         Login
       </P>
     </div> -->
-  </div>
 </template>
 
 <script>

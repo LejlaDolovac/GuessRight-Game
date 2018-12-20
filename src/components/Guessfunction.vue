@@ -43,7 +43,7 @@ export default {
         startShow: true,
         numberOfTries: 5,
         timerShow: true,
-        showHighScore: false
+        showHighScore: false,
       }
     },
     computed: {
