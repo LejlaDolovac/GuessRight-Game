@@ -20,13 +20,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
+
 import Rules from '/Rules.vue'
-=======
-import Rules from './Rules.vue'
-import Levels from './Levels.vue'
-import HighScore from '../views/HighScore.vue'
->>>>>>> 770d6670e6b76648dd5676bb9a3a4ce030754e0b
+
 export default {
     name: 'Lobby',
     data() {

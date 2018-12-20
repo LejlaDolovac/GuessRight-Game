@@ -7,7 +7,6 @@
      <div class="difficulty">
     <div class='row'>
       <div class="column">
-<<<<<<< HEAD
     <router-link to="/gamepage">  <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button></router-link>  <!-- länk till gamepage när man trycker på easy -->
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>   easy -->
       </div>
@@ -18,31 +17,11 @@
       <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  -->
       <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
-=======
-      <router-link to="/gamepage">
-        <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
-      </router-link>
-     <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
       </div>
-      <div class="column">
-    <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
-      <router-link to="/gamepage">
-        <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
-      </router-link>
-      </div>
-      <div class="column">
-     <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
-      <router-link to="/gamepage">
-        <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
-      </router-link>
-      <button class="modal-close is-large has-background-black" @click="close">x</button>
-      </div>
->>>>>>> 770d6670e6b76648dd5676bb9a3a4ce030754e0b
       </div>
     </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -74,7 +53,7 @@ export default {
         this.$store.state.medium = true
         this.$store.state.easy = false
         this.$store.state.hard = false
-<<<<<<< HEAD
+        this.$store.state.levelChosen = !this.$store.state.showLevels
         
         
       },
@@ -83,17 +62,6 @@ export default {
         this.$store.state.easy = false,
         this.$store.state.medium = false
         }
-=======
-        this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
-      },
-      hardNumbers: function() {
-        this.$store.state.hard = true
-        this.$store.state.easy = false
-        this.$store.state.medium = false
-        this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
->>>>>>> 770d6670e6b76648dd5676bb9a3a4ce030754e0b
       }
      }
   }
@@ -111,10 +79,7 @@ export default {
   cursor: pointer
   
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 770d6670e6b76648dd5676bb9a3a4ce030754e0b
 h2{
   text-align: center;
   padding: 10px;
