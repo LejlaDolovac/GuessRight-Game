@@ -24,9 +24,9 @@
     </div>
     <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
 </div>
-   
+
 </template>
-    
+
 <script>
 export default {
     name: 'Guessfunction',
@@ -50,20 +50,20 @@ export default {
     },
     methods: {
         startCountdown: function () {
-            this.countdownInterval = setInterval(() => { 
+            this.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
-                    this.timer = 10
+                    this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
                 }
             },1000)
         },
         guessNumber: function () {
-          if (this.$store.state.number == this.guessedNumber) {
-              this.message = "Correct, my man!"; 
+          if (this.$store.state.randomNumber == this.guessedNumber) {
+              this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
@@ -88,11 +88,11 @@ export default {
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
-          } else if (this.$store.state.number > this.guessedNumber) {
+          } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.message = "The number is higher!";
-          } else if (this.$store.state.number < this.guessedNumber) {
+          } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.message = "The number is lower!";
-          } 
+          }
         },
         timerFunction() {
             this.message = ''
@@ -117,7 +117,13 @@ export default {
           }
       },
       mounted() {
-          this.startCountdown()
+        if(this.$store.state.levelChosen == true) {
+            this.$store.commit('levelNumber');
+            this.$store.commit('newRandomNumber')
+            this.startCountdown()
+        } else {
+            window.location.href = '/'
+        }
       }
     }
 </script>
@@ -246,7 +252,6 @@ p{
         font-size: 25px;
         margin: 5px;
     }
-
 .button{
  background-color:black;
  color:white;

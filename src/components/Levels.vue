@@ -40,37 +40,41 @@ export default {
         numbers: []
       }
     },
-    methods: {
-      close() {
-        this.$store.state.showLevels = !this.$store.state.showLevels
-      }
-    },
     computed: {
       showLevelsPage() {
         return this.$store.state.showLevels;
+      }
     },
+    
     methods: {
+      close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
       easyNumbers: function() { 
-      this.$store.state.easy = true,
-      this.$store.state.medium = false,
-      this.$store.state.hard = false
+      this.$store.state.easy = true
+      this.$store.state.medium = false
+      this.$store.state.hard= false
+      this.$store.state.levelChosen = true
       this.$store.state.showLevels = !this.$store.state.showLevels
       },
       mediumNumbers: function() {
-        this.$store.state.medium = true,
-        this.$store.state.easy = false,
+        this.$store.state.medium = true
+        this.$store.state.easy = false
         this.$store.state.hard = false
+        this.$store.state.levelChosen = true
+        console.log(this.$store.state.medium)
         this.$store.state.showLevels = !this.$store.state.showLevels
-        }
       },
       hardNumbers: function() {
-        this.$store.state.hard = true,
-        this.$store.state.easy = false,
+        this.$store.state.hard = true
+        this.$store.state.easy = false
         this.$store.state.medium = false
+        this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
-        }
+        console.log(this.$store.state.hard)
       }
-}
+     }
+  }
     
 </script>
 
@@ -83,6 +87,7 @@ export default {
   padding: 10px;
   margin: 20px;
   cursor: pointer
+  
 }
 h2{
   text-align: center;
@@ -134,6 +139,5 @@ h2{
   margin-top: 25px; 
   font-size: 15px;
 }
-
 button:focus { outline: none; }
 </style>

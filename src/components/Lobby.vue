@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="header is-centered">
-      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
-    </div>
+    <figure class="imageis-16by9">
+      <img src="../assets/loggo.png" />
+    </figure>
     <div class="nav buttons is-centered">
       <button class="yellow button" @click="openLevels()">Play</button>
         <Levels v-show="showLevelsPage"></Levels>
@@ -10,6 +10,13 @@
         <Rules v-show="showRulesPage"></Rules>
       <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
     </div>
+</div>
+    <!-- Här ligger test för font awesome ikon. <div class="icon">
+      <font-awesome-icon icon="user-secret"></font-awesome-icon>
+      <P>
+        Login
+      </P>
+    </div> -->
   </div>
 </template>
 
@@ -17,7 +24,6 @@
 import Rules from './Rules.vue'
 import Levels from './Levels.vue'
 import HighScore from '../views/HighScore.vue'
-
 export default {
     name: 'Lobby',
     data() {
