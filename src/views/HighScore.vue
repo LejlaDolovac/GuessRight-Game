@@ -70,6 +70,8 @@
       <td>2041-11-13</td>
     </tr>
   </table>
+  <br>
+  <router-link to="/"><button class="button is-black">Back to start page</button></router-link>
 </div>
 </template>
 
@@ -82,6 +84,7 @@ h1 {
 
 .highscore {
   background-image: linear-gradient(to bottom right, yellow, #e01171, #ab0e86, #59057b, #0f0766);
+  height: 1000px;
 }
 
 th {
