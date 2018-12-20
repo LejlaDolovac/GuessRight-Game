@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
@@ -17,7 +18,7 @@ export default new Router({
       path: '/gamepage',
       name: 'gamepage',
       component: () => import( './views/Gamepage.vue')
-    
+
     },
     {
       path: '/highScore',

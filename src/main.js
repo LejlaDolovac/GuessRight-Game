@@ -2,17 +2,21 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import VueFire from 'vuefire'; //Skapar en anpassad version för Firebase & Vue.js
+import {fb} from './firebase-config' // Ger tillgång Firebase / Initierar Firebase.
+import { library } from '@fortawesome/fontawesome-svg-core' // installerar bibliotek som skall hålla i ikonerna
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem EN specifik ikon
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
+// Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret)
+Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.use(VueFire);
+
 
 Vue.config.productionTip = false
 
-require("./assets/main.scss")
+require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 
 Vue.config.productionTip = false;
 

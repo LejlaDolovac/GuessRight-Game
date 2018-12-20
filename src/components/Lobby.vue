@@ -1,9 +1,9 @@
 <template>
   <div class="container">
         <div class="nav buttons is-centered">
-            <figure class="image">
-              <img src="../assets/loggo.png" />
-            </figure>
+          <figure class="image">
+            <img src="../assets/loggo.png" />
+          </figure>
           <button class="yellow button" @click="openLevels()">Play</button>
             <Levels v-show="showLevelsPage"></Levels>
           <button class="purple button" @click="openRules()">Rules</button>
@@ -17,14 +17,19 @@
     import Rules from './Rules.vue'
     import Levels from './Levels.vue'
     import HighScore from '../views/HighScore.vue'
+    import {db} from '../firebase-config'
+    import {fb} from '../firebase-config'
 
     export default {
         name: 'Lobby',
         data() {
           return {
             numbers: [],
-            active: true
+            active: true,
           }
+        },
+        firebase: {
+          // messages: db.ref('message')
         },
         components: {
           Rules,
