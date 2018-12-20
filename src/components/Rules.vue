@@ -1,10 +1,9 @@
 <template>
   <div>
-    <button @click="close">test</button>
-    <div id="rules" v-if="showRules">
+      <div class="modal is-three-quarters-mobile is-active" v-show="showRules">
        <div class="modal-background"></div>
-        <div class="modal-content is-fluid-mobile is-size-5 has-background-black has-text-white">
-          <h1 class="title is-2">Game Rules</h1>
+        <div class="modal-content is-size-5 has-background-black has-text-white">
+          <h1 class="title is-2 has-text-warning">Game Rules</h1>
             <ul>
               <li>It is a turned based game.</li>
               <li>The Player starts to guess a number between 1-10.</li>
@@ -14,10 +13,9 @@
               <li>Compete for the #1 rank at the highscore board.</li>
             </ul>
           <br>
-
-          <button class="button is-medium is-dark" @click="close">Oki-doki!</button>
+          <button class="button is-medium is-primary" @click="close">Oki-doki!</button>
         </div>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -25,30 +23,23 @@
 <script>
 export default {
     name: 'rules',
-    data() {
-        return {
-            showRules: false
-        }
-    },
     methods: {
-        close() {
-            this.showRules = !this.showRules
-        }
-    }
+      close() {
+        this.$store.state.show = !this.$store.state.show 
+      }
+    },
+    computed: {
+      showRules() {
+        return this.$store.state.show;
+      }
+    },
 }
 </script>
 
-
 <style scoped>
-h1 {
-    color: purple;
-}
 .modal-content {
-    padding: 45px;
-    margin-top: -5%;
-}
-.button:hover {
-    background-color: limegreen;
+    padding: 3%;
+    overflow-x: hidden;
 }
 li {
     margin: 1.5%;
