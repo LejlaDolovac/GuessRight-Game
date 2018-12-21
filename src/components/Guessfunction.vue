@@ -2,7 +2,7 @@
 
 <div class="brain">
         <div id="player-bot-div modal">
-           <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
+        <!--   <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg"> -->
         </div>
         <div class="game-div">
         <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
@@ -39,11 +39,14 @@ export default {
         timerShow: true,
       }
     },
+    created() {
+      this.$store.commit('levelNumber')
+    },
     computed: {
     },
     methods: {
         startCountdown: function () {
-            this.countdownInterval = setInterval(() => { 
+            this.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
@@ -64,7 +67,8 @@ export default {
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
-                this.$store.commit('newRandomNumber')
+                this.$store.commit('levelNumber')
+                //this.$store.commit('newRandomNumber')
                 this.message = '';
                 this.guessedNumber = '';
                 this.inputDisabled = true
@@ -84,7 +88,7 @@ export default {
               this.message = "The number is higher!";
           } else if (this.$store.state.number < this.guessedNumber) {
               this.message = "The number is lower!";
-          } 
+          }
         },
         timerFunction() {
             this.message = ''
@@ -92,14 +96,15 @@ export default {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
-                    this.$store.commit('newRandomNumber')
+                    //this.$store.commit('levelNumber')
+                    //this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
                         this.startShow = true
-                        this.$refs.timeLeft.value = ''
+                        // this.$refs.timeLeft.value = ''
                         this.timerShow = false
                     } else {
                         this.startCountdown()
@@ -109,7 +114,7 @@ export default {
           }
       },
       mounted() {
-          this.startCountdown()
+          this.startCountdown();
       }
     }
 </script>

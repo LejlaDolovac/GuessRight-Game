@@ -3,10 +3,10 @@
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
      <div class="difficulty">
     <div class='row'>
-      <div class="column">
+      <router-link to="/gamepage">  <div class="column">
       <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
-      </div>
+      </div></router-link>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
       <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
@@ -17,8 +17,8 @@
       </div>
        </div>
     </div>
-    <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link>
-    
+    <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
+
   </div>
 </template>
 
@@ -35,26 +35,14 @@ export default {
     },
     methods: {
       easyNumbers: function() {
-        this.numbers = [1-10];
-        for(var i = 1; i <= 10; i++) {
-          this.numbers.push(i);
-          
-        }
-        console.log(this.numbers)
+        this.$store.state.easy = !this.$store.state.easy
+        console.log(this.$store.state.easy)
       },
       mediumNumbers: function() {
-        this.numbers = [10-50];
-        for(var i = 1; i <= 50; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+        console.log("medium level here")
       },
       hardNumbers: function() {
-        this.numbers = [];
-        for(var i = 1; i <= 100; i++) {
-          this.numbers.push(i);
-        }
-        console.log(this.numbers)
+        console.log("hard level here")
       }
     }
 }
@@ -70,7 +58,7 @@ export default {
   padding: 10px;
   margin: 20px;
   cursor: pointer
-  
+
 }
 
 #start-game {
@@ -137,9 +125,9 @@ h2{
   max-width: 100px;
   margin: 0 auto;
   padding: 15px;
-  margin-top: 25px; 
+  margin-top: 25px;
   font-size: 15px;
-  
+
 }
 button:focus { outline: none; }
 
