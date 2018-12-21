@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <!-- fontawesome-->
+    <div class="navbar has-text-white has-background-black">
+      <div class="fontawesome-container">
+        <span class="is-size-5">Login with:</span>
+        <br>
+        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
+        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome"/> Google
+      </div>
+    </div>
         <div class="nav buttons is-centered">
           <figure class="image">
             <img src="../assets/loggo.png" />
@@ -79,6 +88,10 @@
       border-width: 5px;
       margin-top: 10px;
       text-transform: uppercase;
+    }
+    .fontawesome-container {
+    position: absolute;
+    right: 0;
     }
     .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
     .pink {border-color: #ab0e86;}

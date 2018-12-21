@@ -7,8 +7,13 @@ import {fb} from './firebase-config' // Ger tillgång Firebase / Initierar Fireb
 import { library } from '@fortawesome/fontawesome-svg-core' // installerar bibliotek som skall hålla i ikonerna
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem EN specifik ikon
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret)
+library.add(faFacebook)
+library.add(faGoogle)
 Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
 
 Vue.use(VueFire);
