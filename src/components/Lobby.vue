@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <!-- fontawesome-->
+<div class="container">
+  <!--
+
     <div class="navbar has-text-white has-background-black">
       <div class="fontawesome-container">
         <span class="is-size-5">Login with:</span>
@@ -8,7 +9,8 @@
         <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
         <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome"/> Google
       </div>
-    </div>
+    </div> -->
+    <Login></Login>
         <div class="nav buttons is-centered">
           <figure class="image">
             <img src="../assets/loggo.png" />
@@ -28,6 +30,7 @@
     import HighScore from '../views/HighScore.vue'
     import {db} from '../firebase-config'
     import {fb} from '../firebase-config'
+    import Login from './Login.vue'
 
     export default {
         name: 'Lobby',
@@ -43,7 +46,8 @@
         components: {
           Rules,
           HighScore,
-          Levels
+          Levels,
+          Login
         },
         computed: {
           showRulesPage() {
@@ -89,10 +93,10 @@
       margin-top: 10px;
       text-transform: uppercase;
     }
-    .fontawesome-container {
+    /* .fontawesome-container {
     position: absolute;
     right: 0;
-    }
+    } */
     .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
     .pink {border-color: #ab0e86;}
     .purple {border-color: #59057b;}
