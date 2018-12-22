@@ -27,7 +27,7 @@
 </div>
    
 </template>
-    
+
 <script>
 export default {
     name: 'Guessfunction',
@@ -56,11 +56,14 @@ export default {
         findNumberNumber: ''
       }
     },
+    created() {
+      this.$store.commit('levelNumber')
+    },
     computed: {
     },
     methods: {
         startCountdown: function () {
-            this.countdownInterval = setInterval(() => { 
+            this.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
@@ -158,14 +161,15 @@ export default {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
-                    this.$store.commit('newRandomNumber')
+                    //this.$store.commit('levelNumber')
+                    //this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
                         this.startShow = true
-                        this.$refs.timeLeft.value = ''
+                        // this.$refs.timeLeft.value = ''
                         this.timerShow = false
                     } else {
                         this.startCountdown()

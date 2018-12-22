@@ -26,6 +26,11 @@ export default new Vuex.Store({
       state.show = !state.show
     },
     levelNumber(state) {
+      if (state.easy == true) {
+        state.timer = 100;
+        state.number = 50;
+        state.randomNumber = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+      }
       if (state.hard == true) {
         state.timer = 100;
         state.number = 50;
@@ -35,6 +40,7 @@ export default new Vuex.Store({
         state.number = 30;
         state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
       }
+      console.log("Correct number: " + state.number)
     }
   },
   actions: {

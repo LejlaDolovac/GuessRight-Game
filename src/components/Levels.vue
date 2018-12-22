@@ -6,12 +6,10 @@
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
      <div class="difficulty">
     <div class='row'>
-      <div class="column">
-      <router-link to="/gamepage">
-        <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
-      </router-link>
+      <router-link to="/gamepage">  <div class="column">
+      <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
-      </div>
+      </div></router-link>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
       <router-link to="/gamepage">
@@ -28,6 +26,8 @@
       </div>
     </div>
     </div>
+    <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
+
   </div>
 </div>
 </template>
@@ -83,7 +83,7 @@ export default {
   padding: 10px;
   margin: 20px;
   cursor: pointer
-  
+
 }
 h2{
   text-align: center;
@@ -132,7 +132,7 @@ h2{
   max-width: 100px;
   margin: 0 auto;
   padding: 15px;
-  margin-top: 25px; 
+  margin-top: 25px;
   font-size: 15px;
 }
 button:focus { outline: none; }
