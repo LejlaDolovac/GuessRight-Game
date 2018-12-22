@@ -45,12 +45,11 @@ export default {
         return this.$store.state.showLevels;
       }
     },
-    
     methods: {
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      easyNumbers: function() { 
+      easyNumbers: function() {
       this.$store.state.easy = true
       this.$store.state.medium = false
       this.$store.state.hard= false
@@ -73,7 +72,6 @@ export default {
       }
      }
   }
-    
 </script>
 
 <style scoped>

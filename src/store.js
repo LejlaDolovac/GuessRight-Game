@@ -27,7 +27,7 @@ export default new Vuex.Store({
     },
     levelNumber(state) {
       if (state.hard == true) {
-        state.timer = 15;
+        state.timer = 100;
         state.number = 50;
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
       } else if (state.medium == true) {
