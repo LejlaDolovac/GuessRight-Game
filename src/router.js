@@ -17,7 +17,7 @@ export default new Router({
       path: '/gamepage',
       name: 'gamepage',
       component: () => import( './views/Gamepage.vue')
-    
+
     },
     {
       path: '/highScore',
