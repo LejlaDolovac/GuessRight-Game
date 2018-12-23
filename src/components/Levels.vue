@@ -7,14 +7,14 @@
       <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
       </div></router-link>
-      <div class="column">
+      <router-link to="/gamepage">  <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
       <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
-      </div>
-      <div class="column">
+      </div></router-link>
+      <router-link to="/gamepage">  <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
       <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
-      </div>
+      </div></router-link>
        </div>
     </div>
     <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
@@ -39,10 +39,10 @@ export default {
         console.log(this.$store.state.easy)
       },
       mediumNumbers: function() {
-        console.log("medium level here")
+        this.$store.state.medium = !this.$store.state.medium
       },
       hardNumbers: function() {
-        console.log("hard level here")
+        this.$store.state.hard = !this.$store.state.hard
       }
     }
 }

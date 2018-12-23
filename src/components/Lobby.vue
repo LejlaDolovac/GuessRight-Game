@@ -4,10 +4,10 @@
       <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
     </div>
     <div class="nav buttons is-centered">
-      <router-link to="/levels"><button class="yellow button">Play</button></router-link>
-      <button class="purple button" @click="openRules()">Rules</button>
+      <router-link to="/levels"><a class="yellow button">Play</a></router-link>
+      <a class="purple button" @click="openRules()">Rules</a>
         <Rules v-show="showRules"></Rules>
-      <button class="pink button">High score</button> <!-- router-link till high score-sida -->
+      <router-link to="/highscore"><a class="pink button">High score</a></router-link>
     </div>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
     name: 'Lobby',
     data() {
       return {
-        showRules: true // något med detta för att visa regler
       }
     },
     components: {
@@ -56,7 +55,7 @@ h1 {
   margin-top: 10px;
   text-transform: uppercase;
 }
-.button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+.buttons .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
 
 .pink {border-color: #ab0e86;}
 .purple {border-color: #59057b;}
