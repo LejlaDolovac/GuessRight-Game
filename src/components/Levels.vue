@@ -6,12 +6,10 @@
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
      <div class="difficulty">
     <div class='row'>
-      <div class="column">
-      <router-link to="/gamepage">
-        <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
-      </router-link>
+      <router-link to="/gamepage">  <div class="column">
+      <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
-      </div>
+      </div></router-link>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
       <router-link to="/gamepage">
@@ -28,6 +26,8 @@
       </div>
     </div>
     </div>
+    <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
+
   </div>
 </div>
 </template>
@@ -45,7 +45,6 @@ export default {
         return this.$store.state.showLevels;
       }
     },
-
     methods: {
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels
@@ -55,24 +54,24 @@ export default {
       this.$store.state.medium = false
       this.$store.state.hard= false
       this.$store.state.levelChosen = true
+        this.$store.state.showLevels = !this.$store.state.showLevels
       },
       mediumNumbers: function() {
         this.$store.state.medium = true
         this.$store.state.easy = false
         this.$store.state.hard = false
         this.$store.state.levelChosen = true
-        console.log(this.$store.state.medium)
+        this.$store.state.showLevels = !this.$store.state.showLevels
       },
       hardNumbers: function() {
         this.$store.state.hard = true
         this.$store.state.easy = false
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
-        console.log(this.$store.state.hard)
+        this.$store.state.showLevels = !this.$store.state.showLevels
       }
      }
   }
-
 </script>
 
 <style scoped>

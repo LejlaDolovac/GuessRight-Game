@@ -14,19 +14,21 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 library.add(faUserSecret)
 library.add(faFacebook)
 library.add(faGoogle)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
-
 Vue.use(VueFire);
-
-
 Vue.config.productionTip = false
-
 require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 
-Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app');
+let app = ''
+
+fb.auth().onAuthStateChanged(() => {
+  if(!app) {
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app');
+  }
+});
