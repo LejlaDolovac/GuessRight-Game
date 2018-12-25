@@ -1,15 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="container">
-    <div class="header is-centered">
-      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
-    </div>
-    <div class="nav buttons is-centered">
-      <router-link to="/levels"><a class="yellow button">Play</a></router-link>
-      <a class="purple button" @click="openRules()">Rules</a>
-        <Rules v-show="showRules"></Rules>
-      <router-link to="/highscore"><a class="pink button">High score</a></router-link>
-=======
 <div class="container">
   <!--
 
@@ -26,13 +15,12 @@
         <figure class="image">
           <img src="../assets/loggo.png" />
         </figure>
-        <button class="yellow button" @click="openLevels()">Play</button>
+        <a class="yellow button" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
-        <button class="purple button" @click="openRules()">Rules</button>
+        <a class="purple button" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
+        <router-link to="/highScore"><a class="pink button">High score</a></router-link>
       </div>
->>>>>>> master
     </div>
   </template>
 
@@ -48,12 +36,9 @@
     name: 'Lobby',
     data() {
       return {
-<<<<<<< HEAD
-=======
         numbers: [],
         active: true,
         showRules: true // något med detta för att visa regler
->>>>>>> master
       }
     },
     firebase: {
@@ -88,7 +73,6 @@
   }
   </script>
 
-<<<<<<< HEAD
 <style scoped>
 .container {
   width: 95%;
@@ -120,12 +104,6 @@ h1 {
 @media (min-width: 600px) {
   .nav {
     max-width: 400px;
-=======
- <style scoped>
-  .container {
-    width: 95%;
-    margin: auto;
->>>>>>> master
   }
   h1 {
     margin-bottom: 30px;
@@ -139,24 +117,17 @@ h1 {
     width: 200px;
     background-color: Black;
     color: White;
+    font-size: 1.4em;
     border-width: 5px;
     margin-top: 10px;
     text-transform: uppercase;
   }
   .fontawesome-container {
-  position: absolute;
-  right: 0;
+    position: absolute;
+    right: 0;
   }
-  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-  .pink {border-color: #ab0e86;}
-  .purple {border-color: #59057b;}
-  .yellow {border-color: #fae100;}
-  @media (min-width: 600px) {
-    .button {
-      width: 300px;
-      font-size: 1.4em;
-    }
-  }
+}
+
   @media (min-width: 992px) {
     .nav {
       max-width: 400px;
