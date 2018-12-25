@@ -81,7 +81,6 @@ export default {
                 console.log("Before bot high: " + this.highNumber)
                     this.botGuessNumber = this.chooseRandom()
                     console.log(this.botGuessNumber)
-
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
                         this.botWins++
@@ -213,6 +212,10 @@ export default {
             this.startCountdown()
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
+            } else if (this.$store.state.medium == true) {
+                this.highNumber = 30
+            } else if (this.$store.state.easy == true) {
+                this.highNumber = 10
             }
         } else {
             window.location.href = '/'
