@@ -1,19 +1,18 @@
 <template>
-<div class="highscore">
-  <Highscorefunction/>
-
-  <router-link to="/"><button class="button is-black">Back to start page</button></router-link>
-</div>
+  <div class="about">
+    <HighScoreFunction/>
+  </div>
 </template>
 
 <script>
-
+// @ is an alias to /src
 import HighScoreFunction from '@/components/HighScoreFunction.vue'
 
 export default {
-    name: 'HighScoreFunction'
-
+  name: 'highScore',
+  components: {
+    HighScoreFunction
   }
-
-
+  
+}
 </script>
