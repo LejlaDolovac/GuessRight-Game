@@ -11,38 +11,45 @@
       </thead>
       <tr>
         <td>Rank</td>
-        <td>Arnold</td>
+        <td>Wall-E</td>
         <td>32</td>
         <td>2021-11-13</td>
       </tr>
       <tr class="is-selected">
-        <td>Rank</td>
+        <td>rank</td>
         <td>Arnold</td>
         <td>32</td>
         <td>2021-11-13</td>
       </tr>
 </table>
+<br>
+ <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
   </div>
 </template>
 
 <script>
 
+//v-if new Highscore. class is selected.
+//
+
 export default {
     name: 'HighScoreFunction'
-      }
+          }
+
+
+
+
 </script>
+
+
+
 
 <style scoped>
 
 h1 {
   font-size: 4em;
   font-family: 'Black Ops One', cursive;
-  color: black;
-}
-
-.highscore {
-  background-image: linear-gradient(to bottom right, yellow, #e01171, #ab0e86, #59057b, #0f0766);
-  height: 1000px;
+  color: white;
 }
 
 th {
@@ -54,6 +61,5 @@ table {
   margin-left: auto;
   margin-right: auto;
 }
-
 
 </style>
