@@ -8,7 +8,7 @@
         <Levels v-show="showLevelsPage"></Levels>
       <button class="purple button" @click="openRules()">Rules</button>
         <Rules v-show="showRulesPage"></Rules>
-      <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
+      <router-link to="/highScore"> <button class="pink button">Highscore</button> </router-link> <!-- router-link till high score-sida -->
     </div>
 </div>
     <!-- Här ligger test för font awesome ikon. <div class="icon">
@@ -22,7 +22,6 @@
 <script>
 import Rules from './Rules.vue'
 import Levels from './Levels.vue'
-import HighScore from '../views/HighScore.vue'
 export default {
     name: 'Lobby',
     data() {
@@ -33,7 +32,6 @@ export default {
     },
     components: {
       Rules,
-      HighScore,
       Levels
     },
     computed: {
