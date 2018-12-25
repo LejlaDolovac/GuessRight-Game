@@ -9,16 +9,14 @@
     </div>
     <div class="game-div">
         <div class="message-body timer" v-show="botHasGuessed"> Apponent's Guess: {{ botGuessNumber }}</div>
-    <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
     <div v-else class="message-body timer">END</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
     <router-link to="/highScore">
         <button class="button is-black" v-show="this.showHighScore">View highscore</button>
     </router-link>
-    <!--<p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
     <div>
-    <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+    <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
     </div>
     <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
     <br>
@@ -53,7 +51,6 @@ export default {
         arrayOfNumbers: [],
         startNumberForArray: 0,
         botWins: '',
-        findNumberNumber: '',
         lowNumber: 1,
         highNumber: ''
       }
@@ -82,48 +79,62 @@ export default {
             this.timerBotInterval = setInterval(() => {
                 console.log("Before bot low: " + this.lowNumber)
                 console.log("Before bot high: " + this.highNumber)
-                    /*var randomNum = Math.floor(Math.random() * (this.arrayOfNumbers.length - this.arrayOfNumbers[0] + 1)) + this.arrayOfNumbers[0];
-                    this.findNumberNumber = randomNum*/
                     this.botGuessNumber = this.chooseRandom()
                     console.log(this.botGuessNumber)
-                    //console.log("bot: " + this.botGuessNumber + " - Find: " + this.arrayOfNumbers.findIndex(this.findNumber))
 
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
                         this.botWins++
+                        this.numberOfTries--;
+                        this.numberInterval = setInterval(() => {
+                            this.message = ''
+                            this.hideNum = false
+                            this.$store.commit('newRandomNumber')
+                            this.guessedNumber = '';
+                            this.inputDisabled = true
+                            this.timer = 3
+                            this.startShow = true
+                            this.lowNumber = 1
+                            this.highNumber = this.$store.state.number
+                            this.botGuessNumber = ''
+                            clearInterval(this.numberInterval)
+                        },2000)
+                        clearInterval(this.timerInterval)
+                        if(this.numberOfTries == 0) {
+                            this.message = "Tries up, my man!"
+                            this.startShow = true
+                            this.$refs.timeLeft.value = ''
+                            this.timerShow = false
+                            this.showHighScore = true
+                        } else {
+                            this.startCountdown()
+                        }
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
                         this.message = "The number is higher, bot!";
-                        this.lowNumber = this.botGuessNumber
-                        /*for (let o = 0; o < randomNum; o++){
-                            this.arrayOfNumbers.splice(0, 1)
-                            console.log("inside high bot" + this.arrayOfNumbers)
-                        }   */
+                        this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, bot!";
-                        this.highNumber = this.botGuessNumber
-                        /*for(let g = this.arrayOfNumbers.length; randomNum < this.arrayOfNumbers.length; g--) {
-                            this.arrayOfNumbers.splice(g, 1)
-                            console.log("inside high bot" + this.arrayOfNumbers)
-                        }   */
+                        this.highNumber = this.botGuessNumber-1
                         this.inputDisabled = false
                         this.timerFunction()
                     }
                     console.log("After bot low: " + this.lowNumber)
                     console.log("After bot high: " + this.highNumber)
-                    //console.log("after bot" + this.arrayOfNumbers)
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
             },3000)
+            if(this.$store.state.randomNumber == this.botGuessNumber) {
+                this.lowNumber = 1
+                this.highNumber = this.$store.state.number
+                this.message = ''
+            }
         },
         guessNumber: function () {
           console.log("guess: " + this.guessedNumber)
           console.log("low: " + this.lowNumber)
           console.log("high: " + this.highNumber)
-          this.guessedNumber = parseInt(this.guessedNumber)
-          this.findNumberNumber = this.guessedNumber
-          var indexNumber = this.arrayOfNumbers.findIndex(this.findNumber)
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
               this.message = "Wrong input"
               return
@@ -133,14 +144,18 @@ export default {
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
               this.numberOfTries--;
+              this.lowNumber = 1
+              this.highNumber = this.$store.state.number
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
+                this.message = ''
                 this.hideNum = false
                 this.$store.commit('newRandomNumber')
                 this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 3
                 this.startShow = true
+                this.botGuessNumber = ''
                 if(this.numberOfTries == 0) {
                     this.message = "Tries up, my man!"
                     this.startShow = true
@@ -153,50 +168,36 @@ export default {
                 clearInterval(this.numberInterval)
               }, 2000);
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
-              this.lowNumber = this.guessedNumber
+              this.lowNumber = this.guessedNumber+1
               console.log("guessed is lower")
-              /*for(let o = 0; o <= indexNumber; o++){
-                  this.arrayOfNumbers.splice(0, 1)
-              }*/
               this.message = "The number is higher, human!";
+              this.botGuessing()
           } else if (this.$store.state.randomNumber < this.guessedNumber) {
               console.log("guessed is higher")
-              /*for(let g = this.arrayOfNumbers.length; indexNumber < this.arrayOfNumbers.length; g--) {
-                  this.arrayOfNumbers.splice(g, 1)
-              }*/
-              this.highNumber = this.guessedNumber
+              this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
+              this.botGuessing()
           } 
           console.log("After user low: " + this.lowNumber)
           console.log("After user high: " + this.highNumber)
-          
-         // console.log("guess array outside " + this.arrayOfNumbers)
-          this.botGuessing()
         },
         timerFunction() {
-            //this.message = ''
             this.timerInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
-                    //this.$store.commit('levelNumber')
-                    //this.$store.commit('newRandomNumber')
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
                         this.startShow = true
-                        // this.$refs.timeLeft.value = ''
                         this.timerShow = false
                     } else {
                         this.startCountdown()
                     }
                 }
               }, 1000);
-          },
-          findNumber(number) {
-              return number >= this.findNumberNumber;
           },
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
@@ -213,11 +214,6 @@ export default {
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
             }
-            /*for(var i = 1; i <= this.$store.state.number; i++){
-                this.arrayOfNumbers.push(i)
-                this.startNumberForArray++
-                console.log(this.arrayOfNumbers)
-            }*/
         } else {
             window.location.href = '/'
         }
@@ -235,7 +231,6 @@ h3 {
 }
 p{
     color: midnightblue;
-    /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;*/
 }
 .timer {
     padding: 20px;
