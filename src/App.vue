@@ -46,7 +46,8 @@
 body{
   height: 1000px;
   width: 100%;
-  background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
+  background-color: #000;
+  // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 
 }
 

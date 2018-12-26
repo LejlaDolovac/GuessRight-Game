@@ -23,13 +23,17 @@ export default new Vuex.Store({
       state.number = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
     showRules(state){
-      state.show = !state.show
+      state.show = !state.show;
     },
-    levelNumber(state) {  // säger att medium är endast upp till 30 nummer 
-      if(state.medium == true){
-        state.medium =  state.number = Math.floor(Math.random() * (30 - 1 + 1)) + 1,
-        state.number= 30;
-        console.log(state.number);
+    levelNumber(state) {
+      if (state.hard == true) {
+        state.timer = 100;
+        state.number = 50;
+        state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+      } else if (state.medium == true) {
+        state.timer = 10;
+        state.number = 30;
+        state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
       }
     }
       

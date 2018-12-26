@@ -7,20 +7,18 @@
      <div class="difficulty">
     <div class='row'>
       <div class="column">
-    <router-link to="/gamepage">  <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button></router-link>  <!-- länk till gamepage när man trycker på easy -->
-     <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>   easy -->
+    <router-link to="/gamepage"><button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button></router-link>  <!-- länk till gamepage när man trycker på easy -->
       </div>
       <div class="column">
-    <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
-   <router-link to="/gamepage">   <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button></router-link>
+   <router-link to="/gamepage"><button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button></router-link>
       </div>
       <div class="column">
-     <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  -->
-      <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
+    <router-link to="/gamepage">  <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button></router-link>
       </div>
       </div>
     </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -34,38 +32,40 @@ export default {
     },
     computed: {
       showLevelsPage() {
-        return this.$store.state.showLevels;
+        return this.$store.state.showLevels;  // öppnar ( ?)
       }
     },
-    
     methods: {
       close() {
-        this.$store.state.showLevels = !this.$store.state.showLevels
+        this.$store.state.showLevels = !this.$store.state.showLevels // stänger när man valt en nivå
       },
-      easyNumbers: function() { 
+      easyNumbers: function() {   // funktion för easy-nivåm
       this.$store.state.easy = true
       this.$store.state.medium = false
       this.$store.state.hard= false
       this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      mediumNumbers: function() {
+      mediumNumbers: function() {   // funktion för medium-nivån
         this.$store.state.medium = true
         this.$store.state.easy = false
         this.$store.state.hard = false
-        this.$store.state.levelChosen = !this.$store.state.showLevels
+        this.$store.state.levelChosen = true
+          this.$store.state.showLevels = !this.$store.state.showLevels
         
         
       },
-      hardNumbers: function() {
+      hardNumbers: function() {   // funktion för hard-nivån
         this.$store.state.hard = true,
         this.$store.state.easy = false,
         this.$store.state.medium = false
+        this.$store.state.levelChosen = true
+          this.$store.state.showLevels = !this.$store.state.showLevels
         }
       }
      }
-  }
-    
+  
+
 </script>
 
 <style scoped>
