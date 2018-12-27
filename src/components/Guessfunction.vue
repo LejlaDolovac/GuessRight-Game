@@ -77,10 +77,7 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
-                console.log("Before bot low: " + this.lowNumber)
-                console.log("Before bot high: " + this.highNumber)
                     this.botGuessNumber = this.chooseRandom()
-                    console.log(this.botGuessNumber)
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
                         this.botWins++
@@ -119,8 +116,6 @@ export default {
                         this.inputDisabled = false
                         this.timerFunction()
                     }
-                    console.log("After bot low: " + this.lowNumber)
-                    console.log("After bot high: " + this.highNumber)
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
             },3000)
@@ -131,9 +126,6 @@ export default {
             }
         },
         guessNumber: function () {
-          console.log("guess: " + this.guessedNumber)
-          console.log("low: " + this.lowNumber)
-          console.log("high: " + this.highNumber)
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
               this.message = "Wrong input"
               return
@@ -168,17 +160,13 @@ export default {
               }, 2000);
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.lowNumber = this.guessedNumber+1
-              console.log("guessed is lower")
               this.message = "The number is higher, human!";
               this.botGuessing()
           } else if (this.$store.state.randomNumber < this.guessedNumber) {
-              console.log("guessed is higher")
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
           } 
-          console.log("After user low: " + this.lowNumber)
-          console.log("After user high: " + this.highNumber)
         },
         timerFunction() {
             this.timerInterval = setInterval(() => {
@@ -200,13 +188,11 @@ export default {
           },
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
-              console.log("upper bound for random is " + randomUpper)
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
           }
       },
       mounted() {
         if(this.$store.state.levelChosen == true) {
-            console.log("whuu " + this.$store.state.number)
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
             this.startCountdown()
