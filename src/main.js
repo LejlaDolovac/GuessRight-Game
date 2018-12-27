@@ -21,13 +21,18 @@ Vue.config.productionTip = false
 require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 
 
-let app = ''
+let app = '';
 
 fb.auth().onAuthStateChanged(() => {
   if(!app) {
     app = new Vue({
       router,
-      store,
+      store, /*
+      computed: {
+        currentUser() {
+          return this.$store.state.currentUser;
+        }
+      }, */
       render: h => h(App)
     }).$mount('#app');
   }
