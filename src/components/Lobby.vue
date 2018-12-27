@@ -1,4 +1,15 @@
 <template>
+<<<<<<< HEAD
+  <div class="container">
+    <div class="header is-centered">
+      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
+    </div>
+    <div class="nav buttons is-centered">
+      <router-link to="/levels"><a class="yellow button">Play</a></router-link>
+      <a class="purple button" @click="openRules()">Rules</a>
+        <Rules v-show="showRules"></Rules>
+      <router-link to="/highscore"><a class="pink button">High score</a></router-link>
+=======
 <div class="container">
   <!--
 
@@ -21,6 +32,7 @@
           <Rules v-show="showRulesPage"></Rules>
         <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
       </div>
+>>>>>>> master
     </div>
   </template>
 
@@ -36,9 +48,12 @@
     name: 'Lobby',
     data() {
       return {
+<<<<<<< HEAD
+=======
         numbers: [],
         active: true,
         showRules: true // något med detta för att visa regler
+>>>>>>> master
       }
     },
     firebase: {
@@ -73,10 +88,44 @@
   }
   </script>
 
+<<<<<<< HEAD
+<style scoped>
+.container {
+  width: 95%;
+  margin: auto;
+  margin-top: 60px;
+}
+h1 {
+  margin-bottom: 30px;
+}
+.nav {
+  max-width: 300px;
+  margin: auto;
+}
+.button {
+  width: 200px;
+  background-color: Black;
+  color: White;
+  border-width: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+.buttons .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+
+.pink {border-color: #ab0e86;}
+.purple {border-color: #59057b;}
+.yellow {border-color: #fae100;}
+
+@media (min-width: 600px) {
+  .nav {
+    max-width: 400px;
+=======
  <style scoped>
   .container {
     width: 95%;
     margin: auto;
+>>>>>>> master
   }
   h1 {
     margin-bottom: 30px;
