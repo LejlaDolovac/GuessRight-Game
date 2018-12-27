@@ -29,14 +29,26 @@
 
 <script>
 
-//v-if new Highscore. class is selected.
-//
+//v-if newHighscore   class="is-selected"
+
+
 
 export default {
     name: 'HighScoreFunction'
           }
 
 
+/*
+Funktion för att få datum
+getFullYear() + "-" + getMonth() + "-" + getDate()
+
+Function add data.
+rank name date score
+
+How do we get score. bots/players
+input only when entering highscore.
+diffrent highscore players/bots
+*/
 
 
 </script>
