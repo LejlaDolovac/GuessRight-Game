@@ -75,6 +75,18 @@
 </div>
 </template>
 
+<script>
+import {db} from '../firebase-config'
+
+export default {
+  name: 'highscore',
+  firebase: {
+    numbers: db.ref('numbers')
+  }
+}
+</script>
+
+
 <style scoped>
 h1 {
   font-size: 4em;

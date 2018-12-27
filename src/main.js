@@ -27,7 +27,12 @@ fb.auth().onAuthStateChanged(() => {
   if(!app) {
     app = new Vue({
       router,
-      store,
+      store, /*
+      computed: {
+        currentUser() {
+          return this.$store.state.currentUser;
+        }
+      }, */
       render: h => h(App)
     }).$mount('#app');
   }

@@ -16,7 +16,9 @@ export default new Vuex.Store({
     hard: false,
     levelChosen: false,
     randomNumbers: '',
-    timer: ''
+    timer: '',
+    currentUser: null,
+    loggedIn: false
   },
   mutations: {
     newRandomNumber(state) {
