@@ -50,7 +50,6 @@ export default {
         botHasGuessed: false,
         arrayOfNumbers: [],
         startNumberForArray: 0,
-        botWins: '',
         lowNumber: 1,
         highNumber: ''
       }
@@ -80,7 +79,7 @@ export default {
                     this.botGuessNumber = this.chooseRandom()
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
-                        this.botWins++
+                        this.$store.state.botWins++
                         this.numberOfTries--;
                         this.numberInterval = setInterval(() => {
                             this.message = ''
