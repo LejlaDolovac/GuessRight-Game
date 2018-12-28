@@ -17,32 +17,32 @@ export default new Vuex.Store({
     levelChosen: false,
     randomNumbers: '',
     timer: '',
-    botTimer: ''
+    currentUser: null,
+    loggedIn: false,
+    botWins: 0
   },
   mutations: {
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
-      console.log("ran n " + state.number)
-      console.log("ran r " + state.randomNumber)
     },
     showRules(state) {
       state.show = !state.show
     },
     levelNumber(state) {
-      if (state.hard == true) {
-        state.timer = 15;
-        state.number = 50;
-        state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
-        console.log("lev n " + state.number)
-        console.log("lev r " + state.randomNumber)
+      if (state.easy == true) {
+        state.timer = 10;
+        state.number = 10;
+        state.randomNumber = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
       } else if (state.medium == true) {
-        
         state.timer = 10;
         state.number = 30;
         state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
-        console.log("lev n " + state.number)
-        console.log("lev r " + state.randomNumber)
+      } else if (state.hard == true) {
+        state.timer = 100;
+        state.number = 50;
+        state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
       }
+      console.log("Correct number: " + state.number)
     }
   },
   actions: {

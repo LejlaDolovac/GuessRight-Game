@@ -1,38 +1,52 @@
 <template>
-  <div class="container">
-    <div class="header is-centered">
-      <h1 class="title is-size-3-mobile is-size-1-tablet">Guess Right</h1>
-    </div>
-    <div class="nav buttons is-centered">
-      <button class="yellow button" @click="openLevels()">Play</button>
-        <Levels v-show="showLevelsPage"></Levels>
-      <button class="purple button" @click="openRules()">Rules</button>
-        <Rules v-show="showRulesPage"></Rules>
-      <router-link to="/highScore"> <button class="pink button">Highscore</button> </router-link> <!-- router-link till high score-sida -->
-    </div>
-</div>
-    <!-- Här ligger test för font awesome ikon. <div class="icon">
-      <font-awesome-icon icon="user-secret"></font-awesome-icon>
-      <P>
-        Login
-      </P>
+<div class="container">
+  <!--
+    <div class="navbar has-text-white has-background-black">
+      <div class="fontawesome-container">
+        <span class="is-size-5">Login with:</span>
+        <br>
+        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
+        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome" @click="googleLogin"/> Google
+      </div>
     </div> -->
-</template>
+  <Login></Login>
+      <div class="nav buttons is-centered">
+        <figure class="image">
+          <img src="../assets/loggo.png" />
+        </figure>
+        <button class="yellow button" @click="openLevels()">Play</button>
+          <Levels v-show="showLevelsPage"></Levels>
+        <button class="purple button" @click="openRules()">Rules</button>
+          <Rules v-show="showRulesPage"></Rules>
+        <router-link to="/highScore"> <button class="pink button">High score</button> </router-link> <!-- router-link till high score-sida -->
+      </div>
+    </div>
+  </template>
 
-<script>
-import Rules from './Rules.vue'
-import Levels from './Levels.vue'
-export default {
+  <script>
+  import Rules from './Rules.vue'
+  import Levels from './Levels.vue'
+  import HighScore from '../views/HighScore.vue'
+  import {db} from '../firebase-config'
+  import {fb} from '../firebase-config'
+  import Login from './Login.vue'
+  export default {
     name: 'Lobby',
     data() {
       return {
         numbers: [],
-        active: true
+        active: true,
+        showRules: true // något med detta för att visa regler
       }
+    },
+    firebase: {
+      // messages: db.ref('message')
     },
     components: {
       Rules,
-      Levels
+      HighScore,
+      Levels,
+      Login
     },
     computed: {
       showRulesPage() {
@@ -44,57 +58,84 @@ export default {
     },
     methods: {
       openRules: function() {
-         this.$store.state.showRules = !this.$store.state.showRules
+          this.$store.state.showRules = !this.$store.state.showRules
       },
       openLevels: function() {
-         this.$store.state.showLevels = !this.$store.state.showLevels
+          this.$store.state.showLevels = !this.$store.state.showLevels
       },
       close: function() {
         this.active = !this.active
         console.log("hi")
+      },
+    }
+  }
+  </script>
+
+ <style scoped>
+  .container {
+    width: 95%;
+    margin: auto;
+  }
+  h1 {
+    margin-bottom: 30px;
+    padding-top: 3%;
+  }
+  .nav {
+    max-width: 300px;
+    margin: auto;
+  }
+  .button {
+    width: 200px;
+    background-color: Black;
+    color: White;
+    border-width: 5px;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .fontawesome-container {
+  position: absolute;
+  right: 0;
+  }
+  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+  .pink {border-color: #ab0e86;}
+  .purple {border-color: #59057b;}
+  .yellow {border-color: #fae100;}
+  @media (min-width: 600px) {
+    .button {
+      width: 300px;
+      font-size: 1.4em;
+    }
+  }
+  @media (min-width: 992px) {
+    .nav {
+      max-width: 400px;
+    }
+    .button {
+      width: 200px;
+      background-color: Black;
+      color: White;
+      border-width: 5px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+    .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+    .pink {border-color: #ab0e86;}
+    .purple {border-color: #59057b;}
+    .yellow {border-color: #fae100;}
+    @media (min-width: 600px) {
+      .button {
+        width: 300px;
+        font-size: 1.4em;
+      }
+    }
+    @media (min-width: 992px) {
+      .nav {
+        max-width: 400px;
+      }
+      .button {
+        width: 400px;
+        font-size: 1.6em;
       }
     }
   }
-</script>
-
-<style scoped>
-.container {
-  width: 95%;
-  margin: auto;
-}
-h1 {
-  margin-bottom: 30px;
-  padding-top: 3%;
-}
-.nav {
-  max-width: 300px;
-  margin: auto;
-}
-.button {
-  width: 200px;
-  background-color: Black;
-  color: White;
-  border-width: 5px;
-  margin-top: 10px;
-  text-transform: uppercase;
-}
-.button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-.pink {border-color: #ab0e86;}
-.purple {border-color: #59057b;}
-.yellow {border-color: #fae100;}
-@media (min-width: 600px) {
-  .button {
-    width: 300px;
-    font-size: 1.4em;
-  }
-}
-@media (min-width: 992px) {
-  .nav {
-    max-width: 400px;
-  }
-  .button {
-    width: 400px;
-    font-size: 1.6em;
-  }
-}
-</style>
+  </style>

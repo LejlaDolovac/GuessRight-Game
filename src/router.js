@@ -17,12 +17,15 @@ export default new Router({
       path: '/gamepage',
       name: 'gamepage',
       component: () => import( './views/Gamepage.vue')
-    
+
     },
     {
       path: '/highScore',
       name: 'highscore',
-        component: () => import( './views/HighScore.vue')
+        component: () => import( './views/HighScore.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/rules',
