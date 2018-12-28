@@ -38,6 +38,7 @@
       return {
         numbers: [],
         active: true,
+        showRules: true // något med detta för att visa regler
       }
     },
     firebase: {
@@ -72,7 +73,7 @@
   }
   </script>
 
-  <style scoped>
+ <style scoped>
   .container {
     width: 95%;
     margin: auto;
