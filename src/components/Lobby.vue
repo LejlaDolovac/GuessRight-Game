@@ -15,6 +15,7 @@
         <figure class="image">
           <img src="../assets/loggo.png" />
         </figure>
+        
         <button class="yellow button" @click="openLevels()">Play</button>
           <Levels v-show="showLevelsPage"></Levels>
         <button class="purple button" @click="openRules()">Rules</button>
@@ -38,6 +39,7 @@
       return {
         numbers: [],
         active: true,
+        showRules: true // något med detta för att visa regler
       }
     },
     firebase: {
@@ -47,7 +49,7 @@
       Rules,
       HighScore,
       Levels,
-      Login
+      Login,
     },
     computed: {
       showRulesPage() {
@@ -68,11 +70,14 @@
         this.active = !this.active
         console.log("hi")
       },
-    }
-  }
+      
+      
+  },
+    } 
+
   </script>
 
-  <style scoped>
+ <style scoped>
   .container {
     width: 95%;
     margin: auto;
