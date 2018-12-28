@@ -1,8 +1,6 @@
 <template>
 <div class="container">
-  <!--
-
-    <div class="navbar has-text-white has-background-black">
+    <!-- <div class="navbar has-text-white has-background-black">
       <div class="fontawesome-container">
         <span class="is-size-5">Login with:</span>
         <br>
