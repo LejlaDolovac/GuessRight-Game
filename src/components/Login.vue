@@ -4,7 +4,8 @@
     <div class="fontawesome-container" v-if="!loggedIn">
       <span class="is-size-5">Login with:</span>
       <br>
-      <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
+      <a @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook</a> 
+      <br>
       <a @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome"/> Google</a>
     </div>
 
@@ -52,23 +53,41 @@ export default( {
           alert('Welcome, ' + profile.displayName + '!');
           setInterval(function() {
              location.reload();
-          }, 1500);
+          }, 2000);
         });
-      }).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-        });
-    },
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+          });
+      },
+      facebookLogin() {
+        var provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          var token = result.credential.accessToken;
+          var user = result.user;
+          user.providerData.forEach(function (profile) {
+            alert('Welcome, ' + profile.displayName + '!');
+            setInterval(function() {
+              location.reload();
+            }, 2000);
+          });
+          }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+          });
+      },
       logout() {
         firebase.auth().signOut().then(() => {
-          this.logoutMessage = 'You have signed out from the Guess Right Game!';
+          this.logoutMessage = 'You have signed out from the Guess the Number game!';
           this.$store.state.loggedIn = false;
           this.$store.state.currentUser = null;
         })
-       },
       },
+    },
 });
 </script>
 
