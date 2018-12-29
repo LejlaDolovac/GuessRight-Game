@@ -1,14 +1,20 @@
 <template>
-<div class="brain">
-    <router-link to="/">
-      <button class="button is-black is-pulled-left">&#8592;</button>
-    </router-link>
-    <br>
-    <div id="player-bot-div modal">
-        <img alt="Player vs bot" id="player-bot-img" src="../assets/player.jpg">
+<div class="brain container">
+    <div class="players columns">
+      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div class="player column is-two-fifths">
+        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <h2>Player</h2>
+        <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+      </div>
+      <div class="bot column is-two-fifths">
+        <img class="is-square" v-bind:src="this.$store.state.botImg">
+        <h2>{{ this.$store.state.botName }}</h2>
+      </div>
+      <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
     <div class="game-div">
-        <div class="message-body timer" v-show="botHasGuessed"> Apponent's Guess: {{ botGuessNumber }}</div>
+        <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
     <div v-else class="message-body timer">END</div>
@@ -16,16 +22,25 @@
     <router-link to="/highScore">
         <button class="button is-black" v-show="this.showHighScore">View highscore</button>
     </router-link>
-    <!--<p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
-    <div>
-    <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+    <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
+    <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
     </div>
-    <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button>
-    <br>
+
+    <div class="allGuessedNumbers container">
+      <ul>
+        <li v-for="number in allGuessedNumbers">
+          {{ number }}
+        </li>
+      </ul>
     </div>
-    <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Bot wins: <span>{{ botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
+
+
+    <router-link to="/">
+      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+    </router-link>
+    <!-- <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Bot wins: <span>{{ botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p> -->
 </div>
-   
+
 </template>
 
 <script>
@@ -53,7 +68,8 @@ export default {
         arrayOfNumbers: [],
         startNumberForArray: 0,
         botWins: '',
-        findNumberNumber: ''
+        findNumberNumber: '',
+        allGuessedNumbers: [],
       }
     },
     created() {
@@ -81,7 +97,7 @@ export default {
                     var randomNum = Math.floor(Math.random() * (this.arrayOfNumbers.length - this.arrayOfNumbers[0] + 1)) + this.arrayOfNumbers[0];
                     this.findNumberNumber = randomNum
                     this.botGuessNumber = this.arrayOfNumbers.find(this.findNumber)
-                    console.log("bot: " + this.botGuessNumber + " - Find: " + this.arrayOfNumbers.findIndex(this.findNumber))
+                    // console.log("bot: " + this.botGuessNumber + " - Find: " + this.arrayOfNumbers.findIndex(this.findNumber))
 
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
@@ -90,33 +106,35 @@ export default {
                         this.message = "The number is higher, bot!";
                         for (let o = 0; o < randomNum; o++){
                             this.arrayOfNumbers.splice(0, 1)
-                            console.log("inside high bot" + this.arrayOfNumbers)
-                        }   
+                            // console.log("inside high bot" + this.arrayOfNumbers)
+                        }
                         this.inputDisabled = false
                         this.timerFunction()
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, bot!";
                         for(let g = this.arrayOfNumbers.length; randomNum < this.arrayOfNumbers.length; g--) {
                             this.arrayOfNumbers.splice(g, 1)
-                            console.log("inside high bot" + this.arrayOfNumbers)
-                        }   
+                            // console.log("inside low bot" + this.arrayOfNumbers)
+                        }
                         this.inputDisabled = false
                         this.timerFunction()
                     }
-                    console.log("after bot" + this.arrayOfNumbers)
+                    // console.log("after bot" + this.arrayOfNumbers)
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
+                    // låter spelaren se alla gissade nummber
+                    this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
         },
         guessNumber: function () {
-          console.log("guess: " + this.guessedNumber)
+          // console.log("guess: " + this.guessedNumber)
           this.findNumberNumber = this.guessedNumber
           var indexNumber = this.arrayOfNumbers.findIndex(this.findNumber)
           if(this.arrayOfNumbers.findIndex(this.findNumber) < 0 || this.arrayOfNumbers.findIndex(this.findNumber) > this.arrayOfNumbers.length) {
               this.message = "Wrong input"
               return
           } else if (this.$store.state.randomNumber == this.guessedNumber) {
-              this.message = "Correct, my man!"; 
+              this.message = "Correct, my man!";
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
@@ -124,7 +142,9 @@ export default {
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
+                // nollstället spelet, ger ny siffra
                 this.$store.commit('newRandomNumber')
+                this.allGuessedNumbers = [];
                 this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 3
@@ -150,9 +170,10 @@ export default {
                   this.arrayOfNumbers.splice(g, 1)
               }
               this.message = "The number is lower, human!";
-          } 
-          
-          console.log("guess array outside " + this.arrayOfNumbers)
+          }
+          // låter spelaren se alla gissade nummber
+          this.allGuessedNumbers.push(this.guessedNumber)
+          // console.log("guess array outside " + this.arrayOfNumbers)
           this.botGuessing()
         },
         timerFunction() {
@@ -189,7 +210,7 @@ export default {
             for(var i = 1; i <= this.$store.state.number; i++){
             this.arrayOfNumbers.push(i)
             this.startNumberForArray++
-            console.log(this.arrayOfNumbers)
+            // console.log(this.arrayOfNumbers)
             }
         } else {
             window.location.href = '/'
@@ -199,6 +220,32 @@ export default {
 </script>
 
 <style scoped>
+
+.players img {
+  width: 100%;
+}
+
+.allGuessedNumbers {
+  color: White;
+  overflow: hidden;
+}
+
+.allGuessedNumbers ul {
+  margin: auto;
+  text-align: center;
+}
+
+.allGuessedNumbers li {
+  list-style: none;
+  width: 25px;
+  display: inline-block;
+}
+.bot {
+  visibility: hidden;
+}
+
+/* nytt ovanför */
+
 * {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -206,16 +253,16 @@ h3 {
     padding: 20px 0 5px;
     color: #351304;
 }
-p{
+p {
     color: midnightblue;
     /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;*/
 }
 .timer {
+    clear: left;
     padding: 20px;
-    background-color: #351304;
-    color:cornsilk;
+    color: White;
     text-align: center;
-    font-size: 30px;
+    font-size: 2em;
 }
 #player-bot-div {
     width: 100%;
@@ -228,24 +275,24 @@ p{
     position: relative;
 }
 .start-btn {
-  background: #351304;
-  font-weight: bold;
-  color: cornsilk;
-  margin-bottom: 20px;
+    background: #351304;
+    font-weight: bold;
+    color: cornsilk;
+    margin-bottom: 20px;
 }
 .search{
     background-color: cornsilk;
-	width: 150px;
-	height: 17px;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+	  width: 150px;
+	  height: 17px;
+	  -webkit-transition: .3s ease-in-out;
+	  transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
     margin: 10px;
 }
 .search:hover {
-	box-shadow: 0px 0px 150px grey;
+	  box-shadow: 0px 0px 150px grey;
     z-index: 2;
     -webkit-transition: all 200ms ease-in;
     -webkit-transform: scale(1.5);
@@ -277,6 +324,15 @@ p{
     text-align: center;
     font-size: 25px;
 }
+
+/* större mobil */
+
+@media (min-width: 600px) {
+  .bot {
+    visibility: visible;
+  }
+}
+
 @media only screen and (max-width: 600px) {
     #player-bot-img {
         width: 100%;
@@ -323,11 +379,11 @@ p{
         margin: 5px;
     }
 .button{
- background-color:black;
- color:white;
- width: 30%;
- border: 3px solid purple;
- font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
+   background-color:black;
+   color:white;
+   width: 30%;
+   border: 3px solid purple;
+   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
 }
 </style>
