@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueFire from 'vuefire'; //Skapar en anpassad version för Firebase & Vue.js
+import firebase from 'firebase/app' // databas firebase?
+import 'firebase/firestore' // used to database highscore
 import {fb} from './firebase-config' // Ger tillgång Firebase / Initierar Firebase.
 import { library } from '@fortawesome/fontawesome-svg-core' // installerar bibliotek som skall hålla i ikonerna
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem EN specifik ikon
@@ -17,6 +19,9 @@ library.add(faGoogle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
 Vue.use(VueFire);
+
+export const db = firebase.firestore() //firestore databas
+
 Vue.config.productionTip = false
 require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 
