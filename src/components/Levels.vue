@@ -76,18 +76,14 @@ export default {
 </script>
 
 <style scoped>
-
-container {
-  width: 600px;
-  height: auto;
+.modal, .modal-content {
+  width: 100%;
+  overflow-x: hidden;
 }
 h2{
-  text-align: center;
-  padding: 10px;
-  height: auto;
-  width: 100%;
+  padding: 20px;
+  margin: 20px;
   color: black;
-  box-sizing: border-box;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 30px;
   box-shadow: 0 0 10px rgb(185, 86, 185);
@@ -95,30 +91,16 @@ h2{
 }
 #eButton{
   border: 1px solid rgb(185, 78, 185);
-  box-sizing: border-box;
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  max-width: 100px;
-  margin: 0 auto;
+  width: 100px;
   padding: 15px;
   margin-top: 25px; 
   font-size: 15px;
 }
 @media only screen and (max-width: 1000px){
-    h2{
-      height: auto;
-      width: 100%;
-    }
-* {
-  box-sizing: border-box;
-}
-.column{
-  max-width: 30%;
-  padding: 5px;
-  float: left;
-}
 .pic{
-  border: 3px solid rgb(185, 74, 185);
+  border: 3px solid rgb(155, 123, 155);
   border-radius: 50%;
   margin: 20px 5px 20px;
 }
