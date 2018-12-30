@@ -7,6 +7,7 @@
         <h2>Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
+      <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2>{{ this.$store.state.botName }}</h2>
@@ -26,6 +27,7 @@
     <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
     </div>
 
+    <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
     <div class="allGuessedNumbers container">
       <ul>
         <li v-for="number in allGuessedNumbers">
@@ -142,8 +144,9 @@ export default {
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.hideNum = false
-                // nollstället spelet, ger ny siffra
+                // nollställer spelet, ger ny siffra
                 this.$store.commit('newRandomNumber')
+                // nollställer gissade siffror
                 this.allGuessedNumbers = [];
                 this.guessedNumber = '';
                 this.inputDisabled = true
@@ -221,8 +224,20 @@ export default {
 
 <style scoped>
 
+.brain {
+  margin-top: 30px;
+}
+
 .players img {
   width: 100%;
+}
+
+#desktopDivider {
+  visibility: hidden;
+}
+
+.column {
+  max-width: 400px;
 }
 
 .allGuessedNumbers {
@@ -240,8 +255,13 @@ export default {
   width: 25px;
   display: inline-block;
 }
+
 .bot {
   visibility: hidden;
+}
+
+.message-body {
+  border: none;
 }
 
 /* nytt ovanför */
@@ -325,11 +345,23 @@ p {
     font-size: 25px;
 }
 
-/* större mobil */
+/* större än mobil */
 
 @media (min-width: 600px) {
   .bot {
     visibility: visible;
+  }
+  #desktopDivider {
+    visibility: visible;
+    width: 50px;
+  }
+}
+
+/* större än tablet */
+
+@media (min-width: 992px) {
+  #desktopDivider {
+    width: 100px;
   }
 }
 
@@ -347,17 +379,9 @@ p {
     }
     .winner-loser-message {
         padding: 20px;
-        background-color: #351304;
-        color:cornsilk;
         text-align: center;
         font-size: 20px;
         }
-    .winner-loser-message span {
-        background-color: #351304;
-        color:cornsilk;
-        text-align: center;
-        font-size: 20px;
-    }
     .search {
         width: 80px;
         height: 80px;
