@@ -43,6 +43,7 @@ export default new Vuex.Store({
         state.timer = 100;
         state.number = 50;
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+        state.botName = 'Terminator';
         state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
       }
       // console.log("Correct number: " + state.number)

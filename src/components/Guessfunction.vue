@@ -30,7 +30,7 @@
     <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
     <div class="allGuessedNumbers container">
       <ul>
-        <li v-for="number in allGuessedNumbers">
+        <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
