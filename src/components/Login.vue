@@ -20,9 +20,8 @@
 
 <script>
 import firebase from 'firebase';
-import {fb} from '../firebase-config'
 
-export default( {
+export default ({
     name: 'Login',
     data() {
       return {
