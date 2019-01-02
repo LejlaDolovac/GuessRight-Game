@@ -50,16 +50,16 @@ export default {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
       easyNumbers: function() {
-      this.$store.state.easy = true
-      this.$store.state.medium = false
-      this.$store.state.hard= false
-      this.$store.state.levelChosen = true
+        this.$store.state.easy = true
+        this.$store.state.medium = false
+        this.$store.state.hard = false
+        this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
       mediumNumbers: function() {
         this.$store.state.medium = true
-        this.$store.state.easy = false
         this.$store.state.hard = false
+        this.$store.state.easy = false
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -78,6 +78,15 @@ export default {
 .container {
   width: 600px;
   height: auto;
+}
+.container button {
+  background-color: transparent;
+  width: 100px;
+  color:black;
+  border: none;
+  padding: 10px;
+  margin: 20px;
+  cursor: pointer
 }
 h2{
   text-align: center;
