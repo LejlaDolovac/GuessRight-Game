@@ -5,7 +5,7 @@
       <div class="player column is-two-fifths">
         <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2>Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
       <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
       <div class="bot column is-two-fifths">
@@ -93,6 +93,7 @@ export default {
             },1000)
         },
         botGuessing: function () {
+            console.log("Bot in: " + this.botGuessNumber)
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
@@ -125,6 +126,7 @@ export default {
                             this.startCountdown()
                         }
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
+
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
@@ -145,8 +147,10 @@ export default {
                 this.highNumber = this.$store.state.number
                 this.message = ''
             }
+            console.log("Bot out: " + this.botGuessNumber)
         },
         guessNumber: function () {
+            this.allGuessedNumbers.push(this.guessedNumber)
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
               this.message = "Wrong input"
               return
@@ -313,17 +317,17 @@ p {
 }
 .search{
     background-color: cornsilk;
-	  width: 150px;
-	  height: 17px;
-	  -webkit-transition: .3s ease-in-out;
-	  transition: .3s ease-in-out;
+    width: 150px;
+    height: 17px;
+    -webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
     margin: 10px;
 }
 .search:hover {
-	  box-shadow: 0px 0px 150px grey;
+    box-shadow: 0px 0px 150px grey;
     z-index: 2;
     -webkit-transition: all 200ms ease-in;
     -webkit-transform: scale(1.5);
