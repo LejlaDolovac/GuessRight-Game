@@ -14,7 +14,6 @@ library.add(faUserSecret)
 library.add(faFacebook)
 library.add(faGoogle)
 
-Vue.use(VueA11yDialog)
 Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
 Vue.use(VueFire);
 Vue.config.productionTip = false
