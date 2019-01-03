@@ -18,7 +18,7 @@
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore"><a class="pink button">High score</a></router-link>
+        <router-link to="/highScore"><a class="pink button">High Score</a></router-link>
       </div>
     </div>
   </template>

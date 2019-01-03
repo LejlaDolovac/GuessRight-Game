@@ -1,19 +1,23 @@
 <template>
 <div class="brain container">
+  <div>
+    <h1 class="room">guessroom</h1>
+  </div>
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
         <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
-        <h2>Player</h2>
+        <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
       <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
-        <h2>{{ this.$store.state.botName }}</h2>
+        <h2 class="heading">{{ this.$store.state.botName }}</h2>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
+    <!-- <div id="column"><h1 class="room">VS</h1></div> -->
     <div class="game-div">
         <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
@@ -28,19 +32,17 @@
     </div>
 
     <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
-    <div class="allGuessedNumbers container">
+    <div class="allGuessedNumbers container game-div">
       <ul>
         <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
+      <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-
-
     <router-link to="/">
-      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+      <button class="button is-black is-pulled-left text-is-white" style="width: 100%">&#8592; BACK TO LOBBY</button>
     </router-link>
-    <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
 </div>
 
 </template>
@@ -213,7 +215,7 @@ export default {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
-          } 
+          }
           // lägger in spelarens gissning i en array
           this.allGuessedNumbers.push(this.guessedNumber)
         },
@@ -270,13 +272,37 @@ export default {
 </script>
 
 <style scoped>
+.heading {
+  font-size: 2em;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.room {
+  font-size: 3.5em;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: -webkit-linear-gradient(#0036E9,#00B07D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.game-div {
+  /* border-radius: 5px; */
+  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+}
+/* #desktopDivider {
+  margin-bottom: 20px;
+} */
 
 .brain {
   margin-top: 30px;
 }
 
 .players img {
-  width: 100%;
+  width: 80%;
+  height: 80%
 }
 
 #desktopDivider {
@@ -352,7 +378,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+	  transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
