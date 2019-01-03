@@ -5,8 +5,6 @@
       <span class="is-size-5">Login with:</span>
       <br>
       <a @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/>Facebook </a> <br>
-      <!-- <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome"/> Google -->
-      <!-- <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br> -->
       <a @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome"/> Google</a>
     </div>
 
@@ -39,7 +37,6 @@ export default( {
         return this.$store.state.loggedIn
       }
     },
-    // sätter den inloggade spelaren som nuvarande spelare
     created() {
       if (firebase.auth().currentUser) {
         this.$store.state.loggedIn = true;
@@ -76,7 +73,6 @@ export default( {
              location.reload();
           }, 1500);
         });
-      // om det blir error
       }).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;

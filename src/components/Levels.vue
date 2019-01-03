@@ -3,7 +3,7 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2 class="has-white-text"> Please choose a level </h2>
+    <h2> Please choose a level </h2>
     </div>
     <div class='row'>
     <div class="column" @click="easyNumbers()"> <router-link to="/gamepage">
