@@ -13,6 +13,7 @@
       <br>
       <button v-if="loggedIn" class="button logout is-primary" @click="logout">Logout</button>
     </div>
+    
   </div>
 </template>
 
@@ -120,6 +121,7 @@ export default ({
     border: 2px solid white;
     position: absolute;
     right: 0;
+    margin: 5px 8px 0px 0px;
   }
   .fontawesome-container > a {
     display: block;
@@ -130,13 +132,20 @@ export default ({
   .logout {
     margin: 1.5% 0;
   }
+  .loggedin {
+    margin: 1%;
+    padding-top: 10px;
+    height: auto;
+    margin: 0 auto;
+  }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 699px) {
   .fontawesome-container {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
+    margin: 0;
     padding: 1.5%;
   }
   .fontawesome-container > a {

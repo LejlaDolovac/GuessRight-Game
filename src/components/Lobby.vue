@@ -1,14 +1,5 @@
 <template>
 <div class="container">
-  <!--
-    <div class="navbar has-text-white has-background-black">
-      <div class="fontawesome-container">
-        <span class="is-size-5">Login with:</span>
-        <br>
-        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
-        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome" @click="googleLogin"/> Google
-      </div>
-    </div> -->
   <Login></Login>
       <div class="nav buttons is-centered">
         <figure class="image">
@@ -85,11 +76,11 @@
     padding-top: 3%;
   }
   .nav {
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
   }
   .button {
-    width: 200px;
+    width: 400px;
     background-color: Black;
     color: White;
     font-size: 1.4em;
@@ -97,21 +88,13 @@
     margin-top: 10px;
     text-transform: uppercase;
   }
-  .fontawesome-container {
-    position: absolute;
-    right: 0;
-  }
   .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
   .pink {border-color: #ab0e86;}
   .purple {border-color: #59057b;}
   .yellow {border-color: #fae100;}
   
   @media (min-width: 992px) {
-    .nav {
-      max-width: 400px;
-    }
     .button {
-      width: 400px;
       font-size: 1.6em;
       background-color: Black;
       color: White;
@@ -119,11 +102,14 @@
       margin-top: 10px;
       text-transform: uppercase;
     }
-    @media (min-width: 600px) {
+  }
+    @media (max-width: 600px) {
       .button {
         width: 300px;
         font-size: 1.4em;
       }
+      .nav {
+        max-width: 300px;
+      }
     }
-  }
   </style>
