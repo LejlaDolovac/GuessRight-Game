@@ -1,33 +1,28 @@
 <template>
 <div class="modal is-active" v-show="showLevelsPage">
   <div class="modal-background"></div>
-  <div class="modal-content has-background-primary has-text-white">
   <div class="container">
-    <h2> Please choose one level <br> <span>&#8595;</span></h2>
-     <div class="difficulty">
+    <div class="has-background-black">
+    <h2 class="has-white-text"> Please choose a level </h2>
+    </div>
     <div class='row'>
-      <router-link to="/gamepage">  <div class="column">
-      <button class="button is-medium is-primary" @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
-     <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
-      </div></router-link>
-      <div class="column">
-    <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
-      <router-link to="/gamepage">
-        <button class="button is-medium is-primary" @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
-      </router-link>
-      </div>
-      <div class="column">
-     <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
-      <router-link to="/gamepage">
-        <button class="button is-medium is-primary" @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
-      </router-link>
-      <button class="modal-close is-large has-background-black" @click="close">x</button>
-      </div>
-      </div>
-    </div>
-    </div>
-    <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
+    <div class="column" @click="easyNumbers()"> <router-link to="/gamepage">
+      <button class="button is-medium is-dark has-text-white" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
+     </router-link>
+     </div>
 
+      <div class="column">
+      <router-link to="/gamepage">
+        <button class="button is-medium is-success has-text-white" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
+       </router-link>
+       </div>
+
+      <div class="column">
+      <router-link to="/gamepage">
+        <button class="button is-medium is-light has-text-white" @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
+      </router-link> </div>
+      <button class="modal-close is-large has-background-black" @click="close">x</button>
+    </div>
   </div>
 </div>
 </template>
@@ -76,12 +71,14 @@ export default {
 
 <style scoped>
 .container {
-  width: 600px;
+  width: 50%;
   height: auto;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
 .container button {
   background-color: transparent;
-  width: 100px;
+  width: 100%;
   color:black;
   border: none;
   padding: 10px;
@@ -92,43 +89,43 @@ h2{
   text-align: center;
   padding: 10px;
   height: auto;
-  width: 100%;
-  color: black;
-  box-sizing: border-box;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
-  box-shadow: 0 0 10px rgb(185, 86, 185);
+  font-size: 2.8em;
   text-transform: uppercase;
+  background-color: black;
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 #eButton{
   border: 1px solid rgb(185, 78, 185);
   box-sizing: border-box;
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  max-width: 100px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 10px;
-  font-size: 15px;
-}
-@media only screen and (max-width: 1000px){
-    h2{
-      height: auto;
-      width: 100%;
-    }
-* {
-  box-sizing: border-box;
+  padding: 5px;
+  font-size: 1.5em;
 }
 .column{
-  max-width: 30%;
-  padding: 5px;
+  max-width: 100%;
+  padding: 10px;
   float: left;
+  align-items: center;
+  background-color: black;
+  margin: 3px;
 }
-.pic{
-  border: 3px solid rgb(185, 74, 185);
-  border-radius: 50%;
-  margin: 20px 5px 20px;
+.row {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+.has-background-black {
+  margin: 3px;
+}
+span {
+  font-size: 0.5em;
 }
 
 button:focus { outline: none; }
-}
 </style>
