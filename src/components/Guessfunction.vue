@@ -119,7 +119,7 @@ export default {
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-3) - (this.lowNumber+3) + 1)) + (this.lowNumber+3);
                     }
                 }
-                    // om det är wall-e
+                // om det är wall-e
                 if (this.$store.state.easy == true && this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
                     this.botMessage = "Eeeva..?";
@@ -128,9 +128,9 @@ export default {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
-
                     // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
+                        // ändrar vad boten säger utifrån vilken det är
                         if (this.$store.state.hard == true) {
                             this.botMessage = "Hasta la vista, baby";
                         } else if (this.$store.state.medium == true) {
@@ -141,6 +141,7 @@ export default {
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
                         this.numberOfTries--;
+                        // pausar spelet medan boten gissar
                         this.numberInterval = setInterval(() => {
                             this.message = ''
                             this.hideNum = false
