@@ -76,9 +76,9 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 800px;
   width: 100%;
   height: auto;
+  padding: 2%;
 }
 .container button {
   background-color: transparent;
@@ -105,66 +105,49 @@ h2 {
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  max-width: 100px;
   margin: 0 auto;
-  padding: 10px;
-  font-size: 15px;
+  padding: 2%;
+  width: 50%;
+  font-size: 20px;
 }
-@media only screen and (max-width: 1000px){
-  h2{
-    height: auto;
-    width: 100%;
-  }
-.column{
-  max-width: 30%;
-  padding: 5px;
-  float: left;
-}
-.pic {
-  border: 3px solid rgb(185, 74, 185);
-  border-radius: 50%;
-  margin: 20px 5px 20px;
-}
-
-button:focus { outline: none; }
-}
-
 
 /* Platta */
-@media only screen and (min-width: 768px) and (max-width: 999px) {
+@media only screen and (min-width: 601px) and (max-width: 999px) {
   .modal-content {
-    height: 60%;
+    height: auto;
+    padding: 2%;
+    width: 90%;
   }
   .container {
     width: 100%;
   }
   .modal-content h2 {
     font-size: 2.5em;
-    box-shadow: none;
     margin-top: 1%;
     margin-bottom: 2%;
   }
   .column {
     width: 100%;
     max-width: 999px;
-    padding: 3%;
+    padding: 2%;
   }
   #eButton {
     width: 80%;
     max-width: 999px;
-    padding: 4%;
+    padding: 2%;
     font-size: 1.5em;
   }
   .container button {
-    padding: 6%;
+    padding: 2.5%;
+    margin-top: 1%;
   }
 }
 
 /* Mobil */
 @media only screen and (max-width: 600px) {
   .modal-content {
-    height: 50%;
-    overflow-x: hidden;
+    height: auto;
+    padding: 3%;
   }
   .container {
     width: 100%;
