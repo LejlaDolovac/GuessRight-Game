@@ -36,6 +36,7 @@ export default( {
         return this.$store.state.loggedIn
       }
     },
+    // sätter den inloggade spelaren som nuvarande spelare
     created() {
       if (firebase.auth().currentUser) {
         this.$store.state.loggedIn = true;
@@ -43,6 +44,7 @@ export default( {
       }
     },
     methods: {
+      // för att logga in med ett googlekonto
       googleLogin() {
       var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -54,6 +56,7 @@ export default( {
              location.reload();
           }, 1500);
         });
+      // om det blir error
       }).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -61,14 +64,15 @@ export default( {
           var credential = error.credential;
         });
     },
-      logout() {
-        firebase.auth().signOut().then(() => {
-          this.logoutMessage = 'You have signed out from the Guess Right Game!';
-          this.$store.state.loggedIn = false;
-          this.$store.state.currentUser = null;
-        })
-       },
-      },
+    // logga ut
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.logoutMessage = 'You have signed out from the Guess Right Game!';
+        this.$store.state.loggedIn = false;
+        this.$store.state.currentUser = null;
+      })
+     },
+    },
 });
 </script>
 

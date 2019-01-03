@@ -105,7 +105,15 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
+                if (this.$store.state.hard == true) {
+                    if((this.highNumber - 3) < this.$store.state.randomNumber || (this.lowNumber + 3) > this.$store.state.randomNumber) {
+                        this.botGuessNumber = this.$store.state.randomNumber
+                    } else {
+                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-3) - (this.lowNumber+3) + 1)) + (this.lowNumber+3);
+                    }
+                } else {
                     this.botGuessNumber = this.chooseRandom()
+                }
                     // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"

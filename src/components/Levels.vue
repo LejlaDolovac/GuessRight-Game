@@ -46,9 +46,11 @@ export default {
       }
     },
     methods: {
+      // stänger nivårutan
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
+      // används för att sätta nivån spelaren väljer
       easyNumbers: function() {
         this.$store.state.easy = true
         this.$store.state.medium = false

@@ -49,17 +49,21 @@
       Login
     },
     computed: {
+      // om regelrutan ska visas
       showRulesPage() {
         return this.$store.state.showRules;
       },
+      // om nivårutan ska visas
       showLevelsPage() {
         return this.$store.state.showLevels;
       },
     },
     methods: {
+      // öppnar regelrutan
       openRules: function() {
           this.$store.state.showRules = !this.$store.state.showRules
       },
+      // öppnar nivårutan
       openLevels: function() {
           this.$store.state.showLevels = !this.$store.state.showLevels
       },
