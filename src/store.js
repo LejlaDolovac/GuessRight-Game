@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
 export default new Vuex.Store({
   state: {
     number: '',
@@ -33,12 +32,14 @@ export default new Vuex.Store({
     levelNumber(state) {
       if (state.easy == true) {
         state.timer = 10;
-        state.number = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+        state.number = 10;
+        state.randomNumbers = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         state.botName = 'Wall-E';
         state.botImg = 'http://gb.images.s3.amazonaws.com/wp-content/uploads/2012/01/WALLE.png';
       } else if (state.medium == true) {
         state.timer = 15;
-        state.number = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
+        state.number = 30;
+        state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
         state.botName = 'R2-D2'; // fixa snyggare bilder, gärna png
         state.botImg = 'http://icons.iconarchive.com/icons/artua/star-wars/256/R2D2-icon.png';
       } else if (state.hard == true) {

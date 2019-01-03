@@ -4,22 +4,23 @@
   <div class="modal-content has-background-primary has-text-white">
   <div class="container">
     <h2> Please choose one level <br> <span>&#8595;</span></h2>
-     <div class="difficulty">
-    <div class='row'>
-      <router-link to="/gamepage">  <div class="column">
-      <button @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
+    <div class="difficulty">
+    <div class="row is-vcentered">
+      <router-link to="/gamepage">  
+      <div class="column">
+      <button class="button is-centered-mobile is-medium is-primary" @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
      <!-- <img src="../assets/Wall-E.png"  class="pic" alt="easy level" @click="easyNumbers()"/>  easy -->
       </div></router-link>
       <div class="column">
     <!--  <img src="../assets/R2D2.png"  class="pic" alt="medium level" @click="mediumNumbers()"/>  medium -->
       <router-link to="/gamepage">
-        <button @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
+        <button class="button is-medium is-primary" @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
       </router-link>
       </div>
       <div class="column">
      <!-- <img src="../assets/terminator.png" class="pic" alt="hard level" @click="hardNumbers()"/>  hard -->
       <router-link to="/gamepage">
-        <button @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
+        <button class="button is-medium is-primary" @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
       </router-link>
       <button class="modal-close is-large has-background-black" @click="close">x</button>
       </div>
@@ -27,7 +28,6 @@
     </div>
     </div>
     <!-- <router-link to="/gamepage"><button id="start-game">Starta spelet</button></router-link> -->
-
   </div>
 </div>
 </template>
@@ -70,11 +70,16 @@ export default {
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       }
-     }
+    }
   }
 </script>
 
 <style scoped>
+.container {
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+}
 .container button {
   background-color: transparent;
   width: 100px;
@@ -84,11 +89,11 @@ export default {
   margin: 20px;
   cursor: pointer
 }
-h2{
+h2 {
   text-align: center;
   padding: 10px;
-  height:auto;
-  max-width: 400px;
+  height: auto;
+  width: 100%;
   color: black;
   box-sizing: border-box;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -96,43 +101,91 @@ h2{
   box-shadow: 0 0 10px rgb(185, 86, 185);
   text-transform: uppercase;
 }
+#eButton {
+  border: 1px solid rgb(185, 78, 185);
+  box-shadow: 0 0 10px rgb(185, 102, 185);
+  height: auto;
+  max-width: 100px;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 15px;
+}
 @media only screen and (max-width: 1000px){
-    h2{
-      height: auto;
-      width: 100%;
-    }
-}
-* {
-  box-sizing: border-box;
-}
+  h2{
+    height: auto;
+    width: 100%;
+  }
 .column{
   max-width: 30%;
   padding: 5px;
   float: left;
 }
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
- .row{
-   max-width: 27%;
- }
-.pic{
+.pic {
   border: 3px solid rgb(185, 74, 185);
   border-radius: 50%;
   margin: 20px 5px 20px;
 }
-#eButton{
-  border: 1px solid rgb(185, 78, 185);
-  box-sizing: border-box;
-  box-shadow: 0 0 10px rgb(185, 102, 185);
-  height: auto;
-  max-width: 100px;
-  margin: 0 auto;
-  padding: 15px;
-  margin-top: 25px;
-  font-size: 15px;
-}
+
 button:focus { outline: none; }
+}
+
+
+/* Platta */
+@media only screen and (min-width: 768px) and (max-width: 999px) {
+  .modal-content {
+    height: 60%;
+  }
+  .container {
+    width: 100%;
+  }
+  .modal-content h2 {
+    font-size: 2.5em;
+    box-shadow: none;
+    margin-top: 1%;
+    margin-bottom: 2%;
+  }
+  .column {
+    width: 100%;
+    max-width: 999px;
+    padding: 3%;
+  }
+  #eButton {
+    width: 80%;
+    max-width: 999px;
+    padding: 4%;
+    font-size: 1.5em;
+  }
+  .container button {
+    padding: 6%;
+  }
+}
+
+/* Mobil */
+@media only screen and (max-width: 600px) {
+  .modal-content {
+    height: 50%;
+    overflow-x: hidden;
+  }
+  .container {
+    width: 100%;
+  }
+  .modal-content h2 {
+    font-size: 1.6em;
+    box-shadow: none;
+  }
+  .column {
+    width: 100%;
+    max-width: 600px;
+    padding: 2%;
+  }
+  .container button {
+    padding: 5%;
+    margin-right: -2%;
+  }
+  #eButton {
+    padding: 5%;
+    width: 95%;
+    max-width: 600px;
+  }
+}
 </style>

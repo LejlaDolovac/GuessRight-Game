@@ -40,7 +40,7 @@
     <router-link to="/">
       <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
     </router-link>
-    <!-- <p class="message-body wins-correct-message">Score: <span>{{ this.$store.state.correctAnswers }}</span> Bot wins: <span>{{ botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p> -->
+    <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
 </div>
 
 </template>
@@ -50,27 +50,33 @@ export default {
     name: 'Guessfunction',
     data() {
       return {
+        // siffran spelaren gissat på
         guessedNumber: '',
         message: '',
         hideNum: false,
         numberInterval: '',
         timerInterval: '',
         countdownInterval: '',
+        // visar hur många sekunder innan spelet startar och hur lång tid spelaren har på sig att gissa
         timer: 3,
         inputDisabled: true,
         startShow: true,
+        // hur många gånger spelaren får gissa
         numberOfTries: 5,
         timerShow: true,
         showHighScore: false,
+        // hur lång tid innan boten gissar
         timerBotInterval: '',
-        startNumber: '',
         levelNumber: '',
+        // vilken siffra boten gissar på
         botGuessNumber: '',
         botHasGuessed: false,
         arrayOfNumbers: [],
-        startNumberForArray: 0,
+        // det närmsta gissade numret som är under det rätta svaret
         lowNumber: 1,
+        // det närmsta gissade numret som är över det rätta svaret
         highNumber: '',
+        // en lista med alla nummer spelaren och boten har gissat på
         allGuessedNumbers: [],
       }
     },
@@ -80,6 +86,7 @@ export default {
     computed: {
     },
     methods: {
+        // hur lång tid innan speler startar
         startCountdown: function () {
             this.countdownInterval = setInterval(() => {
                 this.timer--
@@ -92,12 +99,14 @@ export default {
                 }
             },1000)
         },
+        // skapar botens gissning
         botGuessing: function () {
-            console.log("Bot in: " + this.botGuessNumber)
+            // pausar gissningstimern
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
                     this.botGuessNumber = this.chooseRandom()
+                    // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
@@ -107,6 +116,8 @@ export default {
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
                             this.guessedNumber = '';
+                            this.botHasGuessed = false
+                            this.allGuessedNumbers = [];
                             this.inputDisabled = true
                             this.timer = 3
                             this.startShow = true
@@ -116,6 +127,7 @@ export default {
                             clearInterval(this.numberInterval)
                         },2000)
                         clearInterval(this.timerInterval)
+                        // kollar om antalet spelomgångar är slut
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
                             this.startShow = true
@@ -125,12 +137,13 @@ export default {
                         } else {
                             this.startCountdown()
                         }
+                    // kollar om boten gissat lägre än rätt gissing
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
-
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
+                    // kollar om boten gissat högre än rätt gissing
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, bot!";
                         this.highNumber = this.botGuessNumber-1
@@ -142,26 +155,29 @@ export default {
                     // låter spelaren se alla gissade nummber
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
+            // ställer tillbaka högsta och lägsta siffran som spelet utgår ifrån
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
                 this.highNumber = this.$store.state.number
                 this.message = ''
             }
-            console.log("Bot out: " + this.botGuessNumber)
         },
         guessNumber: function () {
-            this.allGuessedNumbers.push(this.guessedNumber)
+            // kollar om spelaren gissat för högt eller för lågt utifrån vad spelaren och boten gissat på tidigare
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
               this.message = "Wrong input"
               return
+              // kollar om spelaren gissat rätt
           } else if (this.$store.state.randomNumber == this.guessedNumber) {
               this.message = "Correct, my man!";
+              this.botHasGuessed = false
               this.hideNum = !this.hideNum;
               this.$store.state.correctAnswers++;
               this.inputDisabled = true;
               this.numberOfTries--;
               this.lowNumber = 1
               this.highNumber = this.$store.state.number
+              // stoppar gissningstimern
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.message = ''
@@ -175,6 +191,7 @@ export default {
                 this.timer = 3
                 this.startShow = true
                 this.botGuessNumber = ''
+                // kollar om antalet spelomgångar är slut
                 if(this.numberOfTries == 0) {
                     this.message = "Tries up, my man!"
                     this.startShow = true
@@ -186,24 +203,36 @@ export default {
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
+          // kollar om det rätta svaren är högre än det spelaren gissat på
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.lowNumber = this.guessedNumber+1
               this.message = "The number is higher, human!";
               this.botGuessing()
+          // kollar om det rätta svaren är lägre än det spelaren gissat på
           } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
           } 
+          // lägger in spelarens gissning i en array
+          this.allGuessedNumbers.push(this.guessedNumber)
         },
+        // hur lång tid spelaren har att gissa
         timerFunction() {
             this.timerInterval = setInterval(() => {
                 this.timer--
+                // kollar om tiden gått ut
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
+                    this.lowNumber = 1
+                    this.highNumber = this.$store.state.number
+                    this.botGuessNumber = ''
+                    this.allGuessedNumbers = []
+                    this.message = ''
+                    this.botHasGuessed = false
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
                         this.startShow = true
@@ -214,16 +243,18 @@ export default {
                 }
               }, 1000);
           },
+          // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
-          }
+          },
       },
       mounted() {
         if(this.$store.state.levelChosen == true) {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
             this.startCountdown()
+            // försäkrar att högsta "gissade" siffra utgår från svårighetsgraden spelaren valt
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
             } else if (this.$store.state.medium == true) {
@@ -276,6 +307,7 @@ export default {
 
 .message-body {
   border: none;
+  color: white;
 }
 
 /* nytt ovanför */
@@ -333,19 +365,6 @@ p {
 }
 .btn:focus {
     outline:0;
-}
-.wins-correct-message {
-    padding: 20px;
-    background-color: #351304;
-    color:cornsilk;
-    text-align: center;
-    font-size: 25px;
-}
-.wins-correct-message span {
-    background-color: #351304;
-    color:cornsilk;
-    text-align: center;
-    font-size: 25px;
 }
 
 /* större än mobil */
