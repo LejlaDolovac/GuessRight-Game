@@ -11,6 +11,7 @@
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2>{{ this.$store.state.botName }}</h2>
+        <div class="bot-message">{{ botMessage }}</div>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
@@ -78,6 +79,10 @@ export default {
         highNumber: '',
         // en lista med alla nummer spelaren och boten har gissat på
         allGuessedNumbers: [],
+        // kollar om boten har gjort sin första gissning på numret
+        botFirstGuess: false,
+        // snicksnack med boten
+        botMessage: ''
       }
     },
     created() {
@@ -105,17 +110,34 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
+                // om det är terminator
                 if (this.$store.state.hard == true) {
                     if((this.highNumber - 3) < this.$store.state.randomNumber || (this.lowNumber + 3) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
+                        this.botMessage = "Wrong!";
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-3) - (this.lowNumber+3) + 1)) + (this.lowNumber+3);
                     }
+                }
+                    // om det är wall-e
+                if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                    this.botGuessNumber = this.chooseOneUpDown()
+                    this.botMessage = "Eeeva..?";
+                    console.log(this.botGuessNumber + " Eeeva")
                 } else {
                     this.botGuessNumber = this.chooseRandom()
+                    this.botFirstGuess = true;
                 }
+
                     // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
+                        if (this.$store.state.hard == true) {
+                            this.botMessage = "Hasta la vista, baby";
+                        } else if (this.$store.state.medium == true) {
+                            this.botMessage = "[Happy beep]";
+                        } else if (this.$store.state.easy == true) {
+                            this.botMessage = "Eeeva!!";
+                        }
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
                         this.numberOfTries--;
@@ -123,6 +145,7 @@ export default {
                             this.message = ''
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
+                            this.botFirstGuess = false;
                             this.guessedNumber = '';
                             this.botHasGuessed = false
                             this.allGuessedNumbers = [];
@@ -144,6 +167,13 @@ export default {
                             this.showHighScore = true
                         } else {
                             this.startCountdown()
+                            if(this.$store.state.hard == true) {
+                                this.botMessage = 'I need your clothes, your boots and your motorcycle.'
+                            } else if (this.$store.state.medium == true) {
+                                this.botMessage = 'Bleep-Bloop'
+                            } else if (this.$store.state.easy == true) {
+                                this.botMessage = 'Wall-eeee...'
+                            }
                         }
                     // kollar om boten gissat lägre än rätt gissing
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
@@ -177,6 +207,13 @@ export default {
               return
               // kollar om spelaren gissat rätt
           } else if (this.$store.state.randomNumber == this.guessedNumber) {
+              if (this.$store.state.hard == true) {
+                this.botMessage = "I'll be back";
+              } else if (this.$store.state.medium == true) {
+                this.botMessage = "[Sad boop]";
+              } else if (this.$store.state.easy == true) {
+                this.botMessage = "[Sad] Eeeva?";
+              }
               this.message = "Correct, my man!";
               this.botHasGuessed = false
               this.hideNum = !this.hideNum;
@@ -208,6 +245,13 @@ export default {
                     this.showHighScore = true
                 } else {
                     this.startCountdown()
+                    if(this.$store.state.hard == true) {
+                        this.botMessage = 'I need your clothes, your boots and your motorcycle.'
+                    } else if (this.$store.state.medium == true) {
+                        this.botMessage = 'Bleep-Bloop'
+                    } else if (this.$store.state.easy == true) {
+                        this.botMessage = 'Wall-eeee...'
+                    }
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
@@ -221,7 +265,7 @@ export default {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
-          } 
+          }
           // lägger in spelarens gissning i en array
           this.allGuessedNumbers.push(this.guessedNumber)
         },
@@ -251,6 +295,14 @@ export default {
                 }
               }, 1000);
           },
+          // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
+          chooseOneUpDown: function() {
+              if (this.botGuessNumber > this.$store.state.randomNumber) {
+                return this.botGuessNumber - 1;
+              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                return this.botGuessNumber + 1;
+              }
+          },
           // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
@@ -265,10 +317,13 @@ export default {
             // försäkrar att högsta "gissade" siffra utgår från svårighetsgraden spelaren valt
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
+                this.botMessage = 'I need your clothes, your boots and your motorcycle.'
             } else if (this.$store.state.medium == true) {
                 this.highNumber = 30
+                this.botMessage = 'Bleep-Bloop'
             } else if (this.$store.state.easy == true) {
                 this.highNumber = 10
+                this.botMessage = 'Wall-eeee...'
             }
         } else {
             window.location.href = '/'
@@ -318,6 +373,11 @@ export default {
 .message-body {
   border: none;
   color: white;
+}
+
+.bot-message {
+  color: White;
+  padding: 5px;
 }
 
 /* nytt ovanför */
