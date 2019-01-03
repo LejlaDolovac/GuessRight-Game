@@ -72,7 +72,8 @@
 
  <style scoped>
   .container {
-    width: 95%;
+    width: 100%;
+    max-width: 1280px;
     margin: auto;
   }
   h1 {
