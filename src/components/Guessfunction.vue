@@ -1,6 +1,6 @@
 <template>
 <div class="brain container">
-    <div class="players columns">
+    <div class="players columns is-mobile">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
         <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
@@ -331,12 +331,9 @@ export default {
 
 <style scoped>
 
-.brain {
-  margin-top: 30px;
-}
-
 .players img {
   width: 100%;
+  margin-top: 30px;
 }
 
 #desktopDivider {
@@ -344,7 +341,8 @@ export default {
 }
 
 .column {
-  max-width: 400px;
+  max-width: 300px;
+  height: auto;
 }
 
 .allGuessedNumbers {
@@ -396,23 +394,13 @@ p {
     text-align: center;
     font-size: 2em;
 }
-#player-bot-div {
-    width: 100%;
-    height: 100px;
-    justify-content: center;
-}
-#player-bot-img {
-    width: 30%;
-    height: auto;
-    position: relative;
-}
 .start-btn {
     background: #351304;
     font-weight: bold;
     color: cornsilk;
     margin-bottom: 20px;
 }
-.search{
+.search {
     background-color: cornsilk;
     width: 150px;
     height: 17px;
@@ -435,7 +423,7 @@ p {
     transition: all 200ms ease-in;
     transform: scale(1.8);
 }
-.btn{
+.btn {
     margin-top: 10px;
     color: cornsilk;
     background-color: #351304;
@@ -464,44 +452,47 @@ p {
   }
 }
 
+/* Mobilanpassning */
 @media only screen and (max-width: 600px) {
-    #player-bot-img {
-        width: 100%;
-        border-bottom: 2px solid white;
+
+.start-btn {
+    width: 90%;
+    height: 350px;
+    margin-top: 10px;
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.bot {
+visibility: visible;
+}
+
+.winner-loser-message {
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
     }
-    .start-btn {
-        width: 90%;
-        height: 350px;
-        margin-top: 10px;
-        font-size: 60px;
-        margin-bottom: 10px;
-    }
-    .winner-loser-message {
-        padding: 20px;
-        text-align: center;
-        font-size: 20px;
-        }
-    .search {
-        width: 80px;
-        height: 80px;
-        border-radius: 4px;
-        font-size: 35px;
-        text-align: center;
-        margin: 10px;
-    }
-    .search:hover {
-        transform: scale(1.2);
-    }
-    #time-left-timer {
-        height: 60px;
-    }
-    .btn {
-        width: 210px;
-        height: 70px;
-        font-size: 25px;
-        margin: 5px;
-    }
-.button{
+.search {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    font-size: 35px;
+    text-align: center;
+    margin: 10px;
+}
+.search:hover {
+    transform: scale(1.2);
+}
+#time-left-timer {
+    height: 60px;
+}
+.btn {
+    width: 210px;
+    height: 70px;
+    font-size: 25px;
+    margin: 5px;
+}
+.button {
    background-color:black;
    color:white;
    width: 30%;

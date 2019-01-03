@@ -67,7 +67,7 @@ export default {
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       }
-     }
+    }
   }
 </script>
 
@@ -87,7 +87,7 @@ export default {
   margin: 20px;
   cursor: pointer
 }
-h2{
+h2 {
   text-align: center;
   padding: 10px;
   height: auto;
@@ -99,9 +99,8 @@ h2{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-#eButton{
+#eButton {
   border: 1px solid rgb(185, 78, 185);
-  box-sizing: border-box;
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
   max-width: 100%;
