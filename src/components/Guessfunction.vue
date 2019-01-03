@@ -11,6 +11,7 @@
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2>{{ this.$store.state.botName }}</h2>
+        <div class="bot-message">{{ botMessage }}</div>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
@@ -78,6 +79,10 @@ export default {
         highNumber: '',
         // en lista med alla nummer spelaren och boten har gissat på
         allGuessedNumbers: [],
+        // kollar om boten har gjort sin första gissning på numret
+        botFirstGuess: false,
+        // snicksnack med boten
+        botMessage: 'Wall-eeee...'
       }
     },
     created() {
@@ -105,7 +110,16 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
-                    this.botGuessNumber = this.chooseRandom()
+                    // om det är wall-e
+                    if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                      this.botGuessNumber = this.chooseOneUpDown()
+                      this.botMessage = "Eeeva..?";
+                      console.log(this.botGuessNumber + " Eeeva")
+                    } else {
+                      this.botGuessNumber = this.chooseRandom()
+                      this.botFirstGuess = true;
+                    }
+
                     // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         this.message = "Bot Wins!!!"
@@ -115,6 +129,7 @@ export default {
                             this.message = ''
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
+                            this.botFirstGuess = false;
                             this.guessedNumber = '';
                             this.botHasGuessed = false
                             this.allGuessedNumbers = [];
@@ -213,7 +228,7 @@ export default {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
-          } 
+          }
           // lägger in spelarens gissning i en array
           this.allGuessedNumbers.push(this.guessedNumber)
         },
@@ -242,6 +257,14 @@ export default {
                     }
                 }
               }, 1000);
+          },
+          // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
+          chooseOneUpDown: function() {
+              if (this.botGuessNumber > this.$store.state.randomNumber) {
+                return this.botGuessNumber - 1;
+              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                return this.botGuessNumber + 1;
+              }
           },
           // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
           chooseRandom: function () {
@@ -310,6 +333,11 @@ export default {
 .message-body {
   border: none;
   color: white;
+}
+
+.bot-message {
+  color: White;
+  padding: 5px;
 }
 
 /* nytt ovanför */
