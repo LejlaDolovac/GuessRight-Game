@@ -9,7 +9,6 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem E
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret)
 library.add(faFacebook)
