@@ -101,6 +101,13 @@ export default {
                     this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
+                    if(this.$store.state.hard == true) {
+                        this.botMessage = 'I need your clothes, your boots and your motorcycle.'
+                    } else if (this.$store.state.medium == true) {
+                        this.botMessage = '[Neutral bleep-bloop]'
+                    } else if (this.$store.state.easy == true) {
+                        this.botMessage = 'Wall-eeee...'
+                    }
                 }
             },1000)
         },
@@ -112,12 +119,15 @@ export default {
             this.timerBotInterval = setInterval(() => {
                 // om det är terminator
                 if (this.$store.state.hard == true) {
-                    if((this.highNumber - 3) < this.$store.state.randomNumber || (this.lowNumber + 3) > this.$store.state.randomNumber) {
+                    if((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
-                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-3) - (this.lowNumber+3) + 1)) + (this.lowNumber+3);
+                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
                     }
+                }
+                if(this.$store.state.medium == true) {
+                    this.botMessage = "[Concentrated bloop]";
                 }
                 // om det är wall-e
                 if (this.$store.state.easy == true && this.botFirstGuess == true) {
@@ -168,13 +178,6 @@ export default {
                             this.showHighScore = true
                         } else {
                             this.startCountdown()
-                            if(this.$store.state.hard == true) {
-                                this.botMessage = 'I need your clothes, your boots and your motorcycle.'
-                            } else if (this.$store.state.medium == true) {
-                                this.botMessage = 'Bleep-Bloop'
-                            } else if (this.$store.state.easy == true) {
-                                this.botMessage = 'Wall-eeee...'
-                            }
                         }
                     // kollar om boten gissat lägre än rätt gissing
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
@@ -246,13 +249,6 @@ export default {
                     this.showHighScore = true
                 } else {
                     this.startCountdown()
-                    if(this.$store.state.hard == true) {
-                        this.botMessage = 'I need your clothes, your boots and your motorcycle.'
-                    } else if (this.$store.state.medium == true) {
-                        this.botMessage = 'Bleep-Bloop'
-                    } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-eeee...'
-                    }
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
@@ -321,7 +317,7 @@ export default {
                 this.botMessage = 'I need your clothes, your boots and your motorcycle.'
             } else if (this.$store.state.medium == true) {
                 this.highNumber = 30
-                this.botMessage = 'Bleep-Bloop'
+                this.botMessage = '[Neutral bleep-bloop]'
             } else if (this.$store.state.easy == true) {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
