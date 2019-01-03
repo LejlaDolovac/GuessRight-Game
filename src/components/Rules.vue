@@ -24,11 +24,13 @@
 export default {
     name: 'rules',
     methods: {
+      // stänger regelsidan
       close() {
         this.$store.state.showRules = !this.$store.state.showRules
       }
     },
     computed: {
+      // öppnar regelsidan
       showRulesPage() {
         return this.$store.state.showRules;
       }

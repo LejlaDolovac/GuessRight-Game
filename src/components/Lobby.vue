@@ -44,22 +44,25 @@
     },
     components: {
       Rules,
-      HighScore,
       Levels,
       Login
     },
     computed: {
+      // om regelrutan ska visas
       showRulesPage() {
         return this.$store.state.showRules;
       },
+      // om nivårutan ska visas
       showLevelsPage() {
         return this.$store.state.showLevels;
       },
     },
     methods: {
+      // öppnar regelrutan
       openRules: function() {
           this.$store.state.showRules = !this.$store.state.showRules
       },
+      // öppnar nivårutan
       openLevels: function() {
           this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -73,7 +76,8 @@
 
  <style scoped>
   .container {
-    width: 95%;
+    width: 100%;
+    max-width: 1280px;
     margin: auto;
   }
   h1 {
@@ -97,37 +101,28 @@
     position: absolute;
     right: 0;
   }
-
-
+  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+  .pink {border-color: #ab0e86;}
+  .purple {border-color: #59057b;}
+  .yellow {border-color: #fae100;}
+  
   @media (min-width: 992px) {
     .nav {
       max-width: 400px;
     }
     .button {
-      width: 200px;
+      width: 400px;
+      font-size: 1.6em;
       background-color: Black;
       color: White;
       border-width: 5px;
       margin-top: 10px;
       text-transform: uppercase;
     }
-    .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-    .pink {border-color: #ab0e86;}
-    .purple {border-color: #59057b;}
-    .yellow {border-color: #fae100;}
     @media (min-width: 600px) {
       .button {
         width: 300px;
         font-size: 1.4em;
-      }
-    }
-    @media (min-width: 992px) {
-      .nav {
-        max-width: 400px;
-      }
-      .button {
-        width: 400px;
-        font-size: 1.6em;
       }
     }
   }
