@@ -9,8 +9,8 @@
       <th>Score</th>
       <th>Date</th>
     </thead>
-    <tr v-for="score in highscoreBS" :key="score.h">
-      <td>{{score.hRank}}</td>
+    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+      <td>{{ index+1 }}</td>
       <td>{{score.hName}}</td>
       <td>{{score.hDate}}</td>
       <td>{{score.hScore}}</td>
@@ -45,12 +45,12 @@ export default {
       hName: '',
       hDate: new Date(),
       hScore: '',
-      hRank: ''
+      hRank: 1,
     }
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData').orderByChild('hScore')
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10)
   },
 
   methods: {
