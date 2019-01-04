@@ -1,24 +1,15 @@
 <template>
 <div class="container">
-  <!--
-    <div class="navbar has-text-white has-background-black">
-      <div class="fontawesome-container">
-        <span class="is-size-5">Login with:</span>
-        <br>
-        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="fontawesome"/> Facebook <br>
-        <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }" class="fontawesome" @click="googleLogin"/> Google
-      </div>
-    </div> -->
   <Login></Login>
       <div class="nav buttons is-centered">
         <figure class="image">
-          <img src="../assets/loggo.png" />
+          <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
-        <a class="yellow button" @click="openLevels()">Play</a>
+        <a class="yellow button" tabindex="0" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
-        <a class="purple button" @click="openRules()">Rules</a>
+        <a class="purple button" tabindex="0" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore"><a class="pink button">High Score</a></router-link>
+        <router-link to="/highScore" tabindex="-1"><a tabindex="0" class="pink button">High score</a></router-link>
       </div>
     </div>
   </template>
@@ -44,22 +35,25 @@
     },
     components: {
       Rules,
-      HighScore,
       Levels,
       Login
     },
     computed: {
+      // om regelrutan ska visas
       showRulesPage() {
         return this.$store.state.showRules;
       },
+      // om nivårutan ska visas
       showLevelsPage() {
         return this.$store.state.showLevels;
       },
     },
     methods: {
+      // öppnar regelrutan
       openRules: function() {
           this.$store.state.showRules = !this.$store.state.showRules
       },
+      // öppnar nivårutan
       openLevels: function() {
           this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -73,7 +67,8 @@
 
  <style scoped>
   .container {
-    width: 95%;
+    width: 100%;
+    max-width: 1280px;
     margin: auto;
   }
   h1 {
@@ -81,11 +76,11 @@
     padding-top: 3%;
   }
   .nav {
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
   }
   .button {
-    width: 200px;
+    width: 400px;
     background-color: Black;
     color: White;
     font-size: 1.4em;
@@ -93,42 +88,28 @@
     margin-top: 10px;
     text-transform: uppercase;
   }
-  .fontawesome-container {
-    position: absolute;
-    right: 0;
-  }
-
-
+  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+  .pink {border-color: #ab0e86;}
+  .purple {border-color: #59057b;}
+  .yellow {border-color: #fae100;}
+  
   @media (min-width: 992px) {
-    .nav {
-      max-width: 400px;
-    }
     .button {
-      width: 200px;
+      font-size: 1.6em;
       background-color: Black;
       color: White;
       border-width: 5px;
       margin-top: 10px;
       text-transform: uppercase;
     }
-    .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-    .pink {border-color: #ab0e86;}
-    .purple {border-color: #59057b;}
-    .yellow {border-color: #fae100;}
-    @media (min-width: 600px) {
+  }
+    @media (max-width: 600px) {
       .button {
         width: 300px;
         font-size: 1.4em;
       }
-    }
-    @media (min-width: 992px) {
       .nav {
-        max-width: 400px;
-      }
-      .button {
-        width: 400px;
-        font-size: 1.6em;
+        max-width: 300px;
       }
     }
-  }
   </style>

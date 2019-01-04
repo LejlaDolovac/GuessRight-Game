@@ -1,65 +1,68 @@
 <template>
-  <div class="container">
-    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
-    <h1>HighScore</h1>
-    <table class="table is-bordered is-striped is-narrow is-hoverable">
-      <thead style="background-color:#FAE100;">
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Date</th>
-      </thead>
-      <tr>
-        <td>Rank</td>
-        <td>Wall-E</td>
-        <td>32</td>
-        <td>2021-11-13</td>
-      </tr>
-      <tr class="is-selected">
-        <td>rank</td>
-        <td>Arnold</td>
-        <td>32</td>
-        <td>2021-11-13</td>
-      </tr>
-</table>
-<br>
- <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
-  </div>
+<div class="container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+  <h1>Highscore for Humans</h1>
+  <table class="table is-bordered is-striped is-narrow is-hoverable">
+    <thead style="background-color:#FAE100;">
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Score</th>
+    </thead>
+    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+      <td>{{ index+1 }}</td>
+      <td>{{score.hName}}</td>
+      <td>{{score.hDate}}</td>
+      <td>{{score.hScore}}</td>
+    </tr>
+  </table>
+
+  <br><button v-show="isClicked = !isClicked" @click="addHighscorePlayer(), isClicked=true" class="button">Add New score</button>
+  <br><br>
+  <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
+</div>
 </template>
 
 <script>
-
-//v-if newHighscore   class="is-selected"
-
-
+import { db } from '../firebase-config'
+import firebase from 'firebase'
 
 export default {
-    name: 'HighScoreFunction'
-          }
+  name: 'HighScoreFunction',
+  data() {
+    return {
+      isClicked : false,
+      highscoreDatas: [],
+      hName: '',
+      hDate: new Date(),
+      hScore: '',
+      hRank: 1,
+    }
+  },
 
+  firebase: {
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10)
+  },
 
-/*
-Funktion för att få datum
-getFullYear() + "-" + getMonth() + "-" + getDate()
+  methods: {
+    addHighscorePlayer() {
 
-Function add data.
-rank name date score
+      db.ref('highscoreData').push({
 
-How do we get score. bots/players
-input only when entering highscore.
-diffrent highscore players/bots
-*/
+        hName: this.$store.state.currentUser,
+        hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
+        hScore: this.$store.state.correctAnswers
 
+      });
 
+    },
+  }
+}
 </script>
 
-
-
-
 <style scoped>
-
 h1 {
-  font-size: 4em;
+  font-size: 300%;
   font-family: 'Black Ops One', cursive;
   color: white;
 }
@@ -74,4 +77,7 @@ table {
   margin-right: auto;
 }
 
+input {
+  width: 20%;
+}
 </style>

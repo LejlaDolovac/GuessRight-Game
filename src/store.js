@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
 export default new Vuex.Store({
   state: {
     number: '',
@@ -22,12 +21,14 @@ export default new Vuex.Store({
     botWins: 0
   },
   mutations: {
+    // skapar ett slumpmässigt nummer som används som det rätta svaret
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
     showRules(state) {
       state.show = !state.show
     },
+    // sätter vad nivåerna gör
     levelNumber(state) {
       if (state.easy == true) {
         state.timer = 10;

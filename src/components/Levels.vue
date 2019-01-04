@@ -3,25 +3,25 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2 class="has-white-text"> Please choose a level </h2>
+      <h2 class="has-white-text"> Please choose a level </h2>
     </div>
     <div class='row'>
-    <div class="column" @click="easyNumbers()"> <router-link to="/gamepage">
-      <button class="button is-medium is-dark has-text-white" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
-     </router-link>
-     </div>
+      <div class="column" @click="easyNumbers()"> <router-link to="/gamepage" tabindex="0">
+        <button class="button is-medium is-dark has-text-white" tabindex="-1" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
+      </router-link>
+      </div>
 
-      <div class="column">
-      <router-link to="/gamepage">
-        <button class="button is-medium is-success has-text-white" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
-       </router-link>
-       </div>
+        <div class="column">
+        <router-link to="/gamepage" tabindex="0">
+          <button class="button is-medium is-success has-text-white" tabindex="-1" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
+        </router-link>
+        </div>
 
-      <div class="column">
-      <router-link to="/gamepage">
-        <button class="button is-medium is-light has-text-white" @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
-      </router-link> </div>
-      <button class="modal-close is-large has-background-black" @click="close">x</button>
+        <div class="column">
+        <router-link to="/gamepage" tabindex="0">
+          <button class="button is-medium is-light has-text-white" tabindex="-1" @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
+        </router-link> </div>
+        <button class="modal-close is-large has-background-black" tabindex="0" @click="close">x</button>
     </div>
   </div>
 </div>
@@ -41,9 +41,11 @@ export default {
       }
     },
     methods: {
+      // stänger nivårutan
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
+      // används för att sätta nivån spelaren väljer
       easyNumbers: function() {
         this.$store.state.easy = true
         this.$store.state.medium = false
@@ -65,7 +67,7 @@ export default {
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       }
-     }
+    }
   }
 </script>
 
@@ -85,7 +87,7 @@ export default {
   margin: 20px;
   cursor: pointer
 }
-h2{
+h2 {
   text-align: center;
   padding: 10px;
   height: auto;
@@ -97,9 +99,8 @@ h2{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-#eButton{
+#eButton {
   border: 1px solid rgb(185, 78, 185);
-  box-sizing: border-box;
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
   max-width: 100%;
