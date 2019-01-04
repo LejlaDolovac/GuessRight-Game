@@ -50,11 +50,10 @@ export default {
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData')
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore')
   },
 
   methods: {
-
     addHighscorePlayer() {
       console.log(this.$store.state.currentUser),
 
@@ -65,8 +64,7 @@ export default {
 
         });
 
-    }
-
+    },
   }
 }
 
