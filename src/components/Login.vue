@@ -13,6 +13,9 @@
       <span class="is-size-5 is-size-6-mobile">Login with:</span>
       <a class="fontawesome is-size-6-mobile" tabindex="0" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
       <a class="fontawesome is-size-6-mobile" tabindex="0" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
+<<<<<<< HEAD
+>>>>>>> 510266ea8c27a6486a8144d48d68d5e3d27170b4
+=======
 >>>>>>> 510266ea8c27a6486a8144d48d68d5e3d27170b4
     </div>
 
@@ -47,12 +50,16 @@ export default( {
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     created() {
       if (firebase.auth().currentUser) {
         this.$store.state.loggedIn = true;
         this.$store.state.currentUser = firebase.auth().currentUser.displayName;
       }
     },
+=======
+    // sätter den inloggade spelaren som nuvarande spelare
+>>>>>>> 510266ea8c27a6486a8144d48d68d5e3d27170b4
 =======
     // sätter den inloggade spelaren som nuvarande spelare
 >>>>>>> 510266ea8c27a6486a8144d48d68d5e3d27170b4
@@ -99,6 +106,7 @@ a {
     position: absolute;
     right: 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
     a {
     color: white;
@@ -107,6 +115,8 @@ a {
       margin-top: 1.5%;
     }
 =======
+=======
+>>>>>>> 510266ea8c27a6486a8144d48d68d5e3d27170b4
     margin: 5px 8px 0px 0px;
   }
   .fontawesome-container > a {
