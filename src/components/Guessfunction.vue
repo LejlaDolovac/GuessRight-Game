@@ -10,7 +10,12 @@
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
-      <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
+      <div class="column flex">
+        <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
+        <div class="flex">
+          <h2 class="room">vs.</h2>
+        </div>
+      </div>
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
@@ -284,17 +289,18 @@ export default {
   font-size: 3.5em;
   text-transform: uppercase;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#0036E9,#00B07D);
+  background: -webkit-linear-gradient(#094A6F,#64C6BD);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .game-div {
-  /* border-radius: 5px; */
   background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
 }
-/* #desktopDivider {
-  margin-bottom: 20px;
-} */
+.flex{
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
 
 .brain {
   margin-top: 30px;
