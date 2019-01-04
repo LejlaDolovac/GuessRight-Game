@@ -5,11 +5,11 @@
         <figure class="image">
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
-        <a class="yellow button" tabindex="0" @click="openLevels()">Play</a>
+        <a class="yellow button" tabindex="0" @keyup.enter="openLevels" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
-        <a class="purple button" tabindex="0" @click="openRules()">Rules</a>
+        <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore" tabindex="-1"><a tabindex="0" class="pink button">High score</a></router-link>
+        <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
       </div>
     </div>
   </template>
@@ -51,11 +51,14 @@
     methods: {
       // öppnar regelrutan
       openRules: function() {
-          this.$store.state.showRules = !this.$store.state.showRules
+        this.$store.state.showRules = !this.$store.state.showRules
       },
       // öppnar nivårutan
       openLevels: function() {
-          this.$store.state.showLevels = !this.$store.state.showLevels
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
+      openHighScore() {
+        this.$router.push('/highScore')
       },
       close: function() {
         this.active = !this.active
@@ -70,6 +73,10 @@
     width: 100%;
     max-width: 1280px;
     margin: auto;
+  }
+  a:focus {
+    background: lightgrey;
+    border: thin solid black;
   }
   h1 {
     margin-bottom: 30px;

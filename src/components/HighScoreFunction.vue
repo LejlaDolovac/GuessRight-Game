@@ -19,23 +19,13 @@
 
   <br><button @click="addHighscorePlayer()" class="button">Add New score</button>
 
-
-
-  <!--
-  <v-show="" form id="form" @submit="addHighscorePlayer">
-    <input type="text" v-model="newHighscore.name" placeholder="Write your name here">
-    <input type="submit" value="add to highscore">
--->
   <br><br>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
 </div>
 </template>
 
 <script>
-import {
-  db
-} from '../firebase-config'
-import firebase from 'firebase'
+import {db} from '../firebase-config'
 
 export default {
   name: 'HighScoreFunction',
