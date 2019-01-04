@@ -73,11 +73,15 @@ table {
   opacity: 0
 }
 body {
-  height: 1000px;
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
   background-color: #000;
   line-height: 1;
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 }
+
 
 </style>

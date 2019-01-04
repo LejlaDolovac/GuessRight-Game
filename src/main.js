@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueFire from 'vuefire'; //Skapar en anpassad version för Firebase & Vue.js
+import firebase from 'firebase';
 import {fb} from './firebase-config' // Ger tillgång Firebase / Initierar Firebase.
 import { library } from '@fortawesome/fontawesome-svg-core' // installerar bibliotek som skall hålla i ikonerna
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem EN specifik ikon
@@ -26,12 +27,13 @@ fb.auth().onAuthStateChanged(() => {
   if(!app) {
     app = new Vue({
       router,
-      store, /*
-      computed: {
-        currentUser() {
-          return this.$store.state.currentUser;
+      store, 
+      created() {
+        if (firebase.auth().currentUser) {
+          this.$store.state.loggedIn = true;
+          this.$store.state.currentUser = firebase.auth().currentUser.displayName;
         }
-      }, */
+      },
       render: h => h(App)
     }).$mount('#app');
   }

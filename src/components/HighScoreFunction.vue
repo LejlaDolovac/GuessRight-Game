@@ -12,8 +12,8 @@
     <tr v-for="score in highscoreBS" :key="score.h">
       <td>{{score.hRank}}</td>
       <td>{{score.hName}}</td>
-      <td>{{score.hDate}}</td>
       <td>{{score.hScore}}</td>
+      <td>{{score.hDate}}</td>
     </tr>
   </table>
 
@@ -60,7 +60,7 @@ export default {
 
         db.ref('highscoreData').push({
 
-          hName: firebase.auth().currentUser().getDisplayName(),
+          hName: this.$store.state.currentUser,
           hScore: this.$store.state.correctAnswers
 
         });
