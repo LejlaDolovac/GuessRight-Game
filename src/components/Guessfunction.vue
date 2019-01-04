@@ -6,7 +6,7 @@
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
-        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <img class="" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
@@ -308,8 +308,8 @@ export default {
 }
 
 .players img {
-  width: 80%;
-  height: 80%
+  width: 60%;
+  height: 60%
 }
 
 #desktopDivider {
