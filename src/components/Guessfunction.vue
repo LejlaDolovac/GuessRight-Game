@@ -1,23 +1,32 @@
 <template>
 <div class="brain container">
-    <div class="players columns is-mobile">
+  <div>
+    <h1 class="room">guessroom</h1>
+  </div>
+    <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
-        <img class="is-square" :alt="`Profile picture of you`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
-        <h2>Player</h2>
-        <input autofocus v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <h2 class="heading">Player</h2>
+        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
-      <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
+      <div class="column flex">
+        <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
+        <div class="flex">
+          <h2 class="room">vs.</h2>
+        </div>
+      </div>
       <div class="bot column is-two-fifths">
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
-        <h2>{{ this.$store.state.botName }}</h2>
-        <div class="bot-message">{{ botMessage }}</div>
+        <img class="is-square" v-bind:src="this.$store.state.botImg">
+        <h2 class="heading">{{ this.$store.state.botName }}</h2>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
+    <!-- <div id="column"><h1 class="room">VS</h1></div> -->
     <div class="game-div">
         <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
+    <div><h3 style=" color: white;">TIME LEFT:</h3></div>
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
     <div v-else class="message-body timer">END</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
@@ -29,19 +38,17 @@
     </div>
 
     <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
-    <div class="allGuessedNumbers container">
+    <div class="allGuessedNumbers container game-div">
       <ul>
         <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
+      <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-
-
     <router-link to="/">
-      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+      <button class="button is-black is-pulled-left text-is-white" style="width: 100%">&#8592; BACK TO LOBBY</button>
     </router-link>
-    <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
 </div>
 
 </template>
@@ -207,7 +214,7 @@ export default {
         guessNumber: function () {
             // kollar om spelaren gissat för högt eller för lågt utifrån vad spelaren och boten gissat på tidigare
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
-              this.message = "Wrong input"
+              this.message = "Number to high or to low, try again"
               return
               // kollar om spelaren gissat rätt
           } else if (this.$store.state.randomNumber == this.guessedNumber) {
@@ -330,10 +337,34 @@ export default {
 </script>
 
 <style scoped>
+.heading {
+  font-size: 2em;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.room {
+  font-size: 3.5em;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: -webkit-linear-gradient(#094A6F,#64C6BD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.game-div {
+  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+}
+.flex{
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
 
 .players img {
-  width: 100%;
-  margin-top: 30px;
+  width: 80%;
+  height: 80%
 }
 
 #desktopDivider {
@@ -405,7 +436,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+	  transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
