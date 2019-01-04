@@ -26,6 +26,7 @@
     <div class="game-div">
         <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
+    <div><h3 style=" color: white;">TIME LEFT:</h3></div>
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
     <div v-else class="message-body timer">END</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
