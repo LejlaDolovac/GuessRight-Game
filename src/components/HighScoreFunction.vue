@@ -9,77 +9,55 @@
       <th>Date</th>
       <th>Score</th>
     </thead>
-    <tr v-for="score in highscoreBS" :key="score.h">
-      <td>{{score.hRank}}</td>
+    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+      <td>{{ index+1 }}</td>
       <td>{{score.hName}}</td>
       <td>{{score.hDate}}</td>
       <td>{{score.hScore}}</td>
     </tr>
   </table>
 
-  <br><button @click="addHighscorePlayer()" class="button">Add New score</button>
-
-
-
-  <!--
-  <v-show="" form id="form" @submit="addHighscorePlayer">
-    <input type="text" v-model="newHighscore.name" placeholder="Write your name here">
-    <input type="submit" value="add to highscore">
--->
+  <br><button v-show="isClicked = !isClicked" @click="addHighscorePlayer(), isClicked=true" class="button">Add New score</button>
   <br><br>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
 </div>
 </template>
 
 <script>
-import {
-  db
-} from '../firebase-config'
+import { db } from '../firebase-config'
 import firebase from 'firebase'
 
 export default {
   name: 'HighScoreFunction',
   data() {
     return {
+      isClicked : false,
       highscoreDatas: [],
       hName: '',
       hDate: new Date(),
       hScore: '',
-      hRank: ''
+      hRank: 1,
     }
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData')
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10)
   },
 
   methods: {
-
     addHighscorePlayer() {
 
-        db.ref('highscoreData').push({
+      db.ref('highscoreData').push({
 
-          hName: this.$store.state.currentUser,
-          hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() +1) + "-" + this.hDate.getDate(),
-          hScore: this.$store.state.correctAnswers
+        hName: this.$store.state.currentUser,
+        hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
+        hScore: this.$store.state.correctAnswers
 
-        });
+      });
 
-    }
-
+    },
   }
 }
-
-/*//addDate(){getFullYear() + "-" + getMonth() + "-" + getDate()}
-
-    if (this.$store.correctAnswers == hScore) {
-      if (loggedIn: false) {        //show form      }
-      if (this.$store.loggedIn: true) {
-        //exportera var user från login  Google/facebook      }
-    },
-    if (this.$store.botWins == ) { //addHighscoreBot()
-    }
-*/
 </script>
 
 <style scoped>

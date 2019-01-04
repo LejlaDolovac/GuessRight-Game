@@ -24,8 +24,6 @@ export default new Vuex.Store({
     // skapar ett slumpmässigt nummer som används som det rätta svaret
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
-      console.log("ran n " + state.number)
-      console.log("ran r " + state.randomNumber)
     },
     showRules(state) {
       state.show = !state.show
