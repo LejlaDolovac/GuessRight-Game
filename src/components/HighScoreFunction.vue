@@ -17,19 +17,8 @@
     </tr>
   </table>
 
-  <input v-model="hName" placeholder="name" class="input" required type="text" >
-  <br><button @click="addHighscorePlayer(hName)" class="button">Add New score</button>
+  <br><button @click="addHighscorePlayer()" class="button">Add New score</button>
 
-
-  <br><br>
-  <form @submit="addHighscore(hRank, hName, hDate, hScore)">
-    <h2>Add a New Highscore</h2>
-    <input v-model="hRank" placeholder="rank" class="input" required>
-    <br><input v-model="hName" placeholder="name" class="input" required>
-    <br><input v-model="hDate" placeholder="date" class="input" required>
-    <br><input v-model="hScore" placeholder="score" class="input" required>
-    <br><button type="submit" class="button">Add New score</button>
-  </form>
 
 
   <!--
@@ -37,13 +26,16 @@
     <input type="text" v-model="newHighscore.name" placeholder="Write your name here">
     <input type="submit" value="add to highscore">
 -->
-<br><br>
+  <br><br>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
 </div>
 </template>
 
 <script>
-import {  db} from '../firebase-config'
+import {
+  db
+} from '../firebase-config'
+import firebase from 'firebase'
 
 export default {
   name: 'HighScoreFunction',
@@ -53,7 +45,7 @@ export default {
       hName: '',
       hDate: '',
       hScore: '',
-      hRank:''
+      hRank: ''
     }
   },
 
@@ -62,24 +54,24 @@ export default {
   },
 
   methods: {
-    addHighscore(hName, hDate, hScore) {
-      db.ref('highscoreData').push({
-        hName: hName,
-        hDate: hDate,
-        hScore: hScore
-      });
+
+    addHighscorePlayer() {
+      console.log(this.$store.state.currentUser),
+
+        db.ref('highscoreData').push({
+
+          hName: firebase.auth().currentUser().getDisplayName(),
+          hScore: this.$store.state.correctAnswers
+
+        });
+
     }
-    /*
-    ,
-    addHighscorePlayer(hName) {
-    addDate(){getFullYear() + "-" + getMonth() + "-" + getDate()}
-    addScore(){this.$store.correctAnswers}
-    addHighscore(hName, hDate, hScore)
-   }
-  */
+
   }
 }
-/*
+
+/*//addDate(){getFullYear() + "-" + getMonth() + "-" + getDate()}
+
     if (this.$store.correctAnswers == hScore) {
       if (loggedIn: false) {        //show form      }
       if (this.$store.loggedIn: true) {
@@ -110,6 +102,4 @@ table {
 input {
   width: 20%;
 }
-
-
 </style>
