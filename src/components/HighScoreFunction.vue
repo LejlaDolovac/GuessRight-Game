@@ -50,7 +50,7 @@ export default {
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData')
+    highscoreBS: db.ref('highscoreData').orderByChild("hScore")
   },
 
   methods: {
