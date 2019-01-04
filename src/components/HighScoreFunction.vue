@@ -12,8 +12,8 @@
     <tr v-for="score in highscoreBS" :key="score.h">
       <td>{{score.hRank}}</td>
       <td>{{score.hName}}</td>
-      <td>{{score.hScore}}</td>
       <td>{{score.hDate}}</td>
+      <td>{{score.hScore}}</td>
     </tr>
   </table>
 
@@ -43,7 +43,7 @@ export default {
     return {
       highscoreDatas: [],
       hName: '',
-      hDate: '',
+      hDate: new Date(),
       hScore: '',
       hRank: ''
     }
@@ -56,11 +56,11 @@ export default {
   methods: {
 
     addHighscorePlayer() {
-      console.log(this.$store.state.currentUser),
 
         db.ref('highscoreData').push({
 
           hName: this.$store.state.currentUser,
+          hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() +1) + "-" + this.hDate.getDate(),
           hScore: this.$store.state.correctAnswers
 
         });
