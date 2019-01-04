@@ -6,8 +6,8 @@
     <thead style="background-color:#FAE100;">
       <th>Rank</th>
       <th>Name</th>
-      <th>Score</th>
       <th>Date</th>
+      <th>Score</th>
     </thead>
     <tr v-for="score in highscoreBS" :key="score.h">
       <td>{{score.hRank}}</td>
