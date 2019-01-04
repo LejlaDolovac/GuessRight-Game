@@ -3,13 +3,13 @@
     <div class="players columns is-mobile">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
-        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <img class="is-square" :alt="`Profile picture of you`" src="https://img.icons8.com      /color/1600/circled-user-male-skin-type-1-2.png">
         <h2>Player</h2>
         <input autofocus v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
       <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
       <div class="bot column is-two-fifths">
-        <img class="is-square" v-bind:src="this.$store.state.botImg">
+        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2>{{ this.$store.state.botName }}</h2>
         <div class="bot-message">{{ botMessage }}</div>
       </div>

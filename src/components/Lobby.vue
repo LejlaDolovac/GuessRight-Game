@@ -3,13 +3,13 @@
   <Login></Login>
       <div class="nav buttons is-centered">
         <figure class="image">
-          <img src="../assets/loggo.png" />
+          <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
-        <a class="yellow button" @click="openLevels()">Play</a>
+        <a class="yellow button" tabindex="0" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
-        <a class="purple button" @click="openRules()">Rules</a>
+        <a class="purple button" tabindex="0" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore"><a class="pink button">High score</a></router-link>
+        <router-link to="/highScore" tabindex="-1"><a tabindex="0" class="pink button">High score</a></router-link>
       </div>
     </div>
   </template>

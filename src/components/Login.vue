@@ -3,8 +3,8 @@
 
     <div class="fontawesome-container has-background-primary" v-if="!loggedIn">
       <span class="is-size-5 is-size-6-mobile">Login with:</span>
-      <a class="fontawesome is-size-6-mobile" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
-      <a class="fontawesome is-size-6-mobile" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
+      <a class="fontawesome is-size-6-mobile" tabindex="0" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
+      <a class="fontawesome is-size-6-mobile" tabindex="0" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
     </div>
 
     <div class="loggedin">
@@ -38,33 +38,9 @@ export default ({
       }
     },
     // sätter den inloggade spelaren som nuvarande spelare
-    created() {
-      if (firebase.auth().currentUser) {
-        this.$store.state.loggedIn = true;
-        this.$store.state.currentUser = firebase.auth().currentUser.displayName;
-      }
-    },
     methods: {
-      facebookLogin(){
-        var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-      });
-    },
-
       googleLogin(){
-      var provider = new firebase.auth.GoogleAuthProvider();
+       var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function(result) {
           var token = result.credential.accessToken;
           var user = result.user;

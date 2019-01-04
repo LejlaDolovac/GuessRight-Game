@@ -6,7 +6,7 @@
       <thead style="background-color:#FAE100;">
         <th>Rank</th>
         <th>Name</th>
-        <th>Score</th>
+        <th>Score</th>  
         <th>Date</th>
       </thead>
       <tr>
@@ -34,8 +34,8 @@
 
 
 export default {
-    name: 'HighScoreFunction'
-          }
+    name: 'HighScoreFunction',
+    }
 
 
 /*
