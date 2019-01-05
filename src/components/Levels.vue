@@ -55,8 +55,8 @@ export default {
       },
       mediumNumbers: function() {   // funktion för medium-nivån
         this.$store.state.medium = true
-        this.$store.state.easy = false
         this.$store.state.hard = false
+        this.$store.state.easy = false
         this.$store.state.levelChosen = true
           this.$store.state.showLevels = !this.$store.state.showLevels
         

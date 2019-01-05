@@ -22,7 +22,10 @@ export default new Router({
     {
       path: '/highScore',
       name: 'highscore',
-        component: () => import( './views/HighScore.vue')
+        component: () => import( './views/HighScore.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/rules',
