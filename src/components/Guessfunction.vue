@@ -22,6 +22,7 @@
         </div>
       </div>
       <div class="bot column is-two-fifths">
+        <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
         <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
@@ -479,8 +480,29 @@ p {
     outline:0;
 }
 
-/* större än mobil */
+/* Balloon for bot message */
+.speech-bubble {
+    position: absolute;
+    top: 30px;
+    right: 175px;
+    padding: 10px;
+	border-radius: 1em;
+}
 
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 40%;
+	width: 0;
+	border: 20px solid transparent;
+	border-top-color: #FF755F;
+	border-bottom: 0;
+	border-left: 0;
+	margin-bottom: -20px;
+}
+
+/* större än mobil */
 @media (min-width: 600px) {
   .bot {
     visibility: visible;
@@ -492,7 +514,6 @@ p {
 }
 
 /* större än tablet */
-
 @media (min-width: 992px) {
   #desktopDivider {
     width: 100px;

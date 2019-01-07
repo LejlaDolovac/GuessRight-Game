@@ -83,7 +83,7 @@ body {
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 }
 
-// Möjlighet att scrolla i mobil
+// Available scrolling on
 @media only screen and (max-width: 600px) {
   body {
     overflow-y: scroll;

@@ -56,6 +56,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  overflow-y: auto;
+}
 h1 {
   font-size: 300%;
   font-family: 'Black Ops One', cursive;
