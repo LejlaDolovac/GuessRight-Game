@@ -313,6 +313,7 @@ export default {
                     this.botGuessNumber = ''
                     this.allGuessedNumbers = []
                     this.message = ''
+                    this.botFirstGuess = false;
                     this.botHasGuessed = false
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
