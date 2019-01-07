@@ -6,7 +6,7 @@
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
-        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
@@ -31,9 +31,6 @@
     <div v-if="numberOfTries == 0" class="message-body timer">END</div>
     <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
-    <router-link to="/highScore">
-        <button class="button is-black" v-show="this.showHighScore">View highscore</button>
-    </router-link>
     <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
     <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
     </div>
@@ -47,8 +44,10 @@
       </ul>
       <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-    <router-link to="/">
-      <button class="button is-black is-pulled-left text-is-white" style="width: 100%">&#8592; BACK TO LOBBY</button>
+
+
+    <router-link to="/" tabindex="-1">
+      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
     </router-link>
 </div>
 
@@ -310,6 +309,9 @@ export default {
                         this.message = "Tries up, my man!"
                         this.startShow = true
                         this.timerShow = false
+                        setInterval(function() {
+                            window.location.href = '/highScore'
+                        }, 2000);
                     } else {
                         this.startCountdown()
                     }

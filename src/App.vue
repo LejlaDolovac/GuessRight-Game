@@ -82,6 +82,4 @@ body {
   line-height: 1;
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 }
-
-
 </style>

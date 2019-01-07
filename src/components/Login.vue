@@ -3,15 +3,16 @@
 
     <div class="fontawesome-container has-background-primary" v-if="!loggedIn">
       <span class="is-size-5 is-size-6-mobile">Login with:</span>
-      <a class="fontawesome is-size-6-mobile" tabindex="0" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
-      <a class="fontawesome is-size-6-mobile" tabindex="0" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
+      <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="facebookLogin" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
+      <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="googleLogin" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
+      <span>{{ errorText }} </span>
     </div>
 
     <div class="loggedin">
       <span v-if="loggedIn">You are signed in as: {{ this.$store.state.currentUser }} </span>
       <span v-if="!loggedIn" class="is-italic"> {{ logoutMessage }} </span>
       <br>
-      <button v-if="loggedIn" class="button logout is-primary" @click="logout">Logout</button>
+      <button v-if="loggedIn" class="button logout is-primary" tabindex="0" @click="logout">Logout</button>
     </div>
     
   </div>
@@ -20,13 +21,13 @@
 <script>
 import facebookLogin from 'facebook-login-vuejs';
 import firebase from 'firebase'
-import {fb} from '../firebase-config'
 
 export default ({
     name: 'Login',
     data() {
       return {
-        logoutMessage: ''
+        logoutMessage: '',
+        errorText: ''
       }
     },
     computed: {
@@ -41,38 +42,34 @@ export default ({
     methods: {
       googleLogin(){
        var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        var user = result.user;
         user.providerData.forEach(function (profile) {
           alert('Welcome, ' + profile.displayName + '!');
           setInterval(function() {
-             location.reload();
-          }, 2000);
+             window.location.href = '/'
+          }, 1500);
         });
         }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
+            alert(errorCode + ": " + errorMessage);
           });
       },
       facebookLogin() {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function(result) {
-          var token = result.credential.accessToken;
           var user = result.user;
           user.providerData.forEach(function (profile) {
             alert('Welcome, ' + profile.displayName + '!');
             setInterval(function() {
-              location.reload();
-            }, 2000);
+               window.location.href = '/'
+            }, 1500);
           });
           }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
+            alert(errorCode + ": " + errorMessage);
           });
       },
       logout() {
