@@ -16,7 +16,6 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
-
   <br><button v-show="isClicked = !isClicked" @click="addHighscorePlayer(), isClicked=true" class="button">Add New score</button>
   <br><br>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
@@ -51,7 +50,11 @@ export default {
         hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
         hScore: this.$store.state.correctAnswers
       });
-    },
+
+    }
+  },
+  mounted() {
+	    this.$confetti.start()
   }
 }
 </script>

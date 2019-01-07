@@ -64,6 +64,9 @@
         this.active = !this.active
         console.log("hi")
       },
+    },
+    mounted() {
+      this.$confetti.stop()
     }
   }
   </script>
