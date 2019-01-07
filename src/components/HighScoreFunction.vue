@@ -115,10 +115,6 @@ export default {
 </script>
 
 <style scoped>
-button {
-  margin: 0;
-}
-
 h1 {
   font-size: 300%;
   font-family: 'Black Ops One', cursive;
