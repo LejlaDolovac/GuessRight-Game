@@ -9,7 +9,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'; // laddar hem 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import axios from 'axios';
+import axios from 'axios'; // behövs för att kunna ladda upp egen bild
 
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret);
@@ -21,19 +21,19 @@ Vue.use(VueFire);
 Vue.config.productionTip = false,
 require("./assets/main.scss"); // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 
-
 let app = '';
 
 fb.auth(). onAuthStateChanged(() => {
   if(!app) {
     app = new Vue({
       router,
-      store, /*
-      computed: {
-        currentUser() {
-          return this.$store.state.currentUser;
+      store, 
+      created() {
+        if (firebase.auth().currentUser) {
+          this.$store.state.loggedIn = true;
+          this.$store.state.currentUser = firebase.auth().currentUser.displayName;
         }
-      }, */
+      },
       render: h => h(App)
     }).$mount('#app');
   }

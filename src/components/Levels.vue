@@ -9,22 +9,26 @@
     <input type="file" @change="onFileSelected">
     </div>
     <div class='row'>
-    <div class="column" @click="easyNumbers()"> <router-link to="/gamepage">
-      <button class="button is-medium is-dark has-text-white" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
-     </router-link>
-     </div>
 
-      <div class="column">
-      <router-link to="/gamepage">
-        <button class="button is-medium is-success has-text-white" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
-       </router-link>
-       </div>
+      <div class="column" @keyup.enter="easyNumbers()"> 
+        <router-link to="/gamepage">
+          <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
+        </router-link>
+      </div>
 
-      <div class="column">
-      <router-link to="/gamepage">
-        <button class="button is-medium is-light has-text-white" @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
-      </router-link> </div>
-      <button class="modal-close is-large has-background-black" @click="close">x</button>
+        <div class="column" @keyup.enter="mediumNumbers()">
+          <router-link to="/gamepage">
+            <button class="button is-medium is-success has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
+          </router-link>
+        </div>
+
+        <div class="column" @keyup.enter="hardNumbers()">
+          <router-link to="/gamepage">
+            <button class="button is-medium is-light has-text-white" tabindex="-1"  @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
+          </router-link> 
+        </div>
+
+        <button class="modal-close is-large has-background-black" @keyup.enter="close" @click="close">x</button>
     </div>
     </div>
 
@@ -130,5 +134,11 @@ h2{
   margin: 20px 5px 20px;
 }
 }
+<<<<<<< HEAD
 button:focus { outline: none; }
+=======
+span {
+  font-size: 0.5em;
+}
+>>>>>>> 4445dec6a8543ad7a8b1d3b5c177f9b903c805de
 </style>
