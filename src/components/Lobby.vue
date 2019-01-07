@@ -9,7 +9,7 @@
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
+        <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">Highscore</a></router-link>
       </div>
     </div>
   </template>
@@ -110,13 +110,13 @@
       text-transform: uppercase;
     }
   }
-    @media (max-width: 600px) {
-      .button {
-        width: 300px;
-        font-size: 1.4em;
-      }
-      .nav {
-        max-width: 300px;
-      }
+  @media (max-width: 600px) {
+    .button {
+      width: 300px;
+      font-size: 1.4em;
     }
+    .nav {
+      max-width: 300px;
+    }
+  }
   </style>
