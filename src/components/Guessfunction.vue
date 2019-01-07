@@ -1,5 +1,10 @@
 <template>
 <div class="brain container">
+
+  <router-link to="/" tabindex="-1">
+    <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+  </router-link>
+
   <div>
     <h1 class="room">guessroom</h1>
   </div>
@@ -51,7 +56,6 @@
       <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
-
 </template>
 
 <script>
@@ -101,9 +105,8 @@ export default {
     computed: {
     },
     methods: {
-        
         startCountdown: function () {
-            console.log("timer: " + this.timer)
+            // console.log("timer: " + this.timer)
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
@@ -130,7 +133,7 @@ export default {
                     } else if (this.$store.state.medium == true) {
                         this.botMessage = '[Neutral bleep-bloop]'
                     } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-eeee...'
+                        this.botMessage = 'Wall-e.'
                     }
                 }
             },1000)
@@ -143,27 +146,24 @@ export default {
             this.timerBotInterval = setInterval(() => {
                 // if it's the terminator
                 if (this.$store.state.hard == true) {
-                    if((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                    if ((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
                     }
                 }
-                // if it's R2-D2
-                if (this.$store.state.medium == true && this.botFirstGuess == true) {
-                    this.botGuessNumber = this.chooseInBetween()
+                // om det är R2-D2
+                else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
-                    console.log(this.botGuessNumber)
-                } else if (this.$store.state.medium == true) {
                     this.botGuessNumber = this.chooseRandom()
-                    this.botFirstGuess = true;
                 }
-                // if it's Wall-e 
-                if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                // om det är wall-e
+                else if (this.$store.state.easy == true && this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
                     this.botMessage = "Eeeva..?";
-                } else if (this.$store.state.easy == true) {
+                }
+                else if (this.$store.state.easy == true) {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
@@ -175,7 +175,7 @@ export default {
                         } else if (this.$store.state.medium == true) {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
-                            this.botMessage = "Eeeva!!";
+                            this.botMessage = "Eeeva!";
                         }
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
@@ -324,18 +324,22 @@ export default {
                 }
               }, 1000);
           },
-          // R2-D2: boten gissar på ett tal mitt emellan de senaste gissningarna
-          chooseInBetween: function() {
-            let middleNumber = this.guessedNumber + this.botGuessNumber;
-            middleNumber = Math.floor(middleNumber / 2);
-            return middleNumber
-          },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
+            console.log(this.allGuessedNumbers)
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                return this.botGuessNumber - 1;
-              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                return this.botGuessNumber + 1;
+                let newBotGuess = this.botGuessNumber - 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess - 1;
+                }
+                return newBotGuess;
+              }
+              else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                let newBotGuess = this.botGuessNumber + 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess + 1;
+                }
+                return newBotGuess;
               }
           },
           // creates a random number between highest and lowest last guess
