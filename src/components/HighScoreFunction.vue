@@ -46,15 +46,11 @@ export default {
   methods: {
     // stores the player and bot scores
     addHighscorePlayer() {
-
       db.ref('highscoreData').push({
-
         hName: this.$store.state.currentUser,
         hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
         hScore: this.$store.state.correctAnswers
-
       });
-
     },
   }
 }

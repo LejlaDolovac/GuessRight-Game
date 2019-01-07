@@ -8,47 +8,47 @@
       <div class="player column is-two-fifths">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
         <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
         <div class="flex">
-          <h2 class="room">vs.</h2>
+            <div><h3 class="has-text-white">TIME LEFT:</h3></div>
+            <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
+            <div v-if="numberOfTries == 0" class="message-body timer">END</div>
+            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
+            <h2 class="room">vs.</h2>
         </div>
       </div>
       <div class="bot column is-two-fifths">
-        <img class="is-square" v-bind:src="this.$store.state.botImg">
+        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
         <div class="bot-message">{{ botMessage }}</div>
+        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
     <!-- <div id="column"><h1 class="room">VS</h1></div> -->
-    <div class="game-div">
-        <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
-    <div><h3 style=" color: white;">TIME LEFT:</h3></div>
-    <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-    <div v-if="numberOfTries == 0" class="message-body timer">END</div>
-    <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-    <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
     <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
     <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
-    </div>
-
     <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
     <div class="allGuessedNumbers container game-div">
+    <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
+    <br>
       <ul>
         <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
-      <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
+      <br>
+      <span class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span> 
     </div>
 
-
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 
@@ -386,52 +386,49 @@ export default {
 }
 .game-div {
   background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+  padding: 2%;
 }
-.flex{
+.flex {
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
+  padding-bottom: 40px;
 }
-
 .players img {
   width: 60%;
   height: 60%
 }
-
 #desktopDivider {
   visibility: hidden;
 }
-
+.high-low {
+    padding: 1%;
+    margin: -10px;
+}
 .column {
   max-width: 300px;
   height: auto;
 }
-
 .allGuessedNumbers {
   color: White;
   overflow: hidden;
 }
-
 .allGuessedNumbers ul {
   margin: auto;
   text-align: center;
 }
-
 .allGuessedNumbers li {
   list-style: none;
   width: 25px;
   display: inline-block;
 }
-
 .bot {
   visibility: hidden;
 }
-
 .message-body {
   border: none;
   color: white;
 }
-
 .bot-message {
   color: White;
   padding: 5px;
@@ -451,7 +448,7 @@ p {
 }
 .timer {
     clear: left;
-    padding: 20px;
+    padding: 10px;
     color: White;
     text-align: center;
     font-size: 2em;
@@ -514,9 +511,14 @@ p {
   }
 }
 
-/* Mobilanpassning */
+/* Mobile */
 @media only screen and (max-width: 600px) {
-
+.container {
+    padding: 1%;
+}
+.column {
+    max-width: 50%;
+}
 .start-btn {
     width: 90%;
     height: 350px;
@@ -526,14 +528,15 @@ p {
 }
 
 .bot {
-visibility: visible;
+    visibility: visible;
 }
 
 .winner-loser-message {
     padding: 20px;
     text-align: center;
-    font-size: 20px;
-    }
+    font-size: 15px;
+}
+
 .search {
     width: 80px;
     height: 80px;
