@@ -159,14 +159,16 @@ export default {
                     this.botGuessNumber = this.chooseRandom()
                 }
                 // om det är wall-e
-                else if (this.$store.state.easy == true && this.botFirstGuess == true) {
-                    this.botGuessNumber = this.chooseOneUpDown()
+                else if (this.$store.state.easy == true) {
+                    if (this.botFirstGuess == true) {
+                        this.botGuessNumber = this.chooseOneUpDown()
+                    } else {
+                        this.botGuessNumber = this.chooseRandom()
+                        this.botFirstGuess = true;
+                    }
                     this.botMessage = "Eeeva..?";
                 }
-                else if (this.$store.state.easy == true) {
-                    this.botGuessNumber = this.chooseRandom()
-                    this.botFirstGuess = true;
-                }
+                
                     // checks if the bot guesses right                    
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
@@ -254,6 +256,7 @@ export default {
               this.inputDisabled = true;
               this.numberOfTries--;
               this.lowNumber = 1
+              this.botFirstGuess = false;
               this.highNumber = this.$store.state.number
               // stops the guessing timer
               clearInterval(this.timerInterval)
