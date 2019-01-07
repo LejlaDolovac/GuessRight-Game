@@ -1,17 +1,18 @@
 
 <template>
 <div class="brain container">
-    <div class="players columns">
+    <div class="players columns is-mobile">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
         <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2>Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        <input autofocus v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
       <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2>{{ this.$store.state.botName }}</h2>
+        <div class="bot-message">{{ botMessage }}</div>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
@@ -79,6 +80,10 @@ export default {
         highNumber: '',
         // en lista med alla nummer spelaren och boten har gissat på
         allGuessedNumbers: [],
+        // kollar om boten har gjort sin första gissning på numret
+        botFirstGuess: false,
+        // snicksnack med boten
+        botMessage: ''
       }
     },
     created() {
@@ -97,6 +102,13 @@ export default {
                     this.timer = this.$store.state.timer
                     this.inputDisabled = false
                     this.timerFunction()
+                    if(this.$store.state.hard == true) {
+                        this.botMessage = 'I need your clothes, your boots and your motorcycle.'
+                    } else if (this.$store.state.medium == true) {
+                        this.botMessage = '[Neutral bleep-bloop]'
+                    } else if (this.$store.state.easy == true) {
+                        this.botMessage = 'Wall-eeee...'
+                    }
                 }
             },1000)
         },
@@ -106,16 +118,46 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
+                // om det är terminator
+                if (this.$store.state.hard == true) {
+                    if((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                        this.botGuessNumber = this.$store.state.randomNumber
+                    } else {
+                        this.botMessage = "Wrong!";
+                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
+                    }
+                }
+                if(this.$store.state.medium == true) {
+                    this.botMessage = "[Concentrated bloop]";
+                }
+                // om det är wall-e
+                if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                    this.botGuessNumber = this.chooseOneUpDown()
+                    this.botMessage = "Eeeva..?";
+                    console.log(this.botGuessNumber + " Eeeva")
+                } else {
                     this.botGuessNumber = this.chooseRandom()
+                    this.botFirstGuess = true;
+                }
                     // kollar om botens gissning är rätt
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
+                        // ändrar vad boten säger utifrån vilken det är
+                        if (this.$store.state.hard == true) {
+                            this.botMessage = "Hasta la vista, baby";
+                        } else if (this.$store.state.medium == true) {
+                            this.botMessage = "[Happy beep]";
+                        } else if (this.$store.state.easy == true) {
+                            this.botMessage = "Eeeva!!";
+                        }
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
                         this.numberOfTries--;
+                        // pausar spelet medan boten gissar
                         this.numberInterval = setInterval(() => {
                             this.message = ''
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
+                            this.botFirstGuess = false;
                             this.guessedNumber = '';
                             this.botHasGuessed = false
                             this.allGuessedNumbers = [];
@@ -170,6 +212,13 @@ export default {
               return
               // kollar om spelaren gissat rätt
           } else if (this.$store.state.randomNumber == this.guessedNumber) {
+              if (this.$store.state.hard == true) {
+                this.botMessage = "I'll be back";
+              } else if (this.$store.state.medium == true) {
+                this.botMessage = "[Sad boop]";
+              } else if (this.$store.state.easy == true) {
+                this.botMessage = "[Sad] Eeeva?";
+              }
               this.message = "Correct, my man!";
               this.botHasGuessed = false
               this.hideNum = !this.hideNum;
@@ -214,7 +263,7 @@ export default {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
-          } 
+          }
           // lägger in spelarens gissning i en array
           this.allGuessedNumbers.push(this.guessedNumber)
         },
@@ -244,6 +293,14 @@ export default {
                 }
               }, 1000);
           },
+          // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
+          chooseOneUpDown: function() {
+              if (this.botGuessNumber > this.$store.state.randomNumber) {
+                return this.botGuessNumber - 1;
+              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                return this.botGuessNumber + 1;
+              }
+          },
           // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
@@ -258,10 +315,13 @@ export default {
             // försäkrar att högsta "gissade" siffra utgår från svårighetsgraden spelaren valt
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
+                this.botMessage = 'I need your clothes, your boots and your motorcycle.'
             } else if (this.$store.state.medium == true) {
                 this.highNumber = 30
+                this.botMessage = '[Neutral bleep-bloop]'
             } else if (this.$store.state.easy == true) {
                 this.highNumber = 10
+                this.botMessage = 'Wall-eeee...'
             }
         } else {
             window.location.href = '/'
@@ -272,12 +332,9 @@ export default {
 
 <style scoped>
 
-.brain {
-  margin-top: 30px;
-}
-
 .players img {
   width: 100%;
+  margin-top: 30px;
 }
 
 #desktopDivider {
@@ -285,7 +342,8 @@ export default {
 }
 
 .column {
-  max-width: 400px;
+  max-width: 300px;
+  height: auto;
 }
 
 .allGuessedNumbers {
@@ -313,6 +371,11 @@ export default {
   color: white;
 }
 
+.bot-message {
+  color: White;
+  padding: 5px;
+}
+
 /* nytt ovanför */
 
 * {
@@ -332,23 +395,13 @@ p {
     text-align: center;
     font-size: 2em;
 }
-#player-bot-div {
-    width: 100%;
-    height: 100px;
-    justify-content: center;
-}
-#player-bot-img {
-    width: 30%;
-    height: auto;
-    position: relative;
-}
 .start-btn {
     background: #351304;
     font-weight: bold;
     color: cornsilk;
     margin-bottom: 20px;
 }
-.search{
+.search {
     background-color: cornsilk;
     width: 150px;
     height: 17px;
@@ -371,7 +424,7 @@ p {
     transition: all 200ms ease-in;
     transform: scale(1.8);
 }
-.btn{
+.btn {
     margin-top: 10px;
     color: cornsilk;
     background-color: #351304;
@@ -400,44 +453,47 @@ p {
   }
 }
 
+/* Mobilanpassning */
 @media only screen and (max-width: 600px) {
-    #player-bot-img {
-        width: 100%;
-        border-bottom: 2px solid white;
+
+.start-btn {
+    width: 90%;
+    height: 350px;
+    margin-top: 10px;
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.bot {
+visibility: visible;
+}
+
+.winner-loser-message {
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
     }
-    .start-btn {
-        width: 90%;
-        height: 350px;
-        margin-top: 10px;
-        font-size: 60px;
-        margin-bottom: 10px;
-    }
-    .winner-loser-message {
-        padding: 20px;
-        text-align: center;
-        font-size: 20px;
-        }
-    .search {
-        width: 80px;
-        height: 80px;
-        border-radius: 4px;
-        font-size: 35px;
-        text-align: center;
-        margin: 10px;
-    }
-    .search:hover {
-        transform: scale(1.2);
-    }
-    #time-left-timer {
-        height: 60px;
-    }
-    .btn {
-        width: 210px;
-        height: 70px;
-        font-size: 25px;
-        margin: 5px;
-    }
-.button{
+.search {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    font-size: 35px;
+    text-align: center;
+    margin: 10px;
+}
+.search:hover {
+    transform: scale(1.2);
+}
+#time-left-timer {
+    height: 60px;
+}
+.btn {
+    width: 210px;
+    height: 70px;
+    font-size: 25px;
+    margin: 5px;
+}
+.button {
    background-color:black;
    color:white;
    width: 30%;

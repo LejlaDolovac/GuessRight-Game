@@ -1,26 +1,30 @@
 <template>
 <div class="modal is-active" v-show="showLevelsPage">
   <div class="modal-background"></div>
-  <div class="modal-content has-background-black has-text-white">
   <div class="container">
-    <h2 class="title is-2 has-text-warning">Please choose one level <br> <span>&#8595;</span></h2>
-     <div class="difficulty">
+    <div class="has-background-black">
+    <h2 class="has-white-text"> Please choose level and avatar </h2>
+    <p> or upload your own image </p>
+    <button @click="onUpload">Upload</button> <!-- Uploads the file -->
+    <input type="file" @change="onFileSelected">
+    </div>
     <div class='row'>
-      <router-link to="/gamepage">  <div class="column">
-      <button class="button is-medium is-primary" @click="easyNumbers()" id="eButton" type="button"> Easy Level </button>
-      </div></router-link>
+    <div class="column" @click="easyNumbers()"> <router-link to="/gamepage">
+      <button class="button is-medium is-dark has-text-white" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
+     </router-link>
+     </div>
+
       <div class="column">
       <router-link to="/gamepage">
-        <button class="button is-medium is-primary" @click="mediumNumbers()" id="eButton" type="button"> Medium Level </button>
-      </router-link>
-      </div>
+        <button class="button is-medium is-success has-text-white" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
+       </router-link>
+       </div>
+
       <div class="column">
       <router-link to="/gamepage">
-        <button class="button is-medium is-primary" @click="hardNumbers()" id="eButton" type="button"> Hard Level </button>
-      </router-link>
+        <button class="button is-medium is-light has-text-white" @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
+      </router-link> </div>
       <button class="modal-close is-large has-background-black" @click="close">x</button>
-      </div>
-      </div>
     </div>
     </div>
 
@@ -34,26 +38,27 @@ export default {
     name: 'Levels',
     data() {
       return {
-        numbers: []
+        numbers: [],
+        selectedFile: null
       }
     },
     computed: {
       showLevelsPage() {
-        return this.$store.state.showLevels;  // öppnar ( ?)
+        return this.$store.state.showLevels;  // opens the level page
       }
     },
     methods: {
       close() {
-        this.$store.state.showLevels = !this.$store.state.showLevels // stänger när man valt en nivå
+        this.$store.state.showLevels = !this.$store.state.showLevels // closes the level menu by clicking anywhere
       },
-      easyNumbers: function() {   // funktion för easy-nivåm
+      easyNumbers: function() {   // funktion easy-level
       this.$store.state.easy = true
       this.$store.state.medium = false
       this.$store.state.hard= false
       this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      mediumNumbers: function() {   // funktion för medium-nivån
+      mediumNumbers: function() {   // funktion medium-level
         this.$store.state.medium = true
         this.$store.state.hard = false
         this.$store.state.easy = false
@@ -62,13 +67,30 @@ export default {
         
         
       },
-      hardNumbers: function() {   // funktion för hard-nivån
+      hardNumbers: function() {   // funktion hard-level
         this.$store.state.hard = true,
         this.$store.state.easy = false,
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
           this.$store.state.showLevels = !this.$store.state.showLevels
+        },
+        onFileSelected (event) {
+          this.selectedFile = event.target.files[0] // this is the file the user selected
+
+        },
+        // here you upload your own avatar-image
+        onUpload() {
+          const fd = new FormData(); // sends form-data object
+          fd.append('image', this.selectedFile, this.selectedFile.name) 
+          axios.post('', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress:' + Math.round(uploadEvent / uploadEvent.total * 100)+ '%')
+          }
+           })
+           .then(res =>{
+           console.log(res)})
         }
+
       }
      }
   
@@ -85,11 +107,14 @@ h2{
   margin: 20px;
   color: black;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
-  box-shadow: 0 0 10px rgb(185, 86, 185);
+  font-size: 2.8em;
   text-transform: uppercase;
+  background-color: black;
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-#eButton{
+#eButton {
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
@@ -104,6 +129,6 @@ h2{
   border-radius: 50%;
   margin: 20px 5px 20px;
 }
-button:focus { outline: none; }
 }
+button:focus { outline: none; }
 </style>

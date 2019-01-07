@@ -13,10 +13,9 @@
 
 
 
-
-
 <style lang="scss">
 @import '~bulma/css/bulma.css';
+
 
 
 
@@ -26,18 +25,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 
 .fade-enter-active,
@@ -51,12 +38,12 @@
 .fade-leave-active {
   opacity: 0
 }
-body{
+body {
   height: 1000px;
   width: 100%;
   background-color: #000;
+  line-height: 1;
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
-
 }
 
 </style>
