@@ -10,6 +10,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons' // laddar hem E
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import VueConfetti from 'vue-confetti'
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret)
 library.add(faFacebook)
@@ -17,6 +18,7 @@ library.add(faGoogle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
 Vue.use(VueFire);
+Vue.use(VueConfetti);
 
 Vue.config.productionTip = false
 require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.

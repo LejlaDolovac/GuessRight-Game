@@ -78,6 +78,7 @@ export default {
   },
 
   methods: {
+    // stores the player and bot scores
     addHighscorePlayer() {
       db.ref('highscoreData').push({
         hName: this.$store.state.currentUser,
@@ -104,15 +105,16 @@ export default {
       });
     }
 
+    },
+  mounted() {
+	    this.$confetti.start()
+    }
   }
-}
+
+
 </script>
 
 <style scoped>
-button {
-  margin: 0;
-}
-
 h1 {
   font-size: 300%;
   font-family: 'Black Ops One', cursive;

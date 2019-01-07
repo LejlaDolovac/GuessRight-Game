@@ -1,5 +1,10 @@
 <template>
 <div class="brain container">
+
+  <router-link to="/" tabindex="-1">
+    <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+  </router-link>
+
   <div>
     <h1 class="room">guessroom</h1>
   </div>
@@ -8,49 +13,49 @@
       <div class="player column is-two-fifths">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
+        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
         <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
         <div class="flex">
-          <h2 class="room">vs.</h2>
+            <div><h3 class="has-text-white">TIME LEFT:</h3></div>
+            <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
+            <div v-if="numberOfTries == 0" class="message-body timer">END</div>
+            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
+            <h2 class="room">vs.</h2>
         </div>
       </div>
       <div class="bot column is-two-fifths">
-        <img class="is-square" v-bind:src="this.$store.state.botImg">
+        <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
+        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
+        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
     <!-- <div id="column"><h1 class="room">VS</h1></div> -->
-    <div class="game-div">
-        <div class="message-body timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
-    <div><h3 style=" color: white;">TIME LEFT:</h3></div>
-    <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-    <div v-if="numberOfTries == 0" class="message-body timer">END</div>
-    <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-    <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
     <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
     <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
-    </div>
-
     <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
     <div class="allGuessedNumbers container game-div">
+    <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
+    <br>
       <ul>
         <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
-      <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
+      <br>
+      <span class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span> 
     </div>
 
-
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
-
 </template>
 
 <script>
@@ -58,39 +63,39 @@ export default {
     name: 'Guessfunction',
     data() {
       return {
-        // siffran spelaren gissat på
+        // the number the player guesses
         guessedNumber: '',
         message: '',
         hideNum: false,
         numberInterval: '',
         timerInterval: '',
         countdownInterval: '',
-        // visar hur många sekunder innan spelet startar och hur lång tid spelaren har på sig att gissa
+        // shows how many seconds before the game starts and how long he/she has to guess
         timer: 3,
         readyMessage: '',
         readyTimer: 4,
         inputDisabled: true,
         startShow: true,
-        // hur många gånger spelaren får gissa
+        // how many games before it goes to highscore
         numberOfTries: 5,
         timerShow: false,
         showHighScore: false,
-        // hur lång tid innan boten gissar
+        // how long it takes for the bot to guess
         timerBotInterval: '',
         levelNumber: '',
-        // vilken siffra boten gissar på
+        // the number the bot guesses
         botGuessNumber: '',
         botHasGuessed: false,
         arrayOfNumbers: [],
-        // det närmsta gissade numret som är under det rätta svaret
+        // the closest low number the bot or player guesses to the right answer
         lowNumber: 1,
-        // det närmsta gissade numret som är över det rätta svaret
+        // the closest high number the bot or player guesses to the right answer
         highNumber: '',
-        // en lista med alla nummer spelaren och boten har gissat på
+        // a list of numbers the player and bot has guessed
         allGuessedNumbers: [],
-        // kollar om boten har gjort sin första gissning på numret
+        // checks if the bot has made his first guess
         botFirstGuess: false,
-        // snicksnack med boten
+        // what the bot says
         botMessage: ''
       }
     },
@@ -100,14 +105,13 @@ export default {
     computed: {
     },
     methods: {
-        
         startCountdown: function () {
-            console.log("timer: " + this.timer)
+            // console.log("timer: " + this.timer)
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
             }
-            // hur lång tid innan speler startar
+            // how long before the game starts
             this.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 2) {
@@ -129,20 +133,20 @@ export default {
                     } else if (this.$store.state.medium == true) {
                         this.botMessage = '[Neutral bleep-bloop]'
                     } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-eeee...'
+                        this.botMessage = 'Wall-e.'
                     }
                 }
             },1000)
         },
-        // skapar botens gissning
+        // creates what the bot guessed
         botGuessing: function () {
-            // pausar gissningstimern
+            // pauses the guess timer
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
-                // om det är terminator
+                // if it's the terminator
                 if (this.$store.state.hard == true) {
-                    if((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                    if ((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
@@ -150,31 +154,28 @@ export default {
                     }
                 }
                 // om det är R2-D2
-                if (this.$store.state.medium == true && this.botFirstGuess == true) {
-                    this.botGuessNumber = this.chooseInBetween()
+                else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
-                    console.log(this.botGuessNumber)
-                } else if (this.$store.state.medium == true) {
                     this.botGuessNumber = this.chooseRandom()
-                    this.botFirstGuess = true;
                 }
                 // om det är wall-e
-                if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                else if (this.$store.state.easy == true && this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
                     this.botMessage = "Eeeva..?";
-                } else if (this.$store.state.easy == true) {
+                }
+                else if (this.$store.state.easy == true) {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
-                    // kollar om botens gissning är rätt
+                    // checks if the bot guesses right                    
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
-                        // ändrar vad boten säger utifrån vilken det är
+                        // changes what the bot says depandant on what bot it is
                         if (this.$store.state.hard == true) {
                             this.botMessage = "Hasta la vista, baby.";
                         } else if (this.$store.state.medium == true) {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
-                            this.botMessage = "Eeeva!!";
+                            this.botMessage = "Eeeva!";
                         }
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
@@ -197,7 +198,7 @@ export default {
                             clearInterval(this.numberInterval)
                         },2000)
                         clearInterval(this.timerInterval)
-                        // kollar om antalet spelomgångar är slut
+                        // checks if the number of games is up
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
                             this.startShow = true
@@ -207,13 +208,13 @@ export default {
                         } else {
                             this.startCountdown()
                         }
-                    // kollar om boten gissat lägre än rätt gissing
+                    // checks if the bot's guess is too low 
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
-                    // kollar om boten gissat högre än rätt gissing
+                    // checks if the bot's guess is too high
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, bot!";
                         this.highNumber = this.botGuessNumber-1
@@ -222,10 +223,10 @@ export default {
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
-                    // låter spelaren se alla gissade nummber
+                    // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
-            // ställer tillbaka högsta och lägsta siffran som spelet utgår ifrån
+            // returns the numbers to the default state
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
                 this.highNumber = this.$store.state.number
@@ -233,12 +234,12 @@ export default {
             }
         },
         guessNumber: function () {
-            // kollar om spelaren gissat för högt eller för lågt utifrån vad spelaren och boten gissat på tidigare
+            // checks if the player guesses outside of the guessing span
           if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
               this.message = "Number to high or to low, try again"
               return
-              // kollar om spelaren gissat rätt
-          } else if (this.$store.state.randomNumber == this.guessedNumber) {
+              // checks if the player guesses right
+              } else if (this.$store.state.randomNumber == this.guessedNumber) {
               if (this.$store.state.hard == true) {
                 this.botMessage = "I'll be back";
               } else if (this.$store.state.medium == true) {
@@ -254,21 +255,21 @@ export default {
               this.numberOfTries--;
               this.lowNumber = 1
               this.highNumber = this.$store.state.number
-              // stoppar gissningstimern
+              // stops the guessing timer
               clearInterval(this.timerInterval)
               this.numberInterval = setInterval(() => {
                 this.message = ''
                 this.hideNum = false
-                // nollställer spelet, ger ny siffra
+                // gives new random number
                 this.$store.commit('newRandomNumber')
-                // nollställer gissade siffror
+                // erases the previously guessed numbers
                 this.allGuessedNumbers = [];
                 this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 3
                 this.startShow = true
                 this.botGuessNumber = ''
-                // kollar om antalet spelomgångar är slut
+                // checks if the number of games is up
                 if(this.numberOfTries == 0) {
                     this.message = "Tries up, my man!"
                     this.startShow = true
@@ -280,25 +281,25 @@ export default {
                 }
                 clearInterval(this.numberInterval)
               }, 2000);
-          // kollar om det rätta svaren är högre än det spelaren gissat på
+          // checks if the number the player guessed is lower than the right answer
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
               this.lowNumber = this.guessedNumber+1
               this.message = "The number is higher, human!";
               this.botGuessing()
-          // kollar om det rätta svaren är lägre än det spelaren gissat på
+          // checks if the number the player guessed is higher than the right answer
           } else if (this.$store.state.randomNumber < this.guessedNumber) {
               this.highNumber = this.guessedNumber-1
               this.message = "The number is lower, human!";
               this.botGuessing()
           }
-          // lägger in spelarens gissning i en array
+          // puts the guessed number into an array
           this.allGuessedNumbers.push(this.guessedNumber)
         },
-        // hur lång tid spelaren har att gissa
+        // how long the player has to guess
         timerFunction() {
             this.timerInterval = setInterval(() => {
                 this.timer--
-                // kollar om tiden gått ut
+                // checks if times up
                 if(this.timer == 0) {
                     clearInterval(this.timerInterval)
                     this.inputDisabled = true
@@ -323,21 +324,25 @@ export default {
                 }
               }, 1000);
           },
-          // R2-D2: boten gissar på ett tal mitt emellan de senaste gissningarna
-          chooseInBetween: function() {
-            let middleNumber = this.guessedNumber + this.botGuessNumber;
-            middleNumber = Math.floor(middleNumber / 2);
-            return middleNumber
-          },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
+            console.log(this.allGuessedNumbers)
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                return this.botGuessNumber - 1;
-              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                return this.botGuessNumber + 1;
+                let newBotGuess = this.botGuessNumber - 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess - 1;
+                }
+                return newBotGuess;
+              }
+              else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                let newBotGuess = this.botGuessNumber + 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess + 1;
+                }
+                return newBotGuess;
               }
           },
-          // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
+          // creates a random number between highest and lowest last guess
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
@@ -348,7 +353,7 @@ export default {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
             this.startCountdown()
-            // försäkrar att högsta "gissade" siffra utgår från svårighetsgraden spelaren valt
+            // makes sure that the the player doesn't guess outside the guess span
             if(this.$store.state.hard == true) {
                 this.highNumber = 50
                 this.botMessage = 'I need your clothes, your boots and your motorcycle.'
@@ -385,52 +390,49 @@ export default {
 }
 .game-div {
   background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+  padding: 2%;
 }
-.flex{
+.flex {
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
+  padding-bottom: 40px;
 }
-
 .players img {
   width: 60%;
   height: 60%
 }
-
 #desktopDivider {
   visibility: hidden;
 }
-
+.high-low {
+    padding: 1%;
+    margin: -10px;
+}
 .column {
   max-width: 300px;
   height: auto;
 }
-
 .allGuessedNumbers {
   color: White;
   overflow: hidden;
 }
-
 .allGuessedNumbers ul {
   margin: auto;
   text-align: center;
 }
-
 .allGuessedNumbers li {
   list-style: none;
   width: 25px;
   display: inline-block;
 }
-
 .bot {
   visibility: hidden;
 }
-
 .message-body {
   border: none;
   color: white;
 }
-
 .bot-message {
   color: White;
   padding: 5px;
@@ -450,7 +452,7 @@ p {
 }
 .timer {
     clear: left;
-    padding: 20px;
+    padding: 10px;
     color: White;
     text-align: center;
     font-size: 2em;
@@ -493,8 +495,29 @@ p {
     outline:0;
 }
 
-/* större än mobil */
+/* Balloon for bot message */
+.speech-bubble {
+    position: absolute;
+    top: 30px;
+    right: 175px;
+    padding: 10px;
+	border-radius: 1em;
+}
 
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 40%;
+	width: 0;
+	border: 20px solid transparent;
+	border-top-color: #FF755F;
+	border-bottom: 0;
+	border-left: 0;
+	margin-bottom: -20px;
+}
+
+/* större än mobil */
 @media (min-width: 600px) {
   .bot {
     visibility: visible;
@@ -506,16 +529,20 @@ p {
 }
 
 /* större än tablet */
-
 @media (min-width: 992px) {
   #desktopDivider {
     width: 100px;
   }
 }
 
-/* Mobilanpassning */
+/* Mobile */
 @media only screen and (max-width: 600px) {
-
+.container {
+    padding: 1%;
+}
+.column {
+    max-width: 50%;
+}
 .start-btn {
     width: 90%;
     height: 350px;
@@ -525,14 +552,15 @@ p {
 }
 
 .bot {
-visibility: visible;
+    visibility: visible;
 }
 
 .winner-loser-message {
     padding: 20px;
     text-align: center;
-    font-size: 20px;
-    }
+    font-size: 15px;
+}
+
 .search {
     width: 80px;
     height: 80px;

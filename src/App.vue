@@ -73,11 +73,20 @@ table {
   opacity: 0
 }
 body {
+  width: 100%;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   background-color: #000;
   line-height: 1;
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
+}
+
+// Available scrolling on
+@media only screen and (max-width: 600px) {
+  body {
+    overflow-y: scroll;
+  }
 }
 </style>

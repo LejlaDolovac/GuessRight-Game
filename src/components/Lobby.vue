@@ -27,7 +27,7 @@
       return {
         numbers: [],
         active: true,
-        showRules: true // något med detta för att visa regler
+        showRules: true // shows the rules page
       }
     },
     firebase: {
@@ -39,21 +39,21 @@
       Login
     },
     computed: {
-      // om regelrutan ska visas
+      // if the rules page should be shown
       showRulesPage() {
         return this.$store.state.showRules;
       },
-      // om nivårutan ska visas
+      // if the levels page should be shown
       showLevelsPage() {
         return this.$store.state.showLevels;
       },
     },
     methods: {
-      // öppnar regelrutan
+      // opens the rule page
       openRules: function() {
         this.$store.state.showRules = !this.$store.state.showRules
       },
-      // öppnar nivårutan
+      // opens the levels page
       openLevels: function() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -64,6 +64,9 @@
         this.active = !this.active
         console.log("hi")
       },
+    },
+    mounted() {
+      this.$confetti.stop()
     }
   }
   </script>

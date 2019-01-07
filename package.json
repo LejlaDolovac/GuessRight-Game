@@ -24,6 +24,7 @@
     "firebase": "^5.7.1",
     "vue": "^2.5.21",
     "vue-a11y-dialog": "^0.4.0",
+    "vue-confetti": "^0.4.2",
     "vue-loader": "^15.4.2",
     "vue-router": "^3.0.1",
     "vuefire": "^1.4.5",
