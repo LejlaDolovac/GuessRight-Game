@@ -126,15 +126,20 @@ export default {
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
                     }
                 }
-                if(this.$store.state.medium == true) {
+                // om det är R2-D2
+                if (this.$store.state.medium == true && this.botFirstGuess == true) {
+                    this.botGuessNumber = this.chooseInBetween()
                     this.botMessage = "[Concentrated bloop]";
+                    console.log(this.botGuessNumber)
+                } else if (this.$store.state.medium == true) {
+                    this.botGuessNumber = this.chooseRandom()
+                    this.botFirstGuess = true;
                 }
                 // om det är wall-e
                 if (this.$store.state.easy == true && this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
                     this.botMessage = "Eeeva..?";
-                    console.log(this.botGuessNumber + " Eeeva")
-                } else {
+                } else if (this.$store.state.easy == true) {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
@@ -142,7 +147,7 @@ export default {
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // ändrar vad boten säger utifrån vilken det är
                         if (this.$store.state.hard == true) {
-                            this.botMessage = "Hasta la vista, baby";
+                            this.botMessage = "Hasta la vista, baby.";
                         } else if (this.$store.state.medium == true) {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
@@ -291,6 +296,12 @@ export default {
                     }
                 }
               }, 1000);
+          },
+          // R2-D2: boten gissar på ett tal mitt emellan de senaste gissningarna
+          chooseInBetween: function() {
+            let middleNumber = this.guessedNumber + this.botGuessNumber;
+            middleNumber = Math.floor(middleNumber / 2);
+            return middleNumber
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
