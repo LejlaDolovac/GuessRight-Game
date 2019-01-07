@@ -31,7 +31,7 @@ export default new Vuex.Store({
     // sätter vad nivåerna gör
     levelNumber(state) {
       if (state.easy == true) {
-        state.timer = 10;
+        state.timer = 1;
         state.number = 10;
         state.randomNumbers = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         state.botName = 'Wall-E';

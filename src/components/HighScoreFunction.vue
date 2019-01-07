@@ -24,8 +24,7 @@
 </template>
 
 <script>
-import { db } from '../firebase-config'
-import firebase from 'firebase'
+import {db} from '../firebase-config'
 
 export default {
   name: 'HighScoreFunction',
