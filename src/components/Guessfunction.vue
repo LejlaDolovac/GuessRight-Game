@@ -6,7 +6,7 @@
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div class="player column is-two-fifths">
-        <img class="is-square" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+        <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled">
       </div>
@@ -28,11 +28,9 @@
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
     <div><h3 style=" color: white;">TIME LEFT:</h3></div>
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-    <div v-else class="message-body timer">END</div>
+    <div v-if="numberOfTries == 0" class="message-body timer">END</div>
+    <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
-    <router-link to="/highScore">
-        <button class="button is-black" v-show="this.showHighScore">View highscore</button>
-    </router-link>
     <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
     <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
     </div>
@@ -46,8 +44,10 @@
       </ul>
       <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-    <router-link to="/">
-      <button class="button is-black is-pulled-left text-is-white" style="width: 100%">&#8592; BACK TO LOBBY</button>
+
+
+    <router-link to="/" tabindex="-1">
+      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
     </router-link>
 </div>
 
@@ -67,11 +67,13 @@ export default {
         countdownInterval: '',
         // visar hur många sekunder innan spelet startar och hur lång tid spelaren har på sig att gissa
         timer: 3,
+        readyMessage: '',
+        readyTimer: 4,
         inputDisabled: true,
         startShow: true,
         // hur många gånger spelaren får gissa
         numberOfTries: 5,
-        timerShow: true,
+        timerShow: false,
         showHighScore: false,
         // hur lång tid innan boten gissar
         timerBotInterval: '',
@@ -98,15 +100,29 @@ export default {
     computed: {
     },
     methods: {
-        // hur lång tid innan speler startar
+        
         startCountdown: function () {
+            console.log("timer: " + this.timer)
+            this.timerShow = false
+            if(this.timer == 3) {
+                this.readyMessage = 'Ready'
+            }
+            // hur lång tid innan speler startar
             this.countdownInterval = setInterval(() => {
                 this.timer--
+                if(this.timer == 2) {
+                    this.readyMessage = 'Steady'
+                } else if (this.timer == 1) {
+                    this.readyMessage = 'GO!'
+                }
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
                     this.timer = this.$store.state.timer
                     this.inputDisabled = false
+                    this.timerShow = true
+                    this.readyTimer = 0;
+                    this.timerShow = true,
                     this.timerFunction()
                     if(this.$store.state.hard == true) {
                         this.botMessage = 'I need your clothes, your boots and your motorcycle.'
@@ -293,6 +309,9 @@ export default {
                         this.message = "Tries up, my man!"
                         this.startShow = true
                         this.timerShow = false
+                        setInterval(function() {
+                            window.location.href = '/highScore'
+                        }, 2000);
                     } else {
                         this.startCountdown()
                     }
@@ -363,8 +382,8 @@ export default {
 }
 
 .players img {
-  width: 80%;
-  height: 80%
+  width: 60%;
+  height: 60%
 }
 
 #desktopDivider {
@@ -436,7 +455,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	  transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;

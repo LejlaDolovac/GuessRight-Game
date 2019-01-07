@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import {db} from '../firebase-config'
 import HighScoreFunction from '@/components/HighScoreFunction.vue'
 
 export default {
