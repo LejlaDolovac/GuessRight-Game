@@ -44,6 +44,7 @@ export default {
   },
 
   methods: {
+    // stores the player and bot scores
     addHighscorePlayer() {
 
       db.ref('highscoreData').push({
