@@ -14,7 +14,7 @@
       <br>
       <button v-if="loggedIn" class="button logout is-primary" tabindex="0" @click="logout">Logout</button>
     </div>
-    
+
   </div>
 </template>
 
@@ -22,6 +22,7 @@
 import facebookLogin from 'facebook-login-vuejs';
 import firebase from 'firebase'
 
+import {fb} from '../firebase-config'
 export default ({
     name: 'Login',
     data() {
@@ -111,7 +112,6 @@ export default ({
     height: auto;
     margin: 0 auto;
   }
-
 @media screen and (max-width: 699px) {
   .fontawesome-container {
     position: fixed;
