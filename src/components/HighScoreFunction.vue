@@ -16,7 +16,6 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
-
   <br><button v-show="isClicked = !isClicked" @click="addHighscorePlayer(), isClicked=true" class="button">Add New score</button>
   <br><br>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
@@ -55,7 +54,10 @@ export default {
 
       });
 
-    },
+    }
+  },
+  mounted() {
+	    this.$confetti.start()
   }
 }
 </script>
