@@ -28,7 +28,8 @@
     <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
     <div><h3 style=" color: white;">TIME LEFT:</h3></div>
     <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-    <div v-else class="message-body timer">END</div>
+    <div v-if="numberOfTries == 0" class="message-body timer">END</div>
+    <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
     <p v-if="message != ''" class="message-body winner-loser-message"> {{ message }} </p>
     <router-link to="/highScore">
         <button class="button is-black" v-show="this.showHighScore">View highscore</button>
@@ -67,11 +68,13 @@ export default {
         countdownInterval: '',
         // visar hur många sekunder innan spelet startar och hur lång tid spelaren har på sig att gissa
         timer: 3,
+        readyMessage: '',
+        readyTimer: 4,
         inputDisabled: true,
         startShow: true,
         // hur många gånger spelaren får gissa
         numberOfTries: 5,
-        timerShow: true,
+        timerShow: false,
         showHighScore: false,
         // hur lång tid innan boten gissar
         timerBotInterval: '',
@@ -98,15 +101,29 @@ export default {
     computed: {
     },
     methods: {
-        // hur lång tid innan speler startar
+        
         startCountdown: function () {
+            console.log("timer: " + this.timer)
+            this.timerShow = false
+            if(this.timer == 3) {
+                this.readyMessage = 'Ready'
+            }
+            // hur lång tid innan speler startar
             this.countdownInterval = setInterval(() => {
                 this.timer--
+                if(this.timer == 2) {
+                    this.readyMessage = 'Steady'
+                } else if (this.timer == 1) {
+                    this.readyMessage = 'GO!'
+                }
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
                     this.startShow = false
                     this.timer = this.$store.state.timer
                     this.inputDisabled = false
+                    this.timerShow = true
+                    this.readyTimer = 0;
+                    this.timerShow = true,
                     this.timerFunction()
                     if(this.$store.state.hard == true) {
                         this.botMessage = 'I need your clothes, your boots and your motorcycle.'
@@ -436,7 +453,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	  transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
