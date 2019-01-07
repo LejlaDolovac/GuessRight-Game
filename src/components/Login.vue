@@ -39,7 +39,7 @@ export default ({
         return this.$store.state.loggedIn
       }
     },
-    // sätter den inloggade spelaren som nuvarande spelare
+    // player sign in
     methods: {
       googleLogin(){
        var provider = new firebase.auth.GoogleAuthProvider();
@@ -73,6 +73,7 @@ export default ({
             alert(errorCode + ": " + errorMessage);
           });
       },
+      // player log out
       logout() {
         firebase.auth().signOut().then(() => {
           this.logoutMessage = 'You have signed out from the Guess the Number game!';

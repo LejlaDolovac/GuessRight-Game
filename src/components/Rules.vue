@@ -30,13 +30,13 @@
 export default {
     name: 'rules',
     methods: {
-      // stänger regelsidan
+      // closes the rules page
       close() {
         this.$store.state.showRules = !this.$store.state.showRules
       }
     },
     computed: {
-      // öppnar regelsidan
+      // shows the rules page
       showRulesPage() {
         return this.$store.state.showRules;
       }
