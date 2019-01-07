@@ -1,5 +1,10 @@
 <template>
 <div class="brain container">
+
+  <router-link to="/" tabindex="-1">
+    <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
+  </router-link>
+
   <div>
     <h1 class="room">guessroom</h1>
   </div>
@@ -19,6 +24,7 @@
       <div class="bot column is-two-fifths">
         <img class="is-square" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
+        <div style="color: white">{{ botMessage }}</div>
       </div>
       <div class="column"></div> <!-- för att få luft på sidorna -->
     </div>
@@ -44,13 +50,7 @@
       </ul>
       <p class="message-body wins-correct-message">Player Wins: <span>{{ this.$store.state.correctAnswers }}</span> Bot Wins: <span>{{ this.$store.state.botWins }}</span> Tries left: <span>{{ numberOfTries }}</span> </p>
     </div>
-
-
-    <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
-    </router-link>
 </div>
-
 </template>
 
 <script>
@@ -100,9 +100,8 @@ export default {
     computed: {
     },
     methods: {
-        
         startCountdown: function () {
-            console.log("timer: " + this.timer)
+            // console.log("timer: " + this.timer)
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
@@ -129,7 +128,7 @@ export default {
                     } else if (this.$store.state.medium == true) {
                         this.botMessage = '[Neutral bleep-bloop]'
                     } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-eeee...'
+                        this.botMessage = 'Wall-e.'
                     }
                 }
             },1000)
@@ -142,7 +141,7 @@ export default {
             this.timerBotInterval = setInterval(() => {
                 // om det är terminator
                 if (this.$store.state.hard == true) {
-                    if((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                    if ((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
@@ -150,19 +149,16 @@ export default {
                     }
                 }
                 // om det är R2-D2
-                if (this.$store.state.medium == true && this.botFirstGuess == true) {
-                    this.botGuessNumber = this.chooseInBetween()
+                else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
-                    console.log(this.botGuessNumber)
-                } else if (this.$store.state.medium == true) {
                     this.botGuessNumber = this.chooseRandom()
-                    this.botFirstGuess = true;
                 }
                 // om det är wall-e
-                if (this.$store.state.easy == true && this.botFirstGuess == true) {
+                else if (this.$store.state.easy == true && this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
                     this.botMessage = "Eeeva..?";
-                } else if (this.$store.state.easy == true) {
+                }
+                else if (this.$store.state.easy == true) {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
@@ -174,7 +170,7 @@ export default {
                         } else if (this.$store.state.medium == true) {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
-                            this.botMessage = "Eeeva!!";
+                            this.botMessage = "Eeeva!";
                         }
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
@@ -261,6 +257,7 @@ export default {
                 this.hideNum = false
                 // nollställer spelet, ger ny siffra
                 this.$store.commit('newRandomNumber')
+                this.botFirstGuess = false;
                 // nollställer gissade siffror
                 this.allGuessedNumbers = [];
                 this.guessedNumber = '';
@@ -323,21 +320,24 @@ export default {
                 }
               }, 1000);
           },
-          // R2-D2: boten gissar på ett tal mitt emellan de senaste gissningarna
-          chooseInBetween: function() {
-            let middleNumber = this.guessedNumber + this.botGuessNumber;
-            middleNumber = Math.floor(middleNumber / 2);
-            return middleNumber
-          },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
+            console.log(this.allGuessedNumbers)
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                return this.botGuessNumber - 1;
-              } else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                return this.botGuessNumber + 1;
+                let newBotGuess = this.botGuessNumber - 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess - 1;
+                }
+                return newBotGuess;
+              }
+              else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                let newBotGuess = this.botGuessNumber + 1;
+                if (this.allGuessedNumbers.includes(newBotGuess)) {
+                  return newBotGuess + 1;
+                }
+                return newBotGuess;
               }
           },
-          // skapar en slumpmässig siffra för boten utifrån vad spelaren och boten gissat på tidigare
           chooseRandom: function () {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
