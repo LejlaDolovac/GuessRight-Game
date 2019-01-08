@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <Login></Login>
-      <div class="nav buttons is-centered">
+      <div class="nav is-centered">
         <figure class="image">
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
@@ -9,7 +9,7 @@
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
+          <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
       </div>
     </div>
   </template>
@@ -81,9 +81,10 @@
     background: lightgrey;
     border: thin solid black;
   }
-  h1 {
-    margin-bottom: 30px;
-    padding-top: 3%;
+  .image {
+    width: 400px;
+    height: auto;
+    border: 3px solid white;
   }
   .nav {
     max-width: 400px;
@@ -98,11 +99,11 @@
     margin-top: 10px;
     text-transform: uppercase;
   }
-  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-  .pink {border-color: #ab0e86;}
-  .purple {border-color: #59057b;}
-  .yellow {border-color: #fae100;}
-  
+  .button:not(:last-child):not(.is-fullwidth)
+  .pink {border-color: #FF03A4;}
+  .purple {border-color: #FF755F;}
+  .yellow {border-color: #FFD150;}
+
   @media (min-width: 992px) {
     .button {
       font-size: 1.6em;
