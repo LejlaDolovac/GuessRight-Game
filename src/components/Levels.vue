@@ -33,7 +33,6 @@
     </div>
 
   </div>
-</div>
 </template>
 
 <script>
@@ -134,11 +133,7 @@ h2{
   margin: 20px 5px 20px;
 }
 }
-<<<<<<< HEAD
-button:focus { outline: none; }
-=======
 span {
   font-size: 0.5em;
 }
->>>>>>> 4445dec6a8543ad7a8b1d3b5c177f9b903c805de
 </style>

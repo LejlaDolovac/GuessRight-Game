@@ -65,19 +65,11 @@
         this.active = !this.active
         console.log("hi")
       },
-<<<<<<< HEAD
-      
-      
-  },
-    } 
-
-=======
     },
     mounted() {
       this.$confetti.stop()
     }
   }
->>>>>>> 4445dec6a8543ad7a8b1d3b5c177f9b903c805de
   </script>
 
  <style scoped>
