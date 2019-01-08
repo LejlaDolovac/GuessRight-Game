@@ -1,0 +1,134 @@
+<template>
+<div class="modal is-active" v-show="showLevelsPage">
+  <div class="modal-background"></div>
+  <div class="container">
+    <div class="has-background-black">
+      <h2 class="has-white-text"> Please choose a level </h2>
+    </div>
+    <div class='row'>
+
+      <div class="column" @keyup.enter="easyNumbers()"> 
+        <router-link to="/gamepage">
+          <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
+        </router-link>
+      </div>
+
+        <div class="column" @keyup.enter="mediumNumbers()">
+          <router-link to="/gamepage">
+            <button class="button is-medium is-success has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()" id="eButton" type="button"> Medium Level <br />Numbers <br />1-30</button>
+          </router-link>
+        </div>
+
+        <div class="column" @keyup.enter="hardNumbers()">
+          <router-link to="/gamepage">
+            <button class="button is-medium is-light has-text-white" tabindex="-1"  @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
+          </router-link> 
+        </div>
+
+        <button class="modal-close is-large has-background-black" @keyup.enter="close" @click="close">x</button>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+    name: 'Levels',
+    data() {
+      return {
+        numbers: []
+      }
+    },
+    computed: {
+      showLevelsPage() {
+        return this.$store.state.showLevels;
+      }
+    },
+    methods: {
+      // stänger nivårutan
+      close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
+      // används för att sätta nivån spelaren väljer
+      easyNumbers: function() {
+        this.$store.state.easy = true
+        this.$store.state.medium = false
+        this.$store.state.hard = false
+        this.$store.state.levelChosen = true
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
+      mediumNumbers: function() {
+        this.$store.state.medium = true
+        this.$store.state.hard = false
+        this.$store.state.easy = false
+        this.$store.state.levelChosen = true
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      },
+      hardNumbers: function() {
+        this.$store.state.hard = true
+        this.$store.state.easy = false
+        this.$store.state.medium = false
+        this.$store.state.levelChosen = true
+        this.$store.state.showLevels = !this.$store.state.showLevels
+      }
+    }
+  }
+</script>
+
+<style scoped>
+.container {
+  width: 50%;
+  height: auto;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
+}
+.container button {
+  background-color: transparent;
+  width: 100%;
+  color:black;
+  border: none;
+  padding: 10px;
+  margin: 20px;
+  cursor: pointer
+}
+h2 {
+  text-align: center;
+  padding: 10px;
+  height: auto;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 2.8em;
+  text-transform: uppercase;
+  background-color: black;
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#eButton {
+  border: 1px solid rgb(185, 78, 185);
+  box-shadow: 0 0 10px rgb(185, 102, 185);
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 1.5em;
+}
+.column{
+  max-width: 100%;
+  padding: 10px;
+  float: left;
+  align-items: center;
+  background-color: black;
+  margin: 3px;
+}
+.row {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+.has-background-black {
+  margin: 3px;
+}
+span {
+  font-size: 0.5em;
+}
+</style>
