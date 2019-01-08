@@ -57,15 +57,16 @@
       openLevels: function() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
+      // opens this highscore page
       openHighScore() {
         this.$router.push('/highScore')
       },
       close: function() {
         this.active = !this.active
-        console.log("hi")
       },
     },
     mounted() {
+      //stops the confetti
       this.$confetti.stop()
     }
   }
