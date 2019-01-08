@@ -5,7 +5,8 @@
         <figure class="image">
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
-        <a class="yellow button" tabindex="0" @keyup.enter="openLevels" @click="openLevels()">Play</a>
+        
+        <button class="yellow button" @click="openLevels()">Play</button>
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
@@ -36,7 +37,7 @@
     components: {
       Rules,
       Levels,
-      Login
+      Login,
     },
     computed: {
       // if the rules page should be shown

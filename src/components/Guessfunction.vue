@@ -1,3 +1,4 @@
+
 <template>
 <div class="brain container">
   <div>
@@ -504,7 +505,7 @@ p {
     -webkit-transform: scale(1.5);
     -ms-transition: all 200ms ease-in;
     -ms-transform: scale(1.5);
-    -moz-transition: all 200ms ease-in;
+    -mozd-transition: all 200ms ease-in;
     -moz-transform: scale(1.5);
     transition: all 200ms ease-in;
     transform: scale(1.8);

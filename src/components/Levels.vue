@@ -3,7 +3,10 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-      <h2> Please choose a level </h2>
+    <h2 class="has-white-text"> Please choose level and avatar </h2>
+    <p> or upload your own image </p>
+    <button @click="onUpload">Upload</button> <!-- Uploads the file -->
+    <input type="file" @change="onFileSelected">
     </div>
     <div class="row">
 
@@ -27,52 +30,74 @@
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
     </div>
+    </div>
+
   </div>
-</div>
 </template>
 
 <script>
+
 export default {
     name: 'Levels',
     data() {
       return {
-        numbers: []
+        numbers: [],
+        selectedFile: null
       }
     },
     computed: {
       showLevelsPage() {
-        return this.$store.state.showLevels;
+        return this.$store.state.showLevels;  // opens the level page
       }
     },
     methods: {
-      // stänger nivårutan
       close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels // closes the level menu by clicking anywhere
+      },
+      easyNumbers: function() {   // function easy-level
+      this.$store.state.easy = true
+      this.$store.state.medium = false
+      this.$store.state.hard= false
+      this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      // används för att sätta nivån spelaren väljer
-      easyNumbers: function() {
-        this.$store.state.easy = true
-        this.$store.state.medium = false
-        this.$store.state.hard = false
-        this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
-      },
-      mediumNumbers: function() {
+      mediumNumbers: function() {   // function medium-level
         this.$store.state.medium = true
         this.$store.state.hard = false
         this.$store.state.easy = false
         this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
+          this.$store.state.showLevels = !this.$store.state.showLevels
+        
+        
       },
-      hardNumbers: function() {
-        this.$store.state.hard = true
-        this.$store.state.easy = false
+      hardNumbers: function() {   // function hard-level
+        this.$store.state.hard = true,
+        this.$store.state.easy = false,
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
+          this.$store.state.showLevels = !this.$store.state.showLevels
+        },
+        onFileSelected (event) {
+          this.selectedFile = event.target.files[0] // this is the file the user selected
+
+        },
+        // here you upload your own avatar-image
+        onUpload() {
+          const fd = new FormData(); // sends form-data object
+          fd.append('image', this.selectedFile, this.selectedFile.name) 
+          axios.post('', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress:' + Math.round(uploadEvent / uploadEvent.total * 100)+ '%')
+          }
+           })
+           .then(res =>{
+           console.log(res)})
+        }
+
       }
-    }
-  }
+     }
+  
+
 </script>
 
 <style scoped>
@@ -84,16 +109,12 @@ export default {
 .container button {
   background-color: transparent;
   width: 100%;
-  color:black;
-  border: none;
-  padding: 10px;
-  margin: 20px;
-  cursor: pointer
+  overflow-x: hidden;
 }
-h2 {
-  text-align: center;
-  padding: 10px;
-  height: auto;
+h2{
+  padding: 20px;
+  margin: 20px;
+  color: black;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 2.8em;
   text-transform: uppercase;
@@ -106,26 +127,17 @@ h2 {
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 5px;
-  font-size: 1.5em;
+  width: 100px;
+  padding: 15px;
+  margin-top: 25px; 
+  font-size: 15px;
 }
-.column{
-  max-width: 100%;
-  padding: 10px;
-  float: left;
-  align-items: center;
-  background-color: black;
-  margin: 3px;
+@media only screen and (max-width: 1000px){
+.pic{
+  border: 3px solid rgb(155, 123, 155);
+  border-radius: 50%;
+  margin: 20px 5px 20px;
 }
-.row {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-}
-.has-background-black {
-  margin: 3px;
 }
 span {
   font-size: 0.5em;
