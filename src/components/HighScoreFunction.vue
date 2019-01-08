@@ -1,38 +1,46 @@
 <template>
 <div class="container">
   <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
-  <h1>Highscore for Humans</h1>
-  <table class="table is-bordered is-striped is-narrow is-hoverable">
-    <thead style="background-color:#FAE100;">
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Score</th>
-    </thead>
-    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
-      <td>{{ index+1 }}</td>
-      <td>{{score.hName}}</td>
-      <td>{{score.hDate}}</td>
-      <td>{{score.hScore}}</td>
-    </tr>
-  </table>
-  <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
-  <h1>Highscore for Botar</h1>
-  <table class="table is-bordered is-striped is-narrow is-hoverable">
-    <thead style="background-color:#FAE100;">
-      <th>Rank</th>
-      <th>Bot</th>
-      <th>Date</th>
-      <th>Score</th>
-    </thead>
-    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
-      <td>{{ index+1 }}</td>
-      <td>{{score.bName}}</td>
-      <td>{{score.bDate}}</td>
-      <td>{{score.bScore}}</td>
-    </tr>
-  </table>
-  <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
+  <div class="columns">
+    <div class="column">
+    <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile">Highscore for <br> Humans</h1>
+    <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <thead style="background-color:#FAE100;">
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Score</th>
+      </thead>
+      <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+        <td>{{ index+1 }}</td>
+        <td>{{score.hName}}</td>
+        <td>{{score.hDate}}</td>
+        <td>{{score.hScore}}</td>
+      </tr>
+    </table>
+    </div>
+
+    <div class="column">
+      <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile">Highscore for <br> Bots</h1>
+      <table class="table is-bordered is-striped is-narrow is-hoverable">
+        <thead style="background-color:#FAE100;">
+          <th>Rank</th>
+          <th>Bot Name</th>
+          <th>Date</th>
+          <th>Score</th>
+        </thead>
+        <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+          <td>{{ index+1 }}</td>
+          <td>{{score.bName}}</td>
+          <td>{{score.bDate}}</td>
+          <td>{{score.bScore}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <router-link to="/">
+    <button class="button is-primary" style="margin: 20px;">Back to start page</button>
+  </router-link>
 </div>
 </template>
 
@@ -106,16 +114,14 @@ export default {
     },
   // starts the confetti
   mounted() {
-	    this.$confetti.start()
-    }
+	  this.$confetti.start()
   }
-
+}
 
 </script>
 
 <style scoped>
 h1 {
-  font-size: 300%;
   font-family: 'Black Ops One', cursive;
   color: white;
 }
@@ -132,5 +138,8 @@ table {
 
 input {
   width: 20%;
+}
+.column {
+  margin-top: 10px;
 }
 </style>

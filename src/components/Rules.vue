@@ -47,7 +47,6 @@ export default {
 <style scoped>
 .modal-content {
     padding: 3%;
-    overflow-x: hidden;
     margin: 3px;
 }
 li {
@@ -63,7 +62,7 @@ li {
   text-transform: uppercase;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
 }
 </style>

@@ -109,7 +109,7 @@
     .button {
       font-size: 1.6em;
       background-color: Black;
-      color: White;
+      color: white;
       border-width: 5px;
       margin-top: 10px;
       text-transform: uppercase;
