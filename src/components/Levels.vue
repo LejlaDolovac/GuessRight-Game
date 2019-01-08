@@ -102,19 +102,24 @@ export default {
 
 <style scoped>
 .container {
-  width: 75%;
+  width: 50%;
+  height: auto;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
 .container button {
   background-color: transparent;
   width: 100%;
-  overflow-x: hidden;
-}
-h2{
-  padding: 20px;
+  color:black;
+  border: none;
+  padding: 10px;
   margin: 20px;
-  color: black;
+  cursor: pointer
+}
+h2 {
+  text-align: center;
+  padding: 10px;
+  height: auto;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 2.8em;
   text-transform: uppercase;
@@ -127,20 +132,28 @@ h2{
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  width: 100px;
-  padding: 15px;
-  margin-top: 25px; 
-  font-size: 15px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 1.5em;
 }
-@media only screen and (max-width: 1000px){
-.pic{
-  border: 3px solid rgb(155, 123, 155);
-  border-radius: 50%;
-  margin: 20px 5px 20px;
+.column{
+  max-width: 100%;
+  padding: 10px;
+  float: left;
+  align-items: center;
+  background-color: black;
+  margin: 3px;
 }
+.row {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+.has-background-black {
+  margin: 3px;
 }
 span {
   font-size: 0.5em;
 }
-
 </style>
