@@ -16,6 +16,7 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
+  <button type="submit" class="button" @click="addHighscoreBot(), addHighscorePlayer()">add botscore</button>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
   <h1>Highscore for Botar</h1>
   <table class="table is-bordered is-striped is-narrow is-hoverable">
@@ -25,7 +26,7 @@
       <th>Date</th>
       <th>Score</th>
     </thead>
-    <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+    <tr v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h">
       <td>{{ index+1 }}</td>
       <td>{{score.bName}}</td>
       <td>{{score.bDate}}</td>
@@ -37,32 +38,28 @@
 </template>
 
 <script>
-import {
-  db
-} from '../firebase-config'
+import {  db  } from '../firebase-config'
 
 export default {
   name: 'HighScoreFunction',
   data() {
     return {
-      isClicked: false,
       highscoreDatas: [],
-      hName: '',
+      hName:'',
       hDate: new Date(),
-      hScore: '',
+      hScore:'',
       hRank: 1,
-      bScore: '',
-      bName: '',
+      botHighscoreData: [],
+      bScore:'',
       bDate: new Date(),
       bRank: 1,
-      easy: this.$store.state.easy,
-      medium: this.$store.state.medium,
-      hard: this.$store.state.hard,
+      bName:''
     }
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10)
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10),
+    highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
 
   mounted() {
@@ -73,7 +70,9 @@ export default {
         this.addHighscoreBot()
       }
     }
-  },
+     // starts the confetti
+      this.$confetti.start()
+      },
 
   methods: {
     // stores the player scores
@@ -86,30 +85,20 @@ export default {
     },
     // stores the bot scores
     addHighscoreBot() {
-      if (this.$store.state.easy == true) {
-        bName: "Wall-E"
-      }
-      else if (this.$store.state.medium == true) {
-        bName: "R2D2"
-      }
-      else if (this.$store.state.hard == true) {
-        bName: "Terminator"
-      }
+
+      console.log("med this: " + this.$store.state.botName);
+      console.log("med this: " + this.$store.state.botWins);
 
       db.ref('botHighscoreData').push({
-        bName: bName,
+        bName: this.$store.state.botName,
         bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
         bScore: this.$store.state.botWins
       });
     }
 
     },
-  // starts the confetti
-  mounted() {
-	    this.$confetti.start()
-    }
-  }
 
+  }
 
 </script>
 
