@@ -22,11 +22,7 @@ export default new Vuex.Store({
   mutations: {
     // skapar ett slumpmässigt nummer som används som det rätta svaret
     newRandomNumber(state) {
-<<<<<<< HEAD
       state.number = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
-=======
-      state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
->>>>>>> 4445dec6a8543ad7a8b1d3b5c177f9b903c805de
     },
     showRules(state){
       state.show = !state.show;

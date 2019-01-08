@@ -51,10 +51,12 @@ export default {
         return this.$store.state.showLevels;  // opens the level page
       }
     },
+    
     methods: {
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the level menu by clicking anywhere
       },
+      
       easyNumbers: function() {   // funktion easy-level
       this.$store.state.easy = true
       this.$store.state.medium = false
@@ -134,11 +136,5 @@ h2{
   margin: 20px 5px 20px;
 }
 }
-<<<<<<< HEAD
 button:focus { outline: none; }
-=======
-span {
-  font-size: 0.5em;
-}
->>>>>>> 4445dec6a8543ad7a8b1d3b5c177f9b903c805de
 </style>
