@@ -17,7 +17,8 @@ export default new Vuex.Store({
     timer: '',
     currentUser: null,
     loggedIn: false,
-    botWins: 0
+    botWins: 0,
+    closeLevels: false,
   },
   mutations: {
     // skapar ett slumpmässigt nummer som används som det rätta svaret

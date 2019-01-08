@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Vet inte rikt
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios'; // behövs för att kunna ladda upp egen bild
+import  VueConfetti from 'vue-confetti';
 
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret);
@@ -20,7 +21,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon); // skapar syntax för fonta
 Vue.use(VueFire);
 Vue.config.productionTip = false,
 require("./assets/main.scss"); // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
-
+Vue.use(VueConfetti);
 let app = '';
 
 fb.auth(). onAuthStateChanged(() => {

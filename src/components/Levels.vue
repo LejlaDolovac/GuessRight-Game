@@ -53,8 +53,11 @@ export default {
     },
     
     methods: {
-      close() {
-        this.$store.state.showLevels = !this.$store.state.showLevels // closes the level menu by clicking anywhere
+      closeLevels() {
+        this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere
+      },
+      close (){
+        this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
       
       easyNumbers: function() {   // funktion easy-level
@@ -95,8 +98,7 @@ export default {
            })
            .then(res =>{
            console.log(res)})
-        }
-
+        },
       }
      }
   

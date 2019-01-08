@@ -68,6 +68,9 @@
       
       
   },
+  mounted(){
+    this.$confetti.stop()
+  }
     } 
 
   </script>
