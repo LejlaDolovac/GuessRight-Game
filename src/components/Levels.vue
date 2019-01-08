@@ -4,12 +4,19 @@
   <div class="container">
     <div class="has-background-black">
     <h2 class="has-white-text"> Please choose level and avatar </h2>
-    <p> or upload your own image </p>
-    <button @click="onUpload">Upload</button> <!-- Uploads the file -->
-    <input type="file" @change="onFileSelected">
+     <h3>Please choose an avatar</h3>
+         <figure class="image is-128x128">
+       <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+         </figure>
+    <figure class="image is-128x128">
+    <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+    </figure>
+    <figure class="image  is-128x128">
+    <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+    </figure>
     </div>
-    <div class='row'>
-
+    <div class="row">
+      <h3> Please choose a level</h3>
       <div class="column" @keyup.enter="easyNumbers()"> 
         <router-link to="/gamepage">
           <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
@@ -28,12 +35,11 @@
           </router-link> 
         </div>
 
-        <button class="modal-close is-large has-background-black" @keyup.enter="close" @click="close">x</button>
+        <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
     </div>
     </div>
 
   </div>
-</div>
 </template>
 
 <script>
@@ -67,7 +73,7 @@ export default {
       this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      mediumNumbers: function() {   // funktion medium-level
+      mediumNumbers: function() {   // function medium-level
         this.$store.state.medium = true
         this.$store.state.hard = false
         this.$store.state.easy = false
@@ -76,29 +82,15 @@ export default {
         
         
       },
-      hardNumbers: function() {   // funktion hard-level
+      hardNumbers: function() {   // function hard-level
         this.$store.state.hard = true,
         this.$store.state.easy = false,
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
           this.$store.state.showLevels = !this.$store.state.showLevels
         },
-        onFileSelected (event) {
-          this.selectedFile = event.target.files[0] // this is the file the user selected
-
-        },
-        // here you upload your own avatar-image
-        onUpload() {
-          const fd = new FormData(); // sends form-data object
-          fd.append('image', this.selectedFile, this.selectedFile.name) 
-          axios.post('', fd, {
-          onUploadProgress: uploadEvent => {
-            console.log('Upload Progress:' + Math.round(uploadEvent / uploadEvent.total * 100)+ '%')
-          }
-           })
-           .then(res =>{
-           console.log(res)})
-        },
+        
+       
       }
      }
   
@@ -106,14 +98,29 @@ export default {
 </script>
 
 <style scoped>
-.modal, .modal-content {
-  width: 100%;
-  overflow-x: hidden;
+.image{
+  margin: 10px;
+  
 }
-h2{
-  padding: 20px;
-  margin: 20px;
-  color: black;
+.container {
+  width: 50%;
+  height: auto;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
+}
+.container button {
+  background-color: transparent;
+  width: 100%;
+  color:black;
+  border: none;
+  padding: 10px;
+  margin: 40px;
+  cursor: pointer
+}
+h2 {
+  text-align: center;
+  padding: 10px;
+  height: auto;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 2.8em;
   text-transform: uppercase;
@@ -126,17 +133,45 @@ h2{
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
   height: auto;
-  width: 100px;
-  padding: 15px;
-  margin-top: 25px; 
-  font-size: 15px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 1.5em;
 }
-@media only screen and (max-width: 1000px){
-.pic{
-  border: 3px solid rgb(155, 123, 155);
-  border-radius: 50%;
-  margin: 20px 5px 20px;
+.column{
+  max-width: 100%;
+  padding: 10px;
+  float: left;
+  align-items: center;
+  background-color: black;
+  margin: 3px;
 }
+.row {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
 }
-button:focus { outline: none; }
+.has-background-black {
+  margin: 3px;
+}
+span {
+  font-size: 0.5em;
+}
+
+figure{
+  display: inline-block;
+  margin: 10px;
+}
+
+h3{
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: black;
+
+}
+
+img:hover{
+  opacity: 0.5;
+}
+
 </style>

@@ -23,7 +23,7 @@ export default new Vuex.Store({
   mutations: {
     // skapar ett slumpmässigt nummer som används som det rätta svaret
     newRandomNumber(state) {
-      state.number = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
+      state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
     showRules(state){
       state.show = !state.show;
@@ -59,3 +59,4 @@ export default new Vuex.Store({
 
   }
 });
+

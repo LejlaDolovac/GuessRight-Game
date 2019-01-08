@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <Login></Login>
-      <div class="nav buttons is-centered">
+      <div class="nav is-centered">
         <figure class="image">
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
@@ -10,7 +10,9 @@
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-        <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
+        <router-link to="/highScore" tabindex="-1">
+          <a @keyup.enter="openHighScore" tabindex="0" class="pink button">Highscore</a>
+        </router-link>
       </div>
     </div>
   </template>
@@ -58,21 +60,19 @@
       openLevels: function() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
+      // opens this highscore page
       openHighScore() {
         this.$router.push('/highScore')
       },
       close: function() {
         this.active = !this.active
-        console.log("hi")
       },
-      
-      
-  },
-  mounted(){
-    this.$confetti.stop()
+    },
+    mounted() {
+      //stops the confetti
+      this.$confetti.stop()
+    }
   }
-    } 
-
   </script>
 
  <style scoped>
@@ -117,13 +117,13 @@
       text-transform: uppercase;
     }
   }
-    @media (max-width: 600px) {
-      .button {
-        width: 300px;
-        font-size: 1.4em;
-      }
-      .nav {
-        max-width: 300px;
-      }
+  @media (max-width: 600px) {
+    .button {
+      width: 300px;
+      font-size: 1.4em;
     }
+    .nav {
+      max-width: 300px;
+    }
+  }
   </style>

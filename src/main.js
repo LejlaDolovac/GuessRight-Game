@@ -3,14 +3,14 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueFire from 'vuefire'; //Skapar en anpassad version för Firebase & Vue.js
+import firebase from 'firebase';
 import {fb} from './firebase-config'; // Ger tillgång Firebase / Initierar Firebase.
 import { library } from '@fortawesome/fontawesome-svg-core'; // installerar bibliotek som skall hålla i ikonerna
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'; // laddar hem EN specifik ikon
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import axios from 'axios'; // behövs för att kunna ladda upp egen bild
-import  VueConfetti from 'vue-confetti';
+import VueConfetti from 'vue-confetti'
 
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
 library.add(faUserSecret);
