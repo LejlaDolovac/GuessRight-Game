@@ -1,13 +1,17 @@
 <template>
   <div id="app">
+
     <transition
         name="fade"
         mode="out-in"
       >
         <router-view/>
       </transition>
-  </div>
+ </div>
 </template>
+
+
+
 
 <style lang="scss">
 @import '~bulma/css/bulma.css';
@@ -83,7 +87,7 @@ body {
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 }
 
-// Available scrolling on
+// Available scrolling on mobile
 @media only screen and (max-width: 600px) {
   body {
     overflow-y: scroll;

@@ -16,8 +16,6 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
-  <!--<br><button v-if="showButton" v-show="isClicked = !isClicked" @click="addHighscorePlayer(), addHighscoreBot(), isClicked=true" class="button">Add New score</button>
- -->
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
   <h1>Highscore for Botar</h1>
   <table class="table is-bordered is-striped is-narrow is-hoverable">
@@ -78,7 +76,7 @@ export default {
   },
 
   methods: {
-    // stores the player and bot scores
+    // stores the player scores
     addHighscorePlayer() {
       db.ref('highscoreData').push({
         hName: this.$store.state.currentUser,
@@ -86,7 +84,7 @@ export default {
         hScore: this.$store.state.correctAnswers
       });
     },
-
+    // stores the bot scores
     addHighscoreBot() {
       if (this.$store.state.easy == true) {
         bName: "Wall-E"
@@ -106,6 +104,7 @@ export default {
     }
 
     },
+  // starts the confetti
   mounted() {
 	    this.$confetti.start()
     }
