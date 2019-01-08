@@ -1,10 +1,5 @@
 <template>
 <div class="brain container">
-
-  <router-link to="/" tabindex="-1">
-    <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
-  </router-link>
-
   <div>
     <h1 class="room">guessroom</h1>
   </div>
@@ -27,7 +22,7 @@
         </div>
       </div>
       <div class="bot column is-two-fifths">
-        <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
+        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
         <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
@@ -159,14 +154,16 @@ export default {
                     this.botGuessNumber = this.chooseRandom()
                 }
                 // om det är wall-e
-                else if (this.$store.state.easy == true && this.botFirstGuess == true) {
-                    this.botGuessNumber = this.chooseOneUpDown()
+                else if (this.$store.state.easy == true) {
+                    if (this.botFirstGuess == true) {
+                        this.botGuessNumber = this.chooseOneUpDown()
+                    } else {
+                        this.botGuessNumber = this.chooseRandom()
+                        this.botFirstGuess = true;
+                    }
                     this.botMessage = "Eeeva..?";
                 }
-                else if (this.$store.state.easy == true) {
-                    this.botGuessNumber = this.chooseRandom()
-                    this.botFirstGuess = true;
-                }
+                
                     // checks if the bot guesses right                    
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
@@ -205,6 +202,9 @@ export default {
                             this.$refs.timeLeft.value = ''
                             this.timerShow = false
                             this.showHighScore = true
+                            setInterval(function() {
+                              window.location.href = '/highScore'
+                            }, 2000);
                         } else {
                             this.startCountdown()
                         }
@@ -254,6 +254,7 @@ export default {
               this.inputDisabled = true;
               this.numberOfTries--;
               this.lowNumber = 1
+              this.botFirstGuess = false;
               this.highNumber = this.$store.state.number
               // stops the guessing timer
               clearInterval(this.timerInterval)
@@ -276,6 +277,9 @@ export default {
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
                     this.showHighScore = true
+                    setInterval(function() {
+                      window.location.href = '/highScore'
+                    }, 2000);
                 } else {
                     this.startCountdown()
                 }
@@ -310,6 +314,7 @@ export default {
                     this.botGuessNumber = ''
                     this.allGuessedNumbers = []
                     this.message = ''
+                    this.botFirstGuess = false;
                     this.botHasGuessed = false
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
@@ -498,9 +503,9 @@ p {
 /* Balloon for bot message */
 .speech-bubble {
     position: absolute;
-    top: 30px;
-    right: 175px;
     padding: 10px;
+    top: 20px;
+    right: 250px;
 	border-radius: 1em;
 }
 
