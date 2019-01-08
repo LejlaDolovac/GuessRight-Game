@@ -13,7 +13,7 @@
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
-        <div id="desktopDivider"></div> <!-- för att få luft på sidorna -->
+        <div id="desktopDivider"></div> <!-- for space on the page -->
         <div class="flex">
             <div><h3 class="has-text-white">TIME LEFT:</h3></div>
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
@@ -29,13 +29,9 @@
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
-      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div class="column"></div> <!-- for space on the page -->
     </div>
-    <!-- <div id="column"><h1 class="room">VS</h1></div> -->
-    <!--<button class="start-btn button is-medium" v-if="startShow" @click="timerFunction(); startShow = false; timerShow = true; inputDisabled = false; timer = 10;" v-show="startShow">START</button>-->
-    <!-- <p v-show="hideNum"> {{ this.$store.state.number }} </p>-->
-    <!-- <button v-if="!startShow" class="button btn" @click="guessNumber" :disabled="inputDisabled">Press</button> -->
-    <!-- för att spelaren ska kunna se vilka siffror som är gissade på redan -->
+    <!-- so that the player can see what numbers have already been guessed -->
     <div class="allGuessedNumbers container game-div">
     <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
     <br>
@@ -162,12 +158,12 @@ export default {
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
                     }
                 }
-                // om det är R2-D2
+                // if it's R2-D2
                 else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
                     this.botGuessNumber = this.chooseRandom()
                 }
-                // om det är wall-e
+                // if it's wall-e
                 else if (this.$store.state.easy == true) {
                     if (this.botFirstGuess == true) {
                         this.botGuessNumber = this.chooseOneUpDown()
