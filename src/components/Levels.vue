@@ -3,9 +3,9 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-      <h2 class="has-white-text"> Please choose a level </h2>
+      <h2> Please choose a level </h2>
     </div>
-    <div class='row'>
+    <div class="row">
 
       <div class="column" @keyup.enter="easyNumbers()"> 
         <router-link to="/gamepage">
@@ -25,7 +25,7 @@
           </router-link> 
         </div>
 
-        <button class="modal-close is-large has-background-black" @keyup.enter="close" @click="close">x</button>
+        <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
     </div>
   </div>
 </div>
@@ -77,8 +77,7 @@ export default {
 
 <style scoped>
 .container {
-  width: 50%;
-  height: auto;
+  width: 75%;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
@@ -131,4 +130,5 @@ h2 {
 span {
   font-size: 0.5em;
 }
+
 </style>

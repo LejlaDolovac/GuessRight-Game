@@ -9,7 +9,9 @@
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
-          <router-link to="/highScore" tabindex="-1"><a @keyup.enter="openHighScore" tabindex="0" class="pink button">High score</a></router-link>
+        <router-link to="/highScore" tabindex="-1">
+          <a @keyup.enter="openHighScore" tabindex="0" class="pink button">Highscore</a>
+        </router-link>
       </div>
     </div>
   </template>
@@ -81,10 +83,9 @@
     background: lightgrey;
     border: thin solid black;
   }
-  .image {
-    width: 400px;
-    height: auto;
-    border: 3px solid white;
+  h1 {
+    margin-bottom: 30px;
+    padding-top: 3%;
   }
   .nav {
     max-width: 400px;
@@ -99,10 +100,10 @@
     margin-top: 10px;
     text-transform: uppercase;
   }
-  .button:not(:last-child):not(.is-fullwidth)
-  .pink {border-color: #FF03A4;}
-  .purple {border-color: #FF755F;}
-  .yellow {border-color: #FFD150;}
+  .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
+  .pink {border-color: #ab0e86;}
+  .purple {border-color: #59057b;}
+  .yellow {border-color: #fae100;}
 
   @media (min-width: 992px) {
     .button {
@@ -114,13 +115,13 @@
       text-transform: uppercase;
     }
   }
-    @media (max-width: 600px) {
-      .button {
-        width: 300px;
-        font-size: 1.4em;
-      }
-      .nav {
-        max-width: 300px;
-      }
+  @media (max-width: 600px) {
+    .button {
+      width: 300px;
+      font-size: 1.4em;
     }
+    .nav {
+      max-width: 300px;
+    }
+  }
   </style>

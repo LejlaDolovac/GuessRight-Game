@@ -1,16 +1,11 @@
 <template>
 <div class="brain container">
-
-  <router-link to="/" tabindex="-1">
-    <button class="button is-black is-pulled-left" style="width: 100%">&#8592;</button>
-  </router-link>
-
   <div>
     <h1 class="room">guessroom</h1>
   </div>
     <div class="players columns">
-      <div class="column"></div> <!-- for space on the page -->
-      <div class="player column is-two-fifths">
+      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
@@ -23,10 +18,10 @@
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="room">vs.</h2>
+            <h2 class="room" v-show="!mobile">vs.</h2>
         </div>
       </div>
-      <div class="bot column is-two-fifths">
+      <div id="bot" class="bot column is-two-fifths" v-show="botsTurn">
         <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
         <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
         <h2 class="heading">{{ this.$store.state.botName }}</h2>
@@ -45,7 +40,7 @@
         </li>
       </ul>
       <br>
-      <span class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span> 
+      <span class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
@@ -92,7 +87,11 @@ export default {
         // checks if the bot has made his first guess
         botFirstGuess: false,
         // what the bot says
-        botMessage: ''
+        botMessage: '',
+        // one show one player in movile mode
+        playersTurn: true,
+        botsTurn: true,
+        mobile: false
       }
     },
     created() {
@@ -102,6 +101,12 @@ export default {
     },
     methods: {
         startCountdown: function () {
+            // check if screensize is mobile
+            if (screen.width < 321) {
+             this.botsTurn = false;
+             this.mobile = true;
+            }
+
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
@@ -135,6 +140,10 @@ export default {
         },
         // creates what the bot guessed
         botGuessing: function () {
+            if (this.mobile == true) {
+              this.botsTurn = true;
+              this.playersTurn = false;
+            }
             // pauses the guess timer
             clearInterval(this.timerInterval)
             this.inputDisabled = true
@@ -163,8 +172,8 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
-                
-                    // checks if the bot guesses right                    
+
+                    // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
                         if (this.$store.state.hard == true) {
@@ -202,10 +211,13 @@ export default {
                             this.$refs.timeLeft.value = ''
                             this.timerShow = false
                             this.showHighScore = true
+                            setInterval(function() {
+                              window.location.href = '/highScore'
+                            }, 2000);
                         } else {
                             this.startCountdown()
                         }
-                    // checks if the bot's guess is too low 
+                    // checks if the bot's guess is too low
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
@@ -220,6 +232,11 @@ export default {
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
+                    if (this.mobile == true) {
+                      // show players again i mobile
+                      this.playersTurn = true
+                      this.botsTurn = false
+                    }
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
@@ -274,6 +291,9 @@ export default {
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
                     this.showHighScore = true
+                    setInterval(function() {
+                      window.location.href = '/highScore'
+                    }, 2000);
                 } else {
                     this.startCountdown()
                 }
@@ -497,9 +517,9 @@ p {
 /* Balloon for bot message */
 .speech-bubble {
     position: absolute;
-    top: 30px;
-    right: 175px;
     padding: 10px;
+    top: 20px;
+    right: 250px;
 	border-radius: 1em;
 }
 
