@@ -5,7 +5,7 @@
     <h1 class="room">guessroom</h1>
   </div>
     <div class="players columns">
-      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
@@ -13,7 +13,7 @@
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
-        <div id="desktopDivider"></div> <!-- for space on the page -->
+        <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
         <div class="flex">
             <div><h3 class="has-text-white">TIME LEFT:</h3></div>
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
@@ -29,7 +29,7 @@
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
-      <div class="column"></div> <!-- for space on the page -->
+      <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
     <div class="allGuessedNumbers container game-div">
@@ -104,7 +104,7 @@ export default {
     methods: {
         startCountdown: function () {
             // check if screensize is mobile
-            if (screen.width < 321) {
+            if (screen.width < 601) {
              this.botsTurn = false;
              this.mobile = true;
             }
@@ -428,6 +428,12 @@ export default {
   justify-content: flex-end;
   padding-bottom: 40px;
 }
+
+/* hide the empty columns in mobile mode */
+.no-mobile {
+  visibility: hidden;
+}
+
 .players img {
   width: 60%;
   height: 60%
@@ -436,12 +442,14 @@ export default {
   visibility: hidden;
 }
 .high-low {
-    padding: 1%;
-    margin: -10px;
+  padding: 1%;
+  margin: -10px;
 }
 .column {
-  max-width: 300px;
+  width: 80%;
   height: auto;
+  margin: auto;
+  text-align: center;
 }
 .allGuessedNumbers {
   color: White;
@@ -455,9 +463,6 @@ export default {
   list-style: none;
   width: 25px;
   display: inline-block;
-}
-.bot {
-  visibility: hidden;
 }
 .message-body {
   border: none;
@@ -498,7 +503,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+	   transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
@@ -526,12 +531,16 @@ p {
 }
 
 /* Balloon for bot message */
+.bot {
+    position: relative;
+}
 .speech-bubble {
     position: absolute;
     padding: 10px;
-    top: 20px;
-    right: 250px;
-	border-radius: 1em;
+    top: -80px;
+    right: 0px;
+	  border-radius: 1em;
+    max-width: 200px;
 }
 
 .speech-bubble:after {
@@ -549,8 +558,8 @@ p {
 
 /* större än mobil */
 @media (min-width: 600px) {
-  .bot {
-    visibility: visible;
+  .column {
+    max-width: 80%;
   }
   #desktopDivider {
     visibility: visible;
@@ -560,18 +569,25 @@ p {
 
 /* större än tablet */
 @media (min-width: 992px) {
+  .column {
+    max-width: 300px;
+    max-height: 320px;
+  }
   #desktopDivider {
     width: 100px;
   }
+  .no-mobile {
+    visibility: visible;
+  }
 }
 
-/* Mobile */
+/* Mobile
 @media only screen and (max-width: 600px) {
 .container {
     padding: 1%;
 }
 .column {
-    max-width: 50%;
+    max-width: 300px;
 }
 .start-btn {
     width: 90%;
@@ -581,9 +597,6 @@ p {
     margin-bottom: 10px;
 }
 
-.bot {
-    visibility: visible;
-}
 
 .winner-loser-message {
     padding: 20px;
@@ -618,5 +631,5 @@ p {
    border: 3px solid purple;
    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
-}
+} */
 </style>
