@@ -3,7 +3,10 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-      <h2> Please choose a level </h2>
+    <h2 class="has-white-text"> Please choose level and avatar </h2>
+    <p> or upload your own image </p>
+    <button @click="onUpload">Upload</button> <!-- Uploads the file -->
+    <input type="file" @change="onFileSelected">
     </div>
     <div class="row">
 
@@ -27,57 +30,80 @@
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
     </div>
+    </div>
+
   </div>
-</div>
 </template>
 
 <script>
+
 export default {
     name: 'Levels',
     data() {
       return {
-        numbers: []
+        numbers: [],
+        selectedFile: null
       }
     },
     computed: {
       showLevelsPage() {
-        return this.$store.state.showLevels;
+        return this.$store.state.showLevels;  // opens the level page
       }
     },
     methods: {
-      // stänger nivårutan
       close() {
+        this.$store.state.showLevels = !this.$store.state.showLevels // closes the level menu by clicking anywhere
+      },
+      easyNumbers: function() {   // function easy-level
+      this.$store.state.easy = true
+      this.$store.state.medium = false
+      this.$store.state.hard= false
+      this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      // används för att sätta nivån spelaren väljer
-      easyNumbers: function() {
-        this.$store.state.easy = true
-        this.$store.state.medium = false
-        this.$store.state.hard = false
-        this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
-      },
-      mediumNumbers: function() {
+      mediumNumbers: function() {   // function medium-level
         this.$store.state.medium = true
         this.$store.state.hard = false
         this.$store.state.easy = false
         this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
+          this.$store.state.showLevels = !this.$store.state.showLevels
+        
+        
       },
-      hardNumbers: function() {
-        this.$store.state.hard = true
-        this.$store.state.easy = false
+      hardNumbers: function() {   // function hard-level
+        this.$store.state.hard = true,
+        this.$store.state.easy = false,
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
-        this.$store.state.showLevels = !this.$store.state.showLevels
+          this.$store.state.showLevels = !this.$store.state.showLevels
+        },
+        onFileSelected (event) {
+          this.selectedFile = event.target.files[0] // this is the file the user selected
+
+        },
+        // here you upload your own avatar-image
+        onUpload() {
+          const fd = new FormData(); // sends form-data object
+          fd.append('image', this.selectedFile, this.selectedFile.name) 
+          axios.post('', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress:' + Math.round(uploadEvent / uploadEvent.total * 100)+ '%')
+          }
+           })
+           .then(res =>{
+           console.log(res)})
+        }
+
       }
-    }
-  }
+     }
+  
+
 </script>
 
 <style scoped>
 .container {
-  width: 75%;
+  width: 50%;
+  height: auto;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
@@ -130,5 +156,4 @@ h2 {
 span {
   font-size: 0.5em;
 }
-
 </style>
