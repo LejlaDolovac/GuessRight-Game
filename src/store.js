@@ -13,8 +13,7 @@ export default new Vuex.Store({
     easy: false,
     medium: false,
     hard: false,
-    levelChosen: false,
-    randomNumbers: '',
+    radndomNumbers: '',
     timer: '',
     currentUser: null,
     loggedIn: false,
@@ -25,8 +24,8 @@ export default new Vuex.Store({
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
-    showRules(state) {
-      state.show = !state.show
+    showRules(state){
+      state.show = !state.show;
     },
     // sätter vad nivåerna gör
     levelNumber(state) {
@@ -51,8 +50,9 @@ export default new Vuex.Store({
         state.botName = 'Terminator';
         state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
       }
-      // console.log("Correct number: " + state.number)
+      console.log("Correct number: " + state.number);
     }
+      
   },
   actions: {
 
