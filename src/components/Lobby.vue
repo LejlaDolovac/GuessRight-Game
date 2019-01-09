@@ -5,7 +5,7 @@
         <figure class="image">
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
-        
+
         <button class="yellow button" @click="openLevels()">Play</button>
           <Levels v-show="showLevelsPage"></Levels>
         <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
@@ -31,6 +31,8 @@
         numbers: [],
         active: true,
         showRules: true // shows the rules page
+        correctAnswers: 0, // reset player score
+        botWins: 0  //reset bot score
       }
     },
     firebase: {
@@ -106,7 +108,7 @@
   .pink {border-color: #ab0e86;}
   .purple {border-color: #59057b;}
   .yellow {border-color: #fae100;}
-  
+
   @media (min-width: 992px) {
     .button {
       font-size: 1.6em;
