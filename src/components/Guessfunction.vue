@@ -1,4 +1,3 @@
-
 <template>
 <div class="brain container">
   <div>
@@ -48,7 +47,7 @@
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -394,222 +393,223 @@ export default {
 </script>
 
 <style scoped>
-.container {
-    width: 100%;
-    max-width: 1280px;
-}
-.heading {
-  font-size: 2em;
-  text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.room {
-  font-size: 3.5em;
-  text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#094A6F,#64C6BD);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.game-div {
-  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
-  padding: 2%;
-}
-.flex {
-  display: flex;
-  flex-flow: column;
-  width: 125px;
-  max-width: 100%;
-  justify-content: flex-end;
-  padding-bottom: 40px;
-}
-/* hide the empty columns in mobile mode */
-.no-mobile {
-  visibility: hidden;
-}
-
-.players img {
-  width: 60%;
-  height: 60%
-}
-#desktopDivider {
-  visibility: hidden;
-}
-.high-low {
-  padding: 1%;
-  margin: -10px;
-}
-.column {
-  height: auto;
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers {
-  color: White;
-  overflow: hidden;
-}
-.allGuessedNumbers ul {
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers li {
-  list-style: none;
-  width: 25px;
-  display: inline-block;
-}
-.message-body {
-  border: none;
-  color: white;
-}
-.bot-message {
-  color: White;
-  padding: 5px;
-}
-
-/* nytt ovanför */
-
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-h3 {
-    padding: 20px 0 5px;
-    color: #351304;
-}
-p {
-    color: midnightblue;
-}
-.timer {
-    clear: left;
-    padding: 10px;
-    color: White;
-    text-align: center;
-    font-size: 2em;
-}
-.start-btn {
-    background: #351304;
-    font-weight: bold;
-    color: cornsilk;
-    margin-bottom: 20px;
-}
-.search {
-    background-color: cornsilk;
-    width: 150px;
-    height: 17px;
-    -webkit-transition: .3s ease-in-out;
-	   transition: .3s ease-in-out;
-    z-index: 10;
-    border-radius: 50px;
-    padding: 10px;
-    margin: 10px;
-}
-.search:hover {
-    box-shadow: 0px 0px 150px grey;
-    z-index: 2;
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(1.5);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.5);
-    -mozd-transition: all 200ms ease-in;
-    -moz-transform: scale(1.5);
-    transition: all 200ms ease-in;
-    transform: scale(1.8);
-}
-.btn {
-    margin-top: 10px;
-    color: cornsilk;
-    background-color: #351304;
-}
-.btn:focus {
-    outline:0;
-}
-
-/* Balloon for bot message */
-.bot {
-    position: relative;
-}
-.speech-bubble {
-    position: absolute;
-    padding: 10px;
-    top: -80px;
-    right: 0px;
-	border-radius: 1em;
-    max-width: 200px;
-}
-
-.speech-bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 40%;
-	width: 0;
-	border: 20px solid transparent;
-	border-top-color: #FF755F;
-	border-bottom: 0;
-	border-left: 0;
-	margin-bottom: -20px;
-}
-
-@media only screen and (max-width: 1087px) {
     .container {
         width: 100%;
+        max-width: 1280px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .heading {
+        font-size: 2em;
+        text-transform: uppercase;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .room {
+        font-size: 3.5em;
+        text-transform: uppercase;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        background: -webkit-linear-gradient(#094A6F,#64C6BD);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .game-div {
-        width: 100%;
+        background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+        padding: 2%;
     }
-}
+    .flex {
+        display: flex;
+        flex-flow: column;
+        width: 125px;
+        max-width: 100%;
+        justify-content: flex-end;
+        padding-bottom: 40px;
+    }
+    /* hide the empty columns in mobile mode */
+    .no-mobile {
+        visibility: hidden;
+    }
 
-/* Mobile
-@media only screen and (max-width: 600px) {
-.container {
-    padding: 1%;
-}
-.column {
-    max-width: 300px;
-}
-.start-btn {
-    width: 90%;
-    height: 350px;
-    margin-top: 10px;
-    font-size: 60px;
-    margin-bottom: 10px;
-}
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
+    }
+
+    h3 {
+        padding: 20px 0 5px;
+        color: #351304;
+    }
+    p {
+        color: midnightblue;
+    }
+    .timer {
+        clear: left;
+        padding: 10px;
+        color: White;
+        text-align: center;
+        font-size: 2em;
+    }
+    .start-btn {
+        background: #351304;
+        font-weight: bold;
+        color: cornsilk;
+        margin-bottom: 20px;
+    }
+    .search {
+        background-color: cornsilk;
+        width: 150px;
+        height: 17px;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+        z-index: 10;
+        border-radius: 50px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .search:hover {
+        box-shadow: 0px 0px 150px grey;
+        z-index: 2;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.5);
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1.5);
+        -mozd-transition: all 200ms ease-in;
+        -moz-transform: scale(1.5);
+        transition: all 200ms ease-in;
+        transform: scale(1.8);
+    }
+    .btn {
+        margin-top: 10px;
+        color: cornsilk;
+        background-color: #351304;
+    }
+    .btn:focus {
+        outline:0;
+    }
+
+    /* Balloon for bot message */
+    .bot {
+        position: relative;
+    }
+    .speech-bubble {
+        position: absolute;
+        padding: 10px;
+        top: -80px;
+        right: 0px;
+        border-radius: 1em;
+        max-width: 200px;
+    }
+
+    .speech-bubble:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 40%;
+        width: 0;
+        border: 20px solid transparent;
+        border-top-color: #FF755F;
+        border-bottom: 0;
+        border-left: 0;
+        margin-bottom: -20px;
+    }
+
+    @media only screen and (max-width: 1087px) {
+        .container, .game-div {
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .is-medium {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #59057b;
+        }
+    }
+
+    /* Mobile
+    @media only screen and (max-width: 600px) {
+    .container {
+        padding: 1%;
+    }
+    .column {
+        max-width: 300px;
+    }
+    .start-btn {
+        width: 90%;
+        height: 350px;
+        margin-top: 10px;
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
 
 
-.winner-loser-message {
-    padding: 20px;
-    text-align: center;
-    font-size: 15px;
-}
+    .winner-loser-message {
+        padding: 20px;
+        text-align: center;
+        font-size: 15px;
+    }
 
-.search {
-    width: 80px;
-    height: 80px;
-    border-radius: 4px;
-    font-size: 35px;
-    text-align: center;
-    margin: 10px;
-}
-.search:hover {
-    transform: scale(1.2);
-}
-#time-left-timer {
-    height: 60px;
-}
-.btn {
-    width: 210px;
-    height: 70px;
-    font-size: 25px;
-    margin: 5px;
-}
-.button {
-   background-color:black;
-   color:white;
-   width: 30%;
-   border: 3px solid purple;
-   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  }
-} */
+    .search {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        font-size: 35px;
+        text-align: center;
+        margin: 10px;
+    }
+    .search:hover {
+        transform: scale(1.2);
+    }
+    #time-left-timer {
+        height: 60px;
+    }
+    .btn {
+        width: 210px;
+        height: 70px;
+        font-size: 25px;
+        margin: 5px;
+    }
+    .button {
+    background-color:black;
+    color:white;
+    width: 30%;
+    border: 3px solid purple;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    } */
 </style>
