@@ -49,7 +49,8 @@ export default {
     data() {
       return {
         numbers: [],
-        selectedFile: null
+        selectedFile: null,
+        selected: ' choose an avatar' // when you select an avatar
       }
     },
     computed: {
@@ -60,13 +61,13 @@ export default {
     
     methods: {
       closeLevels() {
-        this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere
+        this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere - behövs jobba vidare på
       },
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
       
-      easyNumbers: function() {   // funktion easy-level
+      easyNumbers: function() {   // function easy-level
       this.$store.state.easy = true
       this.$store.state.medium = false
       this.$store.state.hard= false

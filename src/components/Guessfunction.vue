@@ -92,7 +92,7 @@ export default {
         // one show one player in movile mode
         playersTurn: true,
         botsTurn: true,
-        mobile: false
+        mobile: false,
       }
     },
     created() {
