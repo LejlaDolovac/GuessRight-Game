@@ -34,8 +34,8 @@ export default ({
         return this.$store.state.loggedIn
       }
     },
-    // player sign in
     methods: {
+      // player sign in
       googleLogin(){
       var provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider).then(function(result) {

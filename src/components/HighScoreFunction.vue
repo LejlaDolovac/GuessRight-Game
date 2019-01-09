@@ -45,35 +45,38 @@
 </template>
 
 <script>
-import {
-  db
-} from '../firebase-config'
+import {  db  } from '../firebase-config'
 
 export default {
   name: 'HighScoreFunction',
   data() {
     return {
-      isClicked: false,
       highscoreDatas: [],
-      hName: '',
+      hName:'',
       hDate: new Date(),
-      hScore: '',
+      hScore:'',
       hRank: 1,
-      bScore: '',
-      bName: '',
+      botHighscoreDatas: [],
+      bScore:'',
       bDate: new Date(),
       bRank: 1,
-      easy: this.$store.state.easy,
-      medium: this.$store.state.medium,
-      hard: this.$store.state.hard
+      bName:'',
+      saveBot: '',
+
     }
   },
 
   firebase: {
-    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10)
+    // gets the highscore from the database
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10),
+    highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
 
   mounted() {
+    console.log("mount this: " + this.$store.state.botName)
+    console.log("mount that: " + this.$store.state.botWins)
+    console.log("mount this 2: " + this.$store.state.currentUser)
+    console.log("mount that 2: " + this.$store.state.correctAnswers)
     if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
 
@@ -81,7 +84,9 @@ export default {
         this.addHighscoreBot()
       }
     }
-  },
+     // starts the confetti
+      this.$confetti.start()
+    },
 
   methods: {
     // stores the player scores
@@ -94,29 +99,16 @@ export default {
     },
     // stores the bot scores
     addHighscoreBot() {
-      if (this.$store.state.easy == true) {
-        bName: "Wall-E"
-      }
-      else if (this.$store.state.medium == true) {
-        bName: "R2D2"
-      }
-      else if (this.$store.state.hard == true) {
-        bName: "Terminator"
-      }
 
       db.ref('botHighscoreData').push({
-        bName: bName,
+        bName: this.$store.state.botName,
         bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
         bScore: this.$store.state.botWins
       });
     }
-
-    },
-  // starts the confetti
-  mounted() {
-	  this.$confetti.start()
+    }
   }
-}
+
 
 </script>
 

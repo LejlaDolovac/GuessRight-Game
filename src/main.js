@@ -16,16 +16,14 @@ import VueConfetti from 'vue-confetti'
 library.add(faUserSecret)
 library.add(faGoogle)
 
-Vue.component('font-awesome-icon', FontAwesomeIcon) // skapar syntax för fontawesome. (?)
+Vue.component('font-awesome-icon', FontAwesomeIcon); // skapar syntax för fontawesome. (?)
 Vue.use(VueFire);
+Vue.config.productionTip = false,
+require("./assets/main.scss"); // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
 Vue.use(VueConfetti);
-
-Vue.config.productionTip = false
-require("./assets/main.scss") // Ger möjlighet att ändra färger i Bulma-klasser, font-family osv.
-
 let app = '';
 
-fb.auth().onAuthStateChanged(() => {
+fb.auth(). onAuthStateChanged(() => {
   if(!app) {
     app = new Vue({
       router,

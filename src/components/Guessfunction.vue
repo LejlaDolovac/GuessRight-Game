@@ -1,18 +1,19 @@
+
 <template>
 <div class="brain container">
   <div>
     <h1 class="room">guessroom</h1>
   </div>
     <div class="players columns">
-      <div class="column"></div> <!-- for space on the page -->
-      <div class="player column is-two-fifths">
+      <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
+      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
-        <div id="desktopDivider"></div> <!-- for space on the page -->
+        <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
         <div class="flex">
             <div><h3 class="has-text-white">TIME LEFT:</h3></div>
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
@@ -28,7 +29,7 @@
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
-      <div class="column"></div> <!-- for space on the page -->
+      <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
     <div class="allGuessedNumbers container game-div">
@@ -89,17 +90,25 @@ export default {
         allGuessedNumbers: [],
         // checks if the bot has made his first guess
         botFirstGuess: false,
+        newBotGuess: 0,
         // what the bot says
-        botMessage: ''
+        botMessage: '',
+        // one show one player in movile mode
+        playersTurn: true,
+        botsTurn: true,
+        mobile: false,
       }
-    },
-    created() {
-      this.$store.commit('levelNumber')
     },
     computed: {
     },
     methods: {
         startCountdown: function () {
+            // check if screensize is mobile
+            if (screen.width < 601) {
+             this.botsTurn = false;
+             this.mobile = true;
+            }
+
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
@@ -331,20 +340,29 @@ export default {
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
             console.log(this.allGuessedNumbers)
+            // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber - 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess - 1;
+                this.newBotGuess = this.botGuessNumber++;
+                // if the guess is higher than the highest number guessed, go one number lower
+                if (this.newBotGuess > this.highNumber) {
+                  this.newBotGuess = this.highNumber--;
                 }
-                return newBotGuess;
+                // if the number has already been guessed, go one number lower
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess--;
+                }
               }
+            // bot needs to guess higher
               else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber + 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess + 1;
+                this.newBotGuess = this.botGuessNumber++;
+                if (this.newBotGuess < this.lowNumber) {
+                  this.newBotGuess = this.lowNumber++;
                 }
-                return newBotGuess;
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess++;
+                }
               }
+            return this.newBotGuess;
           },
           // creates a random number between highest and lowest last guess
           chooseRandom: function () {
@@ -402,6 +420,12 @@ export default {
   justify-content: flex-end;
   padding-bottom: 40px;
 }
+
+/* hide the empty columns in mobile mode */
+.no-mobile {
+  visibility: hidden;
+}
+
 .players img {
   width: 60%;
   height: 60%
@@ -414,8 +438,10 @@ export default {
   margin: -10px;
 }
 .column {
-  max-width: 300px;
+  width: 80%;
   height: auto;
+  margin: auto;
+  text-align: center;
 }
 .allGuessedNumbers {
   color: White;
@@ -429,9 +455,6 @@ export default {
   list-style: none;
   width: 25px;
   display: inline-block;
-}
-.bot {
-  visibility: hidden;
 }
 .message-body {
   border: none;
@@ -472,7 +495,7 @@ p {
     width: 150px;
     height: 17px;
     -webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+	   transition: .3s ease-in-out;
     z-index: 10;
     border-radius: 50px;
     padding: 10px;
@@ -485,7 +508,7 @@ p {
     -webkit-transform: scale(1.5);
     -ms-transition: all 200ms ease-in;
     -ms-transform: scale(1.5);
-    -moz-transition: all 200ms ease-in;
+    -mozd-transition: all 200ms ease-in;
     -moz-transform: scale(1.5);
     transition: all 200ms ease-in;
     transform: scale(1.8);
@@ -500,12 +523,16 @@ p {
 }
 
 /* Balloon for bot message */
+.bot {
+    position: relative;
+}
 .speech-bubble {
     position: absolute;
     padding: 10px;
-    top: 20px;
-    right: 250px;
-	border-radius: 1em;
+    top: -80px;
+    right: 0px;
+	  border-radius: 1em;
+    max-width: 200px;
 }
 
 .speech-bubble:after {
@@ -523,8 +550,8 @@ p {
 
 /* större än mobil */
 @media (min-width: 600px) {
-  .bot {
-    visibility: visible;
+  .column {
+    max-width: 80%;
   }
   #desktopDivider {
     visibility: visible;
@@ -534,18 +561,25 @@ p {
 
 /* större än tablet */
 @media (min-width: 992px) {
+  .column {
+    max-width: 300px;
+    max-height: 320px;
+  }
   #desktopDivider {
     width: 100px;
   }
+  .no-mobile {
+    visibility: visible;
+  }
 }
 
-/* Mobile */
+/* Mobile
 @media only screen and (max-width: 600px) {
 .container {
     padding: 1%;
 }
 .column {
-    max-width: 50%;
+    max-width: 300px;
 }
 .start-btn {
     width: 90%;
@@ -555,9 +589,6 @@ p {
     margin-bottom: 10px;
 }
 
-.bot {
-    visibility: visible;
-}
 
 .winner-loser-message {
     padding: 20px;
@@ -592,5 +623,5 @@ p {
    border: 3px solid purple;
    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
-}
+} */
 </style>
