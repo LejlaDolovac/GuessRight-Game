@@ -414,7 +414,7 @@ export default {
   font-size: 3.5em;
   text-transform: uppercase;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#094A6F,#64C6BD);
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
