@@ -8,13 +8,13 @@
      <h3>Please choose an avatar</h3>
      <div class="imageBorder v-bind:class={active: isActive}"> 
     <figure  class="image is-128x128">
-      <img @keyup.enter="selectedImage()" dataImage="../assets/homer_mindre.jpg" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+      <img @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
     </figure>
     <figure class="image is-128x128">
-      <img @keyup.enter="selectedImage()" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+      <img @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
     </figure>
     <figure class="image is-128x128">
-      <img  @keyup.enter="selectedImage()" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+      <img @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
     </figure>
    
     </div>
@@ -55,7 +55,7 @@ export default {
       return {
         numbers: [],
         selectedFile: null,
-        dataImages: '' // when you select an avatar
+        dataImages: 3 // when you select an avatar
       }
     },
     computed: {
@@ -72,8 +72,14 @@ export default {
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
-      selectImage(){
-        this.selectImage = true
+      selectedImage1(){
+        this.$store.state.imageNumber = 1
+      },
+      selectedImage2(){
+        this.$store.state.imageNumber = 2
+      },
+      selectedImage3(){
+        this.$store.state.imageNumber = 3
       },
       easyNumbers: function() {   // function easy-level
       this.$store.state.easy = true

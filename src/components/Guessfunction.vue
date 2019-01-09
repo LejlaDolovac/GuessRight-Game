@@ -7,7 +7,7 @@
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
-        <img class="is-square" :alt="`Your profile picture`" src='this.$store.state.avatar'>
+        <img class="is-square" :alt="`Your profile picture`" :src="this.avatar">
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
@@ -97,9 +97,13 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
       }
     },
     computed: {
+        avatarImage: function () {
+            return this.avatar
+        }
     },
     methods: {
         startCountdown: function () {
@@ -386,6 +390,14 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            if(this.$store.state.imageNumber == 1) {
+                this.avatar = "homer_mindre.jpg"
+            } else if(this.$store.state.imageNumber == 2) {
+                this.avatar = "kenny.jpg"
+            } else if(this.$store.state.imageNumber == 3) {
+                this.avatar = "kermit.jpg"
+            } 
+            console.log(this.avatar)
         } else {
             window.location.href = '/'
         }
