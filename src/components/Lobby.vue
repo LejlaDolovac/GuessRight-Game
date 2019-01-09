@@ -64,7 +64,6 @@
       },
       close: function() {
         this.active = !this.active
-        console.log("hi")
       },
     },
     mounted() {
