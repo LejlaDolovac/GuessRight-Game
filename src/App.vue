@@ -84,13 +84,8 @@ body {
   height: 100%;
   background-color: #000;
   line-height: 1;
+  overflow-y: scroll;
   // background-image: linear-gradient(to bottom right, pink, orange); /* Standard syntax (must be last) */
 }
 
-// Available scrolling on mobile
-@media only screen and (max-width: 600px) {
-  body {
-    overflow-y: scroll;
-  }
-}
 </style>
