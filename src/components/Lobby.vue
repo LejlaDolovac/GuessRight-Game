@@ -30,9 +30,9 @@
       return {
         numbers: [],
         active: true,
-        showRules: true // shows the rules page
+        showRules: true, // shows the rules page
         correctAnswers: 0, // reset player score
-        botWins: 0  //reset bot score
+        botWins: 0          //reset bot score
       }
     },
     firebase: {
