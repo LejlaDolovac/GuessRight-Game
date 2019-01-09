@@ -4,7 +4,7 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2 class="has-white-text"> Please choose level and avatar </h2>
+    <h2> Please choose level & avatar </h2>
      <h3>Please choose an avatar</h3>
          <figure class="image is-128x128">
        <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg">
@@ -37,7 +37,7 @@
         </div>
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
-    </div>
+      </div>
     </div>
 
   </div>

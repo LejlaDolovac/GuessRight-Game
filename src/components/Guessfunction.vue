@@ -33,7 +33,7 @@
       <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container game-div">
+    <div class="allGuessedNumbers container gradient-game-div">
       <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
       <br>
       <ul>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
     <div class="modal is-three-quarters-mobile is-active" v-show="showRulesPage">
       <div class="modal-background"></div>
       <div class="container is-half-mobile">
@@ -60,7 +61,7 @@ li {
 }
 .heading {
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Black Ops One', cursive;
   background: -webkit-linear-gradient(#FF03A4,#F9F871);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
