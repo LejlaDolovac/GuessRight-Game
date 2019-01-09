@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="modal is-three-quarters-mobile is-active" v-show="showRulesPage">
+    <div class="modal is-active" v-show="showRulesPage">
       <div class="modal-background"></div>
-      <div class="container is-half-mobile">
+      <div class="container">
       <div class="modal-content is-size-5 has-background-black has-text-white">
-        <h1 class="title is-1 heading">Game Rules</h1>
+        <h1 class="title is-size-1 heading">Game Rules</h1>
           <ul>
             <li>This is a turned based game, Player vs AI.</li>
             <!-- <li>A game where the player guesses a number and competes against AI.</li> -->

@@ -8,7 +8,7 @@
       <div class="player column is-two-fifths">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <input class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -410,8 +410,8 @@ export default {
   visibility: hidden;
 }
 .high-low {
-    padding: 1%;
-    margin: -10px;
+  padding: 1%;
+  margin: -10px;
 }
 .column {
   max-width: 300px;
