@@ -1,5 +1,6 @@
 <template>
 <div class="modal is-active" v-show="showLevelsPage">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
@@ -7,7 +8,7 @@
     </div>
     <div class="row">
 
-      <div class="column" @keyup.enter="easyNumbers()"> 
+      <div class="column" @keyup.enter="easyNumbers()">
         <router-link to="/gamepage">
           <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
         </router-link>
@@ -22,7 +23,7 @@
         <div class="column" @keyup.enter="hardNumbers()">
           <router-link to="/gamepage">
             <button class="button is-medium is-light has-text-white" tabindex="-1"  @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
-          </router-link> 
+          </router-link>
         </div>
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
@@ -94,7 +95,7 @@ h2 {
   text-align: center;
   padding: 10px;
   height: auto;
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family:  'Black Ops One', cursive;
   font-size: 2.8em;
   text-transform: uppercase;
   background-color: black;

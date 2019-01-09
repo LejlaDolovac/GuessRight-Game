@@ -1,8 +1,11 @@
 <template>
-<div class="container">
-  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
-  <h1>Highscore for Humans</h1>
-  <table class="table is-bordered is-striped is-narrow is-hoverable">
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+  <div class="has-background-black">
+    <h1>Highscore for Humans</h1>
+  </div>
+  <div class="container">
+  <table class="table is-bordered is-striped is-narrow is-hoverable has-background-black has-text-primary">
     <thead style="background-color:#FAE100;">
       <th>Rank</th>
       <th>Name</th>
@@ -16,8 +19,12 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
+</div>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
-  <h1>Highscore for Botar</h1>
+  <div class="container">
+    <div>
+      <h1>Highscore for Botar</h1>
+    </div>
   <table class="table is-bordered is-striped is-narrow is-hoverable">
     <thead style="background-color:#FAE100;">
       <th>Rank</th>
@@ -32,8 +39,9 @@
       <td>{{score.bScore}}</td>
     </tr>
   </table>
-  <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
 </div>
+  <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
+</body>
 </template>
 
 <script>
@@ -114,10 +122,19 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: 75%;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
+}
 h1 {
   font-size: 300%;
   font-family: 'Black Ops One', cursive;
-  color: white;
+  text-transform: uppercase;
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 th {

@@ -1,13 +1,14 @@
 <template>
 <div class="brain container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div>
-    <h1 class="room">guessroom</h1>
+    <h1 class="gradient-font-big">guessroom</h1>
   </div>
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
-        <h2 class="heading">Player</h2>
+        <h2 class="gradient-heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
@@ -18,20 +19,20 @@
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="room" v-show="!mobile">vs.</h2>
+            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
         </div>
       </div>
       <div id="bot" class="bot column is-two-fifths" v-show="botsTurn">
         <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
         <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
-        <h2 class="heading">{{ this.$store.state.botName }}</h2>
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container game-div">
+    <div class="allGuessedNumbers container gradient-game-div">
     <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
     <br>
       <ul>
@@ -391,24 +392,24 @@ export default {
 </script>
 
 <style scoped>
-.heading {
+.gradient-heading {
   font-size: 2em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
   background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.room {
+.gradient-font-big {
   font-size: 3.5em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#094A6F,#64C6BD);
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.game-div {
-  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+.gradient-game-div {
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
   padding: 2%;
 }
 .flex {
