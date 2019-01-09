@@ -16,7 +16,6 @@
       <td>{{score.hScore}}</td>
     </tr>
   </table>
-  <button type="submit" class="button" @click="addHighscoreBot(), addHighscorePlayer()">add botscore</button>
   <router-link to="/"><button class="button is-primary">Back to start page</button></router-link>
   <h1>Highscore for Botar</h1>
   <table class="table is-bordered is-striped is-narrow is-hoverable">
@@ -85,9 +84,6 @@ export default {
     },
     // stores the bot scores
     addHighscoreBot() {
-
-      console.log("med this: " + this.$store.state.botName);
-      console.log("med this: " + this.$store.state.botWins);
 
       db.ref('botHighscoreData').push({
         bName: this.$store.state.botName,
