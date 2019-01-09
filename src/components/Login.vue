@@ -3,7 +3,6 @@
 
     <div class="fontawesome-container has-background-primary" v-if="!loggedIn">
       <span class="is-size-5 is-size-6-mobile">Login with:</span>
-      <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="facebookLogin" @click="facebookLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/> Facebook</a> 
       <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="googleLogin" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
       <span>{{ errorText }} </span>
     </div>
@@ -19,16 +18,13 @@
 </template>
 
 <script>
-import facebookLogin from 'facebook-login-vuejs';
 import firebase from 'firebase'
 
-import {fb} from '../firebase-config'
 export default ({
     name: 'Login',
     data() {
       return {
-        logoutMessage: '',
-        errorText: ''
+        logoutMessage: ''
       }
     },
     computed: {
@@ -42,7 +38,7 @@ export default ({
     methods: {
       // player sign in
       googleLogin(){
-       var provider = new firebase.auth.GoogleAuthProvider();
+      var provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider).then(function(result) {
         var user = result.user;
         user.providerData.forEach(function (profile) {
@@ -52,22 +48,6 @@ export default ({
           }, 1500);
         });
         }).catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorCode + ": " + errorMessage);
-          });
-      },
-      facebookLogin() {
-        var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          var user = result.user;
-          user.providerData.forEach(function (profile) {
-            alert('Welcome, ' + profile.displayName + '!');
-            setInterval(function() {
-               window.location.href = '/'
-            }, 1500);
-          });
-          }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
             alert(errorCode + ": " + errorMessage);
@@ -124,10 +104,6 @@ export default ({
   }
   .fontawesome-container > a {
     display: inline;
-  }
-  .fontawesome-container a:first-of-type:after {
-      content: '|';
-      margin: 2%;
   }
   .fontawesome-container > span {
     margin: 2%;
