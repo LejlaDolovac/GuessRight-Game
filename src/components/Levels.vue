@@ -40,16 +40,17 @@ export default {
       }
     },
     computed: {
+      // shows the levelpage
       showLevelsPage() {
         return this.$store.state.showLevels;
       }
     },
     methods: {
-      // stänger nivårutan
+      // closes the level page
       close() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      // används för att sätta nivån spelaren väljer
+      // when level is chosen
       easyNumbers: function() {
         this.$store.state.easy = true
         this.$store.state.medium = false

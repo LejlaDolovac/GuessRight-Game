@@ -18,7 +18,8 @@ export default new Vuex.Store({
     timer: '',
     currentUser: null,
     loggedIn: false,
-    botWins: 0
+    botWins: 0,
+    botName: ''
   },
   mutations: {
     // skapar ett slumpmässigt nummer som används som det rätta svaret
@@ -41,7 +42,7 @@ export default new Vuex.Store({
         state.timer = 15;
         state.number = 30;
         state.randomNumbers = Math.floor(Math.random() * (30 - 1 + 1)) + 1;
-        state.botName = 'R2-D2'; // fixa snyggare bilder, gärna png
+        state.botName = 'R2-D2';
         state.botImg = 'http://icons.iconarchive.com/icons/artua/star-wars/256/R2D2-icon.png';
       }
       else if (state.hard == true) {

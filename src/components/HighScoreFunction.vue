@@ -49,27 +49,34 @@ export default {
       hDate: new Date(),
       hScore:'',
       hRank: 1,
-      botHighscoreData: [],
+      botHighscoreDatas: [],
       bScore:'',
       bDate: new Date(),
       bRank: 1,
-      bName:''
+      bName:'',
+      saveBot: '',
+
     }
   },
 
   firebase: {
+    // gets the highscore from the database
     highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10),
     highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
 
   mounted() {
-    if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
+    console.log("mount this: " + this.$store.state.botName)
+    console.log("mount that: " + this.$store.state.botWins)
+    console.log("mount this 2: " + this.$store.state.currentUser)
+    console.log("mount that 2: " + this.$store.state.correctAnswers)
+   /* if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
 
       if (this.$store.state.botWins > 0) {
         this.addHighscoreBot()
       }
-    }
+    }*/
      // starts the confetti
       this.$confetti.start()
       },
