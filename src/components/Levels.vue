@@ -111,7 +111,7 @@ h2 {
   padding: 5px;
   font-size: 1.5em;
 }
-.column{
+.column {
   max-width: 100%;
   padding: 10px;
   float: left;

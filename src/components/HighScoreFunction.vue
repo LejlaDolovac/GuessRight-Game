@@ -65,7 +65,7 @@ export default {
       bRank: 1,
       easy: this.$store.state.easy,
       medium: this.$store.state.medium,
-      hard: this.$store.state.hard,
+      hard: this.$store.state.hard
     }
   },
 

@@ -71,7 +71,7 @@ export default {
         inputDisabled: true,
         startShow: true,
         // how many games before it goes to highscore
-        numberOfTries: 1,
+        numberOfTries: 5,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
