@@ -77,16 +77,16 @@ export default {
     console.log("mount that: " + this.$store.state.botWins)
     console.log("mount this 2: " + this.$store.state.currentUser)
     console.log("mount that 2: " + this.$store.state.correctAnswers)
-   /* if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
+    if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
 
       if (this.$store.state.botWins > 0) {
         this.addHighscoreBot()
       }
-    }*/
+    }
      // starts the confetti
       this.$confetti.start()
-      },
+    },
 
   methods: {
     // stores the player scores
@@ -100,22 +100,15 @@ export default {
     // stores the bot scores
     addHighscoreBot() {
 
-      console.log("med this: " + this.$store.state.botName);
-      console.log("med this: " + this.$store.state.botWins);
-
       db.ref('botHighscoreData').push({
         bName: this.$store.state.botName,
         bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
         bScore: this.$store.state.botWins
       });
     }
-
-    },
-  // starts the confetti
-  mounted() {
-	  this.$confetti.start()
+    }
   }
-}
+
 
 </script>
 

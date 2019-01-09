@@ -52,9 +52,9 @@ export default new Vuex.Store({
         state.botName = 'Terminator';
         state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
       }
-      console.log("Correct number: " + state.number);
+      // console.log("Correct number: " + state.number);
     }
-      
+
   },
   actions: {
 

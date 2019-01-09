@@ -90,6 +90,7 @@ export default {
         allGuessedNumbers: [],
         // checks if the bot has made his first guess
         botFirstGuess: false,
+        newBotGuess: 0,
         // what the bot says
         botMessage: '',
         // one show one player in movile mode
@@ -333,20 +334,29 @@ export default {
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
             console.log(this.allGuessedNumbers)
+            // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber - 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess - 1;
+                this.newBotGuess = this.botGuessNumber++;
+                // if the guess is higher than the highest number guessed, go one number lower
+                if (this.newBotGuess > this.highNumber) {
+                  this.newBotGuess = this.highNumber--;
                 }
-                return newBotGuess;
+                // if the number has already been guessed, go one number lower
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess--;
+                }
               }
+            // bot needs to guess higher
               else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber + 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess + 1;
+                this.newBotGuess = this.botGuessNumber++;
+                if (this.newBotGuess < this.lowNumber) {
+                  this.newBotGuess = this.lowNumber++;
                 }
-                return newBotGuess;
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess++;
+                }
               }
+            return this.newBotGuess;
           },
           // creates a random number between highest and lowest last guess
           chooseRandom: function () {
