@@ -71,7 +71,7 @@ export default {
     }
      // starts the confetti
       this.$confetti.start()
-      },
+    },
 
   methods: {
     // stores the player scores
@@ -92,7 +92,7 @@ export default {
       });
     }
 
-    },
+    }
 
   }
 
