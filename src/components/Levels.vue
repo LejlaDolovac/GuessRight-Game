@@ -1,20 +1,26 @@
 <template>
+
 <div class="modal is-active" v-show="showLevelsPage">
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
     <h2 class="has-white-text"> Please choose level and avatar </h2>
      <h3>Please choose an avatar</h3>
-         <figure class="image is-128x128">
-       <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
-         </figure>
+     <div class="imageBorder v-bind:class={active: isActive}"> 
+    <figure  class="image is-128x128">
+      <img @keyup.enter="selectedImage()" dataImage="../assets/homer_mindre.jpg" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+    </figure>
     <figure class="image is-128x128">
-    <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+      <img @keyup.enter="selectedImage()" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
     </figure>
-    <figure class="image  is-128x128">
-    <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+    <figure class="image is-128x128">
+      <img  @keyup.enter="selectedImage()" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
     </figure>
+   
     </div>
+    </div>
+    </div>
+    
     <div class="row">
       <h3> Please choose a level</h3>
       <div class="column" @keyup.enter="easyNumbers()"> 
@@ -50,7 +56,7 @@ export default {
       return {
         numbers: [],
         selectedFile: null,
-        selected: ' choose an avatar' // when you select an avatar
+        dataImages: '' // when you select an avatar
       }
     },
     computed: {
@@ -66,7 +72,9 @@ export default {
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
-      
+      selectImage(){
+        this.selectImage = true
+      },
       easyNumbers: function() {   // function easy-level
       this.$store.state.easy = true
       this.$store.state.medium = false
@@ -90,18 +98,21 @@ export default {
         this.$store.state.levelChosen = true
           this.$store.state.showLevels = !this.$store.state.showLevels
         },
-        
-       
-      }
+       }
      }
   
 
 </script>
 
 <style scoped>
+
+
 .image{
   margin: 10px;
   
+}
+.imageBorder {
+  border: 5px;
 }
 .container {
   width: 50%;
