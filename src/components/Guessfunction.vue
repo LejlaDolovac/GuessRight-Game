@@ -394,6 +394,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    width: 100%;
+    max-width: 1280px;
+}
 .heading {
   font-size: 2em;
   text-transform: uppercase;
@@ -417,10 +421,11 @@ export default {
 .flex {
   display: flex;
   flex-flow: column;
+  width: 125px;
+  max-width: 100%;
   justify-content: flex-end;
   padding-bottom: 40px;
 }
-
 /* hide the empty columns in mobile mode */
 .no-mobile {
   visibility: hidden;
@@ -438,7 +443,6 @@ export default {
   margin: -10px;
 }
 .column {
-  width: 80%;
   height: auto;
   margin: auto;
   text-align: center;
@@ -531,7 +535,7 @@ p {
     padding: 10px;
     top: -80px;
     right: 0px;
-	  border-radius: 1em;
+	border-radius: 1em;
     max-width: 200px;
 }
 
@@ -548,29 +552,13 @@ p {
 	margin-bottom: -20px;
 }
 
-/* större än mobil */
-@media (min-width: 600px) {
-  .column {
-    max-width: 80%;
-  }
-  #desktopDivider {
-    visibility: visible;
-    width: 50px;
-  }
-}
-
-/* större än tablet */
-@media (min-width: 992px) {
-  .column {
-    max-width: 300px;
-    max-height: 320px;
-  }
-  #desktopDivider {
-    width: 100px;
-  }
-  .no-mobile {
-    visibility: visible;
-  }
+@media only screen and (max-width: 1087px) {
+    .container {
+        width: 100%;
+    }
+    .game-div {
+        width: 100%;
+    }
 }
 
 /* Mobile

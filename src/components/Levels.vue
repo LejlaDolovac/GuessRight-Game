@@ -5,15 +5,15 @@
     <div class="has-background-black">
     <h2 class="has-white-text"> Please choose level and avatar </h2>
      <h3>Please choose an avatar</h3>
-         <figure class="image is-128x128">
-       <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
-         </figure>
-    <figure class="image is-128x128">
-    <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
-    </figure>
-    <figure class="image  is-128x128">
-    <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
-    </figure>
+      <figure class="image is-128x128">
+        <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+      </figure>
+      <figure class="image is-128x128">
+        <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+      </figure>
+      <figure class="image  is-128x128">
+        <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+      </figure>
     </div>
     <div class="row">
       <h3> Please choose a level</h3>
@@ -102,11 +102,11 @@ export default {
 <style scoped>
 .image{
   margin: 10px;
-  
 }
 .container {
   width: 50%;
-  height: auto;
+  height: 100%;
+  overflow-y: scroll;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
