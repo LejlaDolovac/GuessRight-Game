@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {  db  } from './firebase-config';
 
 Vue.use(Vuex);
 
@@ -53,11 +54,43 @@ export default new Vuex.Store({
         state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
       }
       // console.log("Correct number: " + state.number);
+    },
+
+addHighscoreBotPlayerStore(){
+  if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
+    this.addHighscorePlayer()
+
+    if (this.$store.state.botWins > 0) {
+      this.addHighscoreBot()
     }
+  }
+},
+    // stores the player scores
+      addHighscorePlayer() {
+        db.ref('highscoreData').push({
+          hName: this.$store.state.currentUser,
+          hDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
+          hScore: this.$store.state.correctAnswers
+        });
+      },
+      // stores the bot scores
+      addHighscoreBot() {
+        db.ref('botHighscoreData').push({
+          bName: this.$store.state.botName,
+          bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
+          bScore: this.$store.state.botWins
+        });
+      }
 
   },
+
+  firebase: {
+    // gets the highscore from the database
+    highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10),
+    highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
+  },
+
   actions: {
 
   }
 });
-
