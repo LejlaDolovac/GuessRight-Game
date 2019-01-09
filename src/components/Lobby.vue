@@ -60,7 +60,7 @@
       openLevels: function() {
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
-      // opens this highscore page
+      // opens the highscore page
       openHighScore() {
         this.$router.push('/highScore')
       },
@@ -69,7 +69,7 @@
       },
     },
     mounted() {
-      //stops the confetti
+      // stops the confetti from the highscore page
       this.$confetti.stop()
     }
   }

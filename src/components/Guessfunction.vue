@@ -5,7 +5,7 @@
     <h1 class="room">guessroom</h1>
   </div>
     <div class="players columns">
-      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div class="column"></div> <!-- for space on the page -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
@@ -94,9 +94,6 @@ export default {
         botsTurn: true,
         mobile: false,
       }
-    },
-    created() {
-      this.$store.commit('levelNumber')
     },
     computed: {
     },

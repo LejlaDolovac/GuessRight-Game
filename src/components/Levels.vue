@@ -54,6 +54,7 @@ export default {
       }
     },
     computed: {
+      // shows the levelpage
       showLevelsPage() {
         return this.$store.state.showLevels;  // opens the level page
       }
