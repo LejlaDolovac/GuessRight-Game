@@ -9,7 +9,8 @@
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
         <h2 class="gradient-heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <!-- Players input field -->
+        <input ref="guessInput" v-if="!startShow" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -70,7 +71,7 @@ export default {
         readyMessage: '',
         readyTimer: 4,
         inputDisabled: true,
-        startShow: true,
+        startShow: false,
         // how many games before it goes to highscore
         numberOfTries: 5,
         timerShow: false,
@@ -97,7 +98,8 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
-        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
+        focusInterval: ''
       }
     },
     computed: {
@@ -203,7 +205,6 @@ export default {
                             this.allGuessedNumbers = [];
                             this.inputDisabled = true
                             this.timer = 3
-                            this.startShow = true
                             this.lowNumber = 1
                             this.highNumber = this.$store.state.number
                             this.botGuessNumber = ''
@@ -213,7 +214,6 @@ export default {
                         // checks if the number of games is up
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
-                            this.startShow = true
                             this.$refs.timeLeft.value = ''
                             this.timerShow = false
                             setInterval(() => {
@@ -229,12 +229,14 @@ export default {
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
+                        this.guessedNumber = ''
                     // checks if the bot's guess is too high
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, bot!";
                         this.highNumber = this.botGuessNumber-1
                         this.inputDisabled = false
                         this.timerFunction()
+                        this.guessedNumber = ''
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
@@ -246,6 +248,7 @@ export default {
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
+            this.focus()
             // returns the numbers to the default state
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
@@ -288,12 +291,10 @@ export default {
                 this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 3
-                this.startShow = true
                 this.botGuessNumber = ''
                 // checks if the number of games is up
                 if(this.numberOfTries == 0) {
                     this.message = "Tries up, my man!"
-                    this.startShow = true
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
                     setInterval(() => {
@@ -349,6 +350,7 @@ export default {
                     }
                 }
               }, 1000);
+              this.focus()
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
@@ -382,6 +384,12 @@ export default {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
           },
+          focus: function () {
+              this.focusInterval = setInterval(() => {
+                this.$refs.guessInput.focus();
+                clearInterval(this.focusInterval)
+              },10)
+          }
       },
       mounted() {
         if(this.$store.state.levelChosen == true) {
@@ -406,7 +414,6 @@ export default {
             } else if(this.$store.state.imageNumber == 3) {
                 this.avatar = "kermit.jpg"
             } 
-            console.log(this.avatar)
         } else {
             window.location.href = '/'
         }
@@ -549,7 +556,7 @@ export default {
         color: cornsilk;
         margin-bottom: 20px;
     }
-    .search {
+    .guessInput {
         background-color: cornsilk;
         width: 150px;
         height: 17px;
@@ -560,7 +567,7 @@ export default {
         padding: 10px;
         margin: 10px;
     }
-    .search:hover {
+    .guessInput:hover {
         box-shadow: 0px 0px 150px grey;
         z-index: 2;
         -webkit-transition: all 200ms ease-in;
@@ -644,7 +651,7 @@ export default {
         font-size: 15px;
     }
 
-    .search {
+    .guessInput {
         width: 80px;
         height: 80px;
         border-radius: 4px;
@@ -652,7 +659,7 @@ export default {
         text-align: center;
         margin: 10px;
     }
-    .search:hover {
+    .guessInput:hover {
         transform: scale(1.2);
     }
     #time-left-timer {

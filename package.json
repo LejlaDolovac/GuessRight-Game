@@ -29,6 +29,7 @@
     "vue-a11y-dialog": "^0.4.0",
     "vue-axios": "^2.1.4",
     "vue-confetti": "^0.4.2",
+    "vue-focus": "^2.1.0",
     "vue-loader": "^15.4.2",
     "vue-router": "^3.0.1",
     "vue-select-image": "^1.7.0",
