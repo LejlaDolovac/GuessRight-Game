@@ -21,6 +21,7 @@ export default new Vuex.Store({
     closeLevels: false,
     botName: '',
     imageNumber: 0,
+    focusInterval: '',
     avatar:"https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
   },
   mutations: {
