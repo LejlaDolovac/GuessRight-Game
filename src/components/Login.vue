@@ -8,7 +8,7 @@
       </a>
     </div>
 
-    <div class="loggedin">
+    <div class="loggedin ">
       <span v-if="loggedIn">You are signed in as: {{ this.$store.state.currentUser }} </span>
       <span v-if="!loggedIn" class="is-italic"> {{ logoutMessage }} </span>
       <br>
@@ -32,7 +32,7 @@ export default ({
         return this.$store.state.currentUser
       },
       loggedIn() {
-        return this.$store.state.loggedIn
+        return this.$store.state.loggedIn 
       }
     },
     methods: {
@@ -85,11 +85,13 @@ export default ({
   }
   .logout {
     margin: 8px 0;
+    font-family:  'Black Ops One', cursive;
   }
   .loggedin {
     margin: 1%;
     padding-top: 10px;
     margin: 0 auto;
+    font-family:  'Black Ops One', cursive;
   }
   
   @media screen and (max-width: 699px) {

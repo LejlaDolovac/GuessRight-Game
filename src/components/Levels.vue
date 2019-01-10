@@ -1,21 +1,23 @@
 <template>
-  <div class="modal is-active" v-show="showLevelsPage">
-  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
-    <div class="modal-background"></div>
-    <div class="container">
-      <div class="has-background-black">
-      <h2 class="has-white-text is-size-3"> Choose level and avatar </h2>
-        <figure class="image is-128x128">
-          <img tabindex="0" @keyup.enter="selectedImage1()" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
-        </figure>
-        <figure class="image is-128x128">
-          <img tabindex="0" @keyup.enter="selectedImage2()" @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
-        </figure>
-        <figure class="image is-128x128">
-          <img tabindex="0" @keyup.enter="selectedImage3()" @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
-        </figure>
-      </div>
-        
+
+<div class="modal is-active" v-show="showLevelsPage">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+  <div class="modal-background"></div>
+  <div class="container">
+    <div class="has-background-black">
+    <h2 class="has-white-text"> CHOOSE LEVEL AND AVATAR </h2>
+    <figure  class="image is-128x128">
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder1}" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+    </figure>
+    <figure class="image is-128x128">
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder2}" @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+    </figure>
+    <figure class="image is-128x128">
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder3}" @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+    </figure>
+   
+    </div>
+      
       <div class="row">
         <h4 class="is-size-4 has-text-white">Choose a level</h4>
 
@@ -65,30 +67,37 @@ export default {
       return {
         numbers: [],
         selectedFile: null,
-        dataImages: 3 // when you select an avatar
       }
     },
     computed: {
-      // shows the levelpage
       showLevelsPage() {
         return this.$store.state.showLevels;  // opens the level page
       }
     },
     methods: {
-      closeLevels() {
-        this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere - behövs jobba vidare på
-      },
+     
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
+      // Selects the image and selects the selected image with a border
       selectedImage1(){
-        this.$store.state.imageNumber = 1
+        this.$store.state.imageNumber = 1,
+        this.$store.state.imageBorder1 = true;
+        this.$store.state.imageBorder2 = false;
+        this.$store.state.imageBorder3 = false;
       },
       selectedImage2(){
         this.$store.state.imageNumber = 2
+        this.$store.state.imageBorder2 = true;
+        this.$store.state.imageBorder1 = false;
+        this.$store.state.imageBorder3 = false;
+        
       },
       selectedImage3(){
         this.$store.state.imageNumber = 3
+        this.$store.state.imageBorder3 = true;
+        this.$store.state.imageBorder1 = false;
+        this.$store.state.imageBorder2 = false;
       },
       easyNumbers: function() {   // function easy-level
         this.$store.state.easy = true
@@ -116,9 +125,12 @@ export default {
 </script>
 
 <style scoped>
+ .imageBorder{
+    border: 7px solid #FF03A4;
+    box-shadow: 0 0  15px  #FF03A4;
+ }
   .container {
     width: 45%;
-    overflow-y: scroll;
     background-color: red; /* For browsers that do not support gradients */
     background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
   }

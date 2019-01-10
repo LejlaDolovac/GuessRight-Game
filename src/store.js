@@ -26,17 +26,19 @@ export default new Vuex.Store({
     timerInterval: '',
     countdownInterval: '',
     timerBotInterval: '',
-    avatar:"https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
+    imageBorder1: false,
+    imageBorder2: false,
+    imageBorder3: false,
   },
   mutations: {
-    // skapar ett slumpmässigt nummer som används som det rätta svaret
+    // Creates a random number that is used as the correct answer
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
     showRules(state) {
       state.show = !state.show;
     },
-    // sätter vad nivåerna gör
+    // Sets what the levels do
     levelNumber(state) {
       if (state.easy == true) {
         state.timer = 10;

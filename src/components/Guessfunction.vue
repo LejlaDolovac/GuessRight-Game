@@ -7,7 +7,9 @@
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
+          <div v-bind:class="{fadeImage: playerActive}"> <!-- makes the image fade when its not your turn -->
         <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
+          </div>
         <h2 class="gradient-heading">Player</h2>
         <!-- Players input field -->
         <input ref="guessInput" class="guessInput is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
@@ -26,7 +28,9 @@
       </div>
       <div class="bot column is-two-fifths">
         <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        <div v-bind:class="{fadeImage: botActive}">
+          <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        </div>
         <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
@@ -66,9 +70,6 @@ export default {
         guessedNumber: '',
         message: '',
         hideNum: false,
-        numberInterval: '',
-        timerInterval: '',
-        countdownInterval: '',
         // shows how many seconds before the game starts and how long he/she has to guess
         timer: 3,
         readyMessage: '',
@@ -79,7 +80,6 @@ export default {
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
-        timerBotInterval: '',
         levelNumber: '',
         // the number the bot guesses
         botGuessNumber: '',
@@ -101,7 +101,9 @@ export default {
         botsTurn: true,
         mobile: false,
         avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
-        focusInterval: '',
+        // fade image
+        botActive: false,
+        playerActive: false,
       }
     },
     computed: {
@@ -148,10 +150,13 @@ export default {
         },
         // creates what the bot guessed
         botGuessing: function () {
+            this.botActive = false;
+            this.playerActive = true;
             if (this.mobile == true) {
               this.botsTurn = true;
               this.playersTurn = false;
-            }
+              
+            } 
             // pauses the guess timer
             clearInterval(this.$store.state.timerInterval)
             this.inputDisabled = true
@@ -190,6 +195,8 @@ export default {
                         } else if (this.$store.state.easy == true) {
                             this.botMessage = "Eeeva!";
                         }
+                        this.botActive = false
+                        this.playerActive = false
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
                         this.numberOfTries--;
@@ -270,6 +277,8 @@ export default {
               } else if (this.$store.state.easy == true) {
                 this.botMessage = "[Sad] Eeeva?";
               }
+              this.botActive = false
+              this.playerActive = false
               this.message = "Correct, my man!";
               this.botHasGuessed = false
               this.hideNum = !this.hideNum;
@@ -323,6 +332,8 @@ export default {
         // how long the player has to guess
         timerFunction() {
             this.focus()
+            this.botActive = true;
+            this.playerActive = false;
             this.$store.state.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
@@ -430,11 +441,16 @@ export default {
         } else {
             window.location.href = '/'
         }
+
       }
     }
 </script>
 
 <style scoped>
+    .fadeImage {
+        opacity: 0.2;
+
+    }
     .container {
         max-width: 1280px;
         width: 95%;
@@ -609,7 +625,7 @@ export default {
     }
     .speech-bubble {
         position: absolute;
-        padding: 10px;
+        padding: 15px;
         top: -80px;
         right: 0px;
         border-radius: 1em;
