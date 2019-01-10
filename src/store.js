@@ -56,10 +56,6 @@ export default new Vuex.Store({
       }
       // console.log("Correct number: " + state.number);
     }
-
   },
-  actions: {
-
-  }
 });
 

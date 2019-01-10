@@ -9,10 +9,12 @@
         <div>
         <table class="table is-bordered is-striped is-narrow is-hoverable has-background-black has-text-white">
           <thead class="has-text-white" style="background-color:#FAE100;">
+            <tr>
             <th>Rank</th>
             <th>Name</th>
             <th>Date</th>
             <th>Score</th>
+            </tr>
           </thead>
           <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
             <td>{{ index+1 }}</td>
@@ -35,15 +37,18 @@
           <th>Date</th>
           <th>Score</th>
         </thead>
-        <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h" class="has-text-white">
+        <tbody v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h" class="has-text-white">
+          <tr>
           <td>{{ index+1 }}</td>
           <td>{{score.bName}}</td>
           <td>{{score.bDate}}</td>
           <td>{{score.bScore}}</td>
-        </tr>
+          </tr>
+        </tbody>
       </table>
+      </div>
     </div>
-    </div>
+    
   </div>
   <router-link to="/">
     <button class="button is-primary" style="margin: 20px;">Back to start page</button>

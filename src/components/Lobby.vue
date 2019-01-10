@@ -7,7 +7,7 @@
           <img src="../assets/loggo.png" alt="Guess the Number — a turn based game" title="Guess the Number — a turn based game"/>
         </figure>
 
-        <button class="yellow button" @click="openLevels()">Play</button>
+        <a class="yellow button" tabindex="0" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
         <a class="orange button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>

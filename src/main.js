@@ -26,6 +26,7 @@ require("./assets/main.scss"); // Ger möjlighet att ändra färger i Bulma-klas
 require('vue-select-image/dist/vue-select-image.css')
         
 Vue.use(VueConfetti);
+
 let app = '';
 
 
