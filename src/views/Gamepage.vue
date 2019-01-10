@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <Guessfunction/>
+    <Guessfunction></Guessfunction>
   </div>
 </template>
 
