@@ -156,21 +156,21 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
-                // if it's the terminator
+                // if it's the terminator - hard
                 if (this.$store.state.hard == true) {
-                    if ((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                    if ((this.highNumber - 4) < this.$store.state.randomNumber || (this.lowNumber + 4) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
-                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
+                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-4) - (this.lowNumber+4) + 1)) + (this.lowNumber+4);
                     }
                 }
-                // if it's R2-D2
+                // if it's R2-D2 - medium
                 else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
                     this.botGuessNumber = this.chooseRandom()
                 }
-                // if it's wall-e
+                // if it's wall-e - easy
                 else if (this.$store.state.easy == true) {
                     if (this.botFirstGuess == true) {
                         this.botGuessNumber = this.chooseOneUpDown()
