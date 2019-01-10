@@ -74,6 +74,13 @@
     mounted() {
       // stops the confetti from the highscore page
       this.$confetti.stop()
+      console.log("Why?! x 2")
+      // stops every interval just in case
+      clearInterval(this.$store.state.numberInterval)
+      clearInterval(this.$store.state.timerInterval)
+      clearInterval(this.$store.state.countdownInterval)
+      clearInterval(this.$store.state.timerBotInterval)
+      clearInterval(this.$store.state.focusInterval)
     }
   }
   </script>

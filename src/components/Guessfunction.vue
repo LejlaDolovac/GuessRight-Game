@@ -10,7 +10,7 @@
         <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
         <h2 class="gradient-heading">Player</h2>
         <!-- Players input field -->
-        <input ref="guessInput" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <input ref="guessInput" class="guessInput is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -21,6 +21,7 @@
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
             <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
+            <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
         </div>
       </div>
       <div class="bot column is-two-fifths">
@@ -42,14 +43,16 @@
         </li>
       </ul>
       <router-link to="/highScore">
-        <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
+        <div class="has-background-black border-controll" v-show="showHighScore">
+          <a class="button is-fullwidth is-size-3 gradient-heading">View Highscore</a>
+        </div>
       </router-link>
       <br>
       <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-pulled-left ">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -72,7 +75,7 @@ export default {
         readyTimer: 4,
         inputDisabled: true,
         // how many games before it goes to highscore
-        numberOfTries: 5,
+        numberOfTries: 10,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
@@ -118,16 +121,16 @@ export default {
                 this.readyMessage = 'Ready'
             }
             // how long before the game starts
-            this.countdownInterval = setInterval(() => {
+            this.$store.state.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 2) {
                     this.readyMessage = 'Steady'
                 } else if (this.timer == 1) {
                     this.readyMessage = 'GO!'
+                    this.inputDisabled = false
                 }
                 if(this.timer == 0) {
-                    clearInterval(this.countdownInterval)
-                    this.inputDisabled = false
+                    clearInterval(this.$store.state.countdownInterval)
                     this.timer = this.$store.state.timer
                     this.timerShow = true
                     this.readyTimer = 0;
@@ -150,9 +153,9 @@ export default {
               this.playersTurn = false;
             }
             // pauses the guess timer
-            clearInterval(this.timerInterval)
+            clearInterval(this.$store.state.timerInterval)
             this.inputDisabled = true
-            this.timerBotInterval = setInterval(() => {
+            this.$store.state.timerBotInterval = setInterval(() => {
                 // if it's the terminator - hard
                 if (this.$store.state.hard == true) {
                     if ((this.highNumber - 4) < this.$store.state.randomNumber || (this.lowNumber + 4) > this.$store.state.randomNumber) {
@@ -191,7 +194,7 @@ export default {
                         this.$store.state.botWins++
                         this.numberOfTries--;
                         // pausar spelet medan boten gissar
-                        this.numberInterval = setInterval(() => {
+                        this.$store.state.numberInterval = setInterval(() => {
                             this.message = ''
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
@@ -204,9 +207,9 @@ export default {
                             this.lowNumber = 1
                             this.highNumber = this.$store.state.number
                             this.botGuessNumber = ''
-                            clearInterval(this.numberInterval)
+                            clearInterval(this.$store.state.numberInterval)
                         },2000)
-                        clearInterval(this.timerInterval)
+                        clearInterval(this.$store.state.timerInterval)
                         // checks if the number of games is up
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
@@ -236,7 +239,7 @@ export default {
                         this.guessedNumber = ''
                         this.focus()
                     }
-                    clearInterval(this.timerBotInterval)
+                    clearInterval(this.$store.state.timerBotInterval)
                     this.botHasGuessed = true
                     if (this.mobile == true) {
                       // show players again i mobile
@@ -277,8 +280,8 @@ export default {
               this.botFirstGuess = false;
               this.highNumber = this.$store.state.number
               // stops the guessing timer
-              clearInterval(this.timerInterval)
-              this.numberInterval = setInterval(() => {
+              clearInterval(this.$store.state.timerInterval)
+              this.$store.state.numberInterval = setInterval(() => {
                 this.message = ''
                 this.hideNum = false
                 // gives new random number
@@ -301,7 +304,7 @@ export default {
                 } else {
                     this.startCountdown()
                 }
-                clearInterval(this.numberInterval)
+                clearInterval(this.$store.state.numberInterval)
               }, 2000);
           // checks if the number the player guessed is lower than the right answer
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
@@ -319,11 +322,12 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
-            this.timerInterval = setInterval(() => {
+            this.focus()
+            this.$store.state.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
                 if(this.timer == 0) {
-                    clearInterval(this.timerInterval)
+                    clearInterval(this.$store.state.timerInterval)
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
@@ -382,16 +386,22 @@ export default {
           },
           // focuses on the player input
           focus: function () {
-              this.focusInterval = setInterval(() => {
-                clearInterval(this.focusInterval)
+              this.$store.state.focusInterval = setInterval(() => {
+                clearInterval(this.$store.state.focusInterval)
                 if(this.inputDisabled == false) {
                     this.$refs.guessInput.focus();
                 }
-              },500)
+              },200)
           }
       },
       mounted() {
-          clearInterval(this.focusInterval)
+        // stops every interval just in case
+        clearInterval(this.$store.state.numberInterval)
+        clearInterval(this.$store.state.timerInterval)
+        clearInterval(this.$store.state.countdownInterval)
+        clearInterval(this.$store.state.timerBotInterval)
+        clearInterval(this.$store.state.focusInterval)
+          console.log("WHY?!")
         // resets the players score each turn
         this.$store.state.correctAnswers = 0;
         this.$store.state.botWins = 0;
@@ -445,6 +455,8 @@ export default {
 .gradient-game-div {
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
   padding: 2%;
+  border-radius: 10px;
+  width: 80%;
 }
 .flex {
   display: flex;
@@ -452,7 +464,13 @@ export default {
   width: 125px;
   max-width: 100%;
   justify-content: flex-end;
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
+}
+
+.border-controll {
+  border-radius: 5px;
+  opacity: 0.85;
+  border: solid 2px yellow;
 }
 /* hide the empty columns in mobile mode */
 .no-mobile {

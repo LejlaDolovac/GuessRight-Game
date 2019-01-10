@@ -90,6 +90,13 @@ export default {
     }
      // starts the confetti
       this.$confetti.start()
+
+      // stops every interval just in case
+      clearInterval(this.$store.state.numberInterval)
+      clearInterval(this.$store.state.timerInterval)
+      clearInterval(this.$store.state.countdownInterval)
+      clearInterval(this.$store.state.timerBotInterval)
+      clearInterval(this.$store.state.focusInterval)
     },
   methods: {
     // stores the player scores
