@@ -41,7 +41,7 @@
         </li>
       </ul>
       <router-link to="/highScore">
-        <a class="button is-primary is-fullwidth is-size-3" @click="addHighscoreBotPlayer()" @keyup.enter="addHighscorePlayer()" v-show="showHighScore">View Highscore</a>
+        <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
       </router-link>
       <br>
       <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
@@ -112,7 +112,6 @@ export default {
              this.botsTurn = false;
              this.mobile = true;
             }
-
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
@@ -178,7 +177,6 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
-
                     // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
@@ -382,15 +380,8 @@ export default {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
           },
-          addHighscoreBotPlayer(){
-            this.$store.commit('addHighscoreBotPlayerStore');
-          }
       },
       mounted() {
-        // resets the players score each turn
-        this.$store.state.correctAnswers = 0;
-        this.$store.state.botWins = 0;
-
         if(this.$store.state.levelChosen == true) {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
@@ -412,7 +403,7 @@ export default {
                 this.avatar = "kenny.jpg"
             } else if(this.$store.state.imageNumber == 3) {
                 this.avatar = "kermit.jpg"
-            } 
+            }
             console.log(this.avatar)
         } else {
             window.location.href = '/'
@@ -450,17 +441,14 @@ export default {
   justify-content: flex-end;
   padding-bottom: 40px;
 }
-
 /* hide the empty columns in mobile mode */
 .no-mobile {
   visibility: hidden;
 }
-
 .players img {
   width: 60%;
   height: 60%
 }
-
 .player {
     border-radius: 50%;
 }
@@ -497,7 +485,6 @@ export default {
   color: White;
   padding: 5px;
 }
-
     .players img {
         width: 60%;
         height: 60%
@@ -535,7 +522,6 @@ export default {
         color: White;
         padding: 5px;
     }
-
     h3 {
         padding: 20px 0 5px;
         color: #351304;
@@ -587,7 +573,6 @@ export default {
     .btn:focus {
         outline:0;
     }
-
     /* Balloon for bot message */
     .bot {
         position: relative;
@@ -600,7 +585,6 @@ export default {
         border-radius: 1em;
         max-width: 200px;
     }
-
     .speech-bubble:after {
         content: '';
         position: absolute;
@@ -613,13 +597,11 @@ export default {
         border-left: 0;
         margin-bottom: -20px;
     }
-
     @media only screen and (max-width: 1087px) {
         .container, .game-div {
             width: 100%;
         }
     }
-
     @media only screen and (max-width: 768px) {
         .is-medium {
             width: 100%;
@@ -627,7 +609,6 @@ export default {
             background-color: #59057b;
         }
     }
-
     /* Mobile
     @media only screen and (max-width: 600px) {
     .container {
@@ -643,14 +624,11 @@ export default {
         font-size: 60px;
         margin-bottom: 10px;
     }
-
-
     .winner-loser-message {
         padding: 20px;
         text-align: center;
         font-size: 15px;
     }
-
     .search {
         width: 80px;
         height: 80px;
