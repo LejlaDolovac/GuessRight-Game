@@ -7,7 +7,9 @@
     <div class="players columns">
       <div class="column"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
+          <div class="fadeImage">
         <img class="is-square" :alt="`Your profile picture`" src='this.$store.state.avatar'>
+          </div>
         <h2 class="heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
@@ -93,6 +95,7 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
+        
       }
     },
     created() {
@@ -156,7 +159,8 @@ export default {
                     } else {
                         this.botMessage = "Wrong!";
                         this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
-                    }
+                    } 
+                    
                 }
                 // if it's R2-D2
                 else if (this.$store.state.medium == true) {
@@ -392,6 +396,22 @@ export default {
 </script>
 
 <style scoped>
+
+
+.fadeImage {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.container:hover .fadeImage {
+  opacity: 0.3;
+}
+.container:hover .middle {
+  opacity: 1;
+}
 .heading {
   font-size: 2em;
   text-transform: uppercase;
