@@ -57,18 +57,16 @@ export default {
       }
     },
     computed: {
-      // shows the levelpage
       showLevelsPage() {
         return this.$store.state.showLevels;  // opens the level page
       }
     },
     methods: {
-      closeLevels() {
-        this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere - behövs jobba vidare på
-      },
+     
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
+      // Selects the image and selects the selected image with a border
       selectedImage1(){
         this.$store.state.imageNumber = 1,
         this.$store.state.imageBorder1 = true;
