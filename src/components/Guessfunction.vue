@@ -1,14 +1,15 @@
 <template>
 <div class="brain container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div>
-    <h1 class="room">guessroom</h1>
+    <h1 class="gradient-font-big">guessroom</h1>
   </div>
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
-      <div class="player column is-two-fifths" v-show="playersTurn">
-        <img class="is-rounded" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
-        <h2 class="heading">Player</h2>
-        <input class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
+        <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
+        <h2 class="gradient-heading">Player</h2>
+        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -18,20 +19,20 @@
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="room">vs.</h2>
+            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
         </div>
       </div>
       <div class="bot column is-two-fifths">
         <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
-        <h2 class="heading">{{ this.$store.state.botName }}</h2>
+        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container game-div">
+    <div class="allGuessedNumbers container gradient-game-div">
       <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
       <br>
       <ul>
@@ -43,11 +44,11 @@
         <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
       </router-link>
       <br>
-      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span> 
+      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -71,7 +72,7 @@ export default {
         inputDisabled: true,
         startShow: true,
         // how many games before it goes to highscore
-        numberOfTries: 1,
+        numberOfTries: 5,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
@@ -96,9 +97,13 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
       }
     },
     computed: {
+        avatarImage: function () {
+            return this.avatar
+        }
     },
     methods: {
         startCountdown: function () {
@@ -141,6 +146,10 @@ export default {
         },
         // creates what the bot guessed
         botGuessing: function () {
+            if (this.mobile == true) {
+              this.botsTurn = true;
+              this.playersTurn = false;
+            }
             // pauses the guess timer
             clearInterval(this.timerInterval)
             this.inputDisabled = true
@@ -169,8 +178,8 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
-                
-                    // checks if the bot guesses right                    
+
+                    // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
                         if (this.$store.state.hard == true) {
@@ -214,7 +223,7 @@ export default {
                         } else {
                             this.startCountdown()
                         }
-                    // checks if the bot's guess is too low 
+                    // checks if the bot's guess is too low
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
@@ -229,6 +238,11 @@ export default {
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
+                    if (this.mobile == true) {
+                      // show players again i mobile
+                      this.playersTurn = true
+                      this.botsTurn = false
+                    }
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
@@ -385,6 +399,14 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            if(this.$store.state.imageNumber == 1) {
+                this.avatar = "homer_mindre.jpg"
+            } else if(this.$store.state.imageNumber == 2) {
+                this.avatar = "kenny.jpg"
+            } else if(this.$store.state.imageNumber == 3) {
+                this.avatar = "kermit.jpg"
+            } 
+            console.log(this.avatar)
         } else {
             window.location.href = '/'
         }
@@ -394,28 +416,27 @@ export default {
 
 <style scoped>
     .container {
-        width: 100%;
         max-width: 1280px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 95%;
     }
-    .heading {
+    .gradient-heading {
         font-size: 2em;
         text-transform: uppercase;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
         background: -webkit-linear-gradient(#FF03A4,#F9F871);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .room {
+    .gradient-font-big {
         font-size: 3.5em;
         text-transform: uppercase;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        background: -webkit-linear-gradient(#094A6F,#64C6BD);
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .game-div {
-        background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+    .gradient-game-div {
+        background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
         padding: 2%;
     }
     .flex {
@@ -426,9 +447,52 @@ export default {
         justify-content: flex-end;
         padding-bottom: 40px;
     }
+
     /* hide the empty columns in mobile mode */
     .no-mobile {
         visibility: hidden;
+    }
+
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+
+    .player {
+        border-radius: 50%;
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
     }
 
     .players img {
@@ -545,12 +609,6 @@ export default {
         border-bottom: 0;
         border-left: 0;
         margin-bottom: -20px;
-    }
-
-    @media only screen and (max-width: 1087px) {
-        .container, .game-div {
-            width: 100%;
-        }
     }
 
     @media only screen and (max-width: 768px) {

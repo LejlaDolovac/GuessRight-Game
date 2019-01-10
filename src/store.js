@@ -19,7 +19,9 @@ export default new Vuex.Store({
     loggedIn: false,
     botWins: 0,
     closeLevels: false,
-    botName: ''
+    botName: '',
+    imageNumber: 0,
+    avatar:"https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
   },
   mutations: {
     // skapar ett slumpmässigt nummer som används som det rätta svaret

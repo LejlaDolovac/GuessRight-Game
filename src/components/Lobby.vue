@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <Login></Login>
       <div class="nav is-centered">
         <figure class="image">
@@ -8,7 +9,7 @@
 
         <a class="yellow button" tabindex="0" @click="openLevels()">Play</a>
           <Levels v-show="showLevelsPage"></Levels>
-        <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
+        <a class="orange button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
         <router-link to="/highScore" tabindex="-1">
           <a @keyup.enter="openHighScore" tabindex="0" class="pink button">Highscore</a>
@@ -103,29 +104,20 @@
     border-width: 5px;
     margin-top: 10px;
     text-transform: uppercase;
+    font-family:  'Black Ops One', cursive;
   }
   .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-  .pink {border-color: #ab0e86;}
-  .purple {border-color: #59057b;}
-  .yellow {border-color: #fae100;}
-
-  @media (min-width: 992px) {
-    .button {
-      font-size: 1.6em;
-      background-color: Black;
-      color: white;
-      border-width: 5px;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
-  }
+  .pink {border-color: #FF03A4;}
+  .orange {border-color: #FF755F;}
+  .yellow {border-color: #FFD150;}
+  
   @media (max-width: 600px) {
     .button {
-      width: 300px;
+      width: 100%;
       font-size: 1.4em;
     }
     .nav {
-      max-width: 300px;
+      width: 75%;
     }
   }
   </style>

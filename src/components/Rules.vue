@@ -1,5 +1,6 @@
 <template>
   <div>
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
     <div class="modal is-active" v-show="showRulesPage">
       <div class="modal-background"></div>
       <div class="container">

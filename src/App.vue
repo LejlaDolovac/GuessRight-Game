@@ -8,7 +8,6 @@
 
 <style lang="scss">
 @import '~bulma/css/bulma.css';
-
   /* Eric Meyers CSS-reset to make app compatible with different browers */
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -49,7 +48,6 @@
     border-collapse: collapse;
     border-spacing: 0;
   }
-
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

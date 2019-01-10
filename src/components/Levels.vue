@@ -1,56 +1,75 @@
 <template>
   <div class="modal is-active" v-show="showLevelsPage">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
     <div class="modal-background"></div>
     <div class="container">
       <div class="has-background-black">
-      <h2 class="has-white-text"> Please choose level and avatar </h2>
-      <h3>Please choose an avatar</h3>
+      <h2 class="has-white-text"> Choose level and avatar </h2>
+      <h3>Choose an avatar</h3>
         <figure class="image is-128x128">
-          <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+          <img tabindex="0" @keyup.enter="selectedImage1()" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
         </figure>
         <figure class="image is-128x128">
-          <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+          <img tabindex="0" @keyup.enter="selectedImage2()" @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
         </figure>
         <figure class="image is-128x128">
-          <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+          <img tabindex="0" @keyup.enter="selectedImage3()" @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
         </figure>
       </div>
-      
+        
       <div class="row">
-        <h3> Please choose a level</h3>
+        <h3>Choose a level</h3>
+
         <div class="column" @keyup.enter="easyNumbers()"> 
           <router-link to="/gamepage">
-            <button class="eButton button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" type="button"> Easy Level <br />Numbers <br />1-10</button>
+          <div class="eButton easy">
+            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" type="button">
+              Easy Level 
+              <span style="margin:0 15%;"></span>
+              <span class="has-text-white is-size-6">Numbers 1-10</span>
+            </button>
+          </div>
           </router-link>
         </div>
 
         <div class="column" @keyup.enter="mediumNumbers()">
           <router-link to="/gamepage">
-            <button class="eButton button is-medium is-success has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()" type="button"> Medium Level <br />Numbers <br />1-30</button>
+          <div class="eButton medium is-dark">
+            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()" type="button">
+              Medium Level 
+             <span style="margin:0 15%;"></span>
+              <span style="margin: 0 4.5% 0 -1%;" class="has-text-white is-size-6">Numbers 1-30</span>
+            </button>
+          </div>
           </router-link>
         </div>
 
         <div class="column" @keyup.enter="hardNumbers()">
           <router-link to="/gamepage">
-            <button class="eButton button is-medium is-light has-text-white" tabindex="-1"  @click="hardNumbers()" type="button"> Hard Level <br />Numbers <br />1-50</button>
-          </router-link> 
+          <div class="eButton hard is-dark">
+            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="hardNumbers()" @click="hardNumbers()" type="button">
+              Hard Level 
+              <span style="margin:0 15%;"></span>
+              <span class="has-text-white is-size-6">Numbers 1-50</span>
+            </button>
+          </div>
+          </router-link>
         </div>
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
+      </div>
     </div>
-    </div>
-  </div>
+   </div>
 </template>
 
 <script>
-
 export default {
     name: 'Levels',
     data() {
       return {
         numbers: [],
         selectedFile: null,
-        selected: ' choose an avatar' // when you select an avatar
+        dataImages: 3 // when you select an avatar
       }
     },
     computed: {
@@ -65,6 +84,15 @@ export default {
       },
       close (){
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
+      },
+      selectedImage1(){
+        this.$store.state.imageNumber = 1
+      },
+      selectedImage2(){
+        this.$store.state.imageNumber = 2
+      },
+      selectedImage3(){
+        this.$store.state.imageNumber = 3
       },
       easyNumbers: function() {   // function easy-level
         this.$store.state.easy = true
@@ -96,8 +124,7 @@ export default {
     margin: 10px;
   }
   .container {
-    width: 50%;
-    height: 100%;
+    width: 60%;
     overflow-y: scroll;
     background-color: red; /* For browsers that do not support gradients */
     background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
@@ -108,14 +135,13 @@ export default {
     color:black;
     border: none;
     padding: 10px;
-    margin: 40px;
-    cursor: pointer;
+    cursor: pointer
   }
   h2 {
     text-align: center;
     padding: 10px;
     height: auto;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:  'Black Ops One', cursive;
     font-size: 2.8em;
     text-transform: uppercase;
     background-color: black;
@@ -123,12 +149,24 @@ export default {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .gradient {
+    font-family:  'Black Ops One', cursive;
+  }
   .eButton {
     border: 1px solid rgb(185, 78, 185);
     box-shadow: 0 0 10px rgb(185, 102, 185);
     height: auto !important;
     margin: 0 auto !important;
     font-size: 1.5em;
+  }
+  .easy:hover {
+    background-color: #FFD150;
+  }
+  .medium:hover {
+    background-color: #FF755F;
+  }
+  .hard:hover {
+    background-color: #FF03A4;
   }
   .column {
     max-width: 100%;

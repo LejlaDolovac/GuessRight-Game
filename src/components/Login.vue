@@ -67,7 +67,6 @@ export default ({
 
 <style scoped>
 @import '~bulma/css/bulma.css';
-
   .navbar {
     width: 100%;
   }
@@ -85,28 +84,27 @@ export default ({
     color: white;
   }
   .logout {
-    margin: 1.5% 0;
+    margin: 8px 0;
   }
   .loggedin {
     margin: 1%;
     padding-top: 10px;
-    height: auto;
     margin: 0 auto;
   }
   
-@media screen and (max-width: 699px) {
-  .fontawesome-container {
-    top: 0;
-    right: 0;
-    left: 0;
-    margin: 0;
-    padding: 1.5%;
+  @media screen and (max-width: 699px) {
+    .fontawesome-container {
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      padding: 1.5%;
+    }
+    .fontawesome-container > a {
+      display: inline;
+    }
+    .fontawesome-container > span {
+      margin: 2%;
+    }
   }
-  .fontawesome-container > a {
-    display: inline;
-  }
-  .fontawesome-container > span {
-    margin: 2%;
-  }
-}
 </style>
