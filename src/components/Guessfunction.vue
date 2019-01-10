@@ -26,7 +26,7 @@
             <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
         </div>
       </div>
-      <div class="bot column is-two-fifths">
+      <div class="bot column is-two-fifths" v-show="botsTurn">
         <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
         <div v-bind:class="{fadeImage: botActive}">
           <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
@@ -472,6 +472,8 @@ export default {
         -webkit-text-fill-color: transparent;
     }
     .gradient-game-div {
+        border-radius: 10px;
+        width: 80%;
         background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
         padding: 2%;
     }
@@ -589,7 +591,9 @@ export default {
         margin-bottom: 20px;
     }
     .guessInput {
-        background-color: cornsilk;
+        background-color: black;
+        color: white;
+        border: 1px solid #FF03A4;
         width: 150px;
         height: 17px;
         -webkit-transition: .3s ease-in-out;
