@@ -10,7 +10,7 @@
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="gradient-heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <input v-if="!startShow" class="search is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -21,6 +21,7 @@
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
             <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
+            <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
         </div>
       </div>
       <div class="bot column is-two-fifths">
@@ -42,14 +43,16 @@
         </li>
       </ul>
       <router-link to="/highScore">
-        <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
+        <div class="has-background-black border-controll" v-show="showHighScore">
+          <a class="button is-fullwidth is-size-3 gradient-heading">View Highscore</a>
+        </div>
       </router-link>
       <br>
       <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-pulled-left ">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -73,7 +76,7 @@ export default {
         inputDisabled: true,
         startShow: true,
         // how many games before it goes to highscore
-        numberOfTries: 5,
+        numberOfTries: 1,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
@@ -423,12 +426,20 @@ export default {
 .gradient-game-div {
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
   padding: 2%;
+  border-radius: 10px;
+  width: 80%;
 }
 .flex {
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
+}
+
+.border-controll {
+  border-radius: 5px;
+  opacity: 0.85;
+  border: solid 2px yellow;
 }
 
 /* hide the empty columns in mobile mode */
