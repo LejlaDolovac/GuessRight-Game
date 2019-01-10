@@ -8,13 +8,13 @@
     <h2 class="has-white-text"> Please choose level and avatar </h2>
      <h3>Please choose an avatar</h3>
     <figure  class="image is-128x128">
-      <img @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder1}" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
     </figure>
     <figure class="image is-128x128">
-      <img @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder2}" @click="selectedImage2();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
     </figure>
     <figure class="image is-128x128">
-      <img @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
+      <img v-bind:class="{imageBorder: this.$store.state.imageBorder3}" @click="selectedImage3();" class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
     </figure>
    
     </div>
@@ -54,7 +54,6 @@ export default {
       return {
         numbers: [],
         selectedFile: null,
-        dataImages: 3 // when you select an avatar
       }
     },
     computed: {
@@ -71,13 +70,23 @@ export default {
         this.$store.state.showLevels = !this.$store.state.showLevels // closes the menu by clicking on the 'X'
       },
       selectedImage1(){
-        this.$store.state.imageNumber = 1
+        this.$store.state.imageNumber = 1,
+        this.$store.state.imageBorder1 = true;
+        this.$store.state.imageBorder2 = false;
+        this.$store.state.imageBorder3 = false;
       },
       selectedImage2(){
         this.$store.state.imageNumber = 2
+        this.$store.state.imageBorder2 = true;
+        this.$store.state.imageBorder1 = false;
+        this.$store.state.imageBorder3 = false;
+        
       },
       selectedImage3(){
         this.$store.state.imageNumber = 3
+        this.$store.state.imageBorder3 = true;
+        this.$store.state.imageBorder1 = false;
+        this.$store.state.imageBorder2 = false;
       },
       easyNumbers: function() {   // function easy-level
         this.$store.state.easy = true
@@ -105,6 +114,13 @@ export default {
 </script>
 
 <style scoped>
+
+
+ .imageBorder{
+   border: 7px solid #FF03A4;
+    box-shadow: 0 0  15px  #FF03A4;
+ }
+ 
 .image{
   margin: 10px;
 }
