@@ -1,47 +1,60 @@
 <template>
-<div class="container">
+  <body>
+    <div class="container">
   <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div class="columns">
     <div class="column">
-    <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile">Highscore for <br> Humans</h1>
-    <table class="table is-bordered is-striped is-narrow is-hoverable">
-      <thead style="background-color:#FAE100;">
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Score</th>
-      </thead>
-      <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
-        <td>{{ index+1 }}</td>
-        <td>{{score.hName}}</td>
-        <td>{{score.hDate}}</td>
-        <td>{{score.hScore}}</td>
-      </tr>
-    </table>
+    <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile has-background-black">Highscore for <br> Humans</h1>
+      <div class="gradient">
+        <div>
+        <table class="table is-bordered is-striped is-narrow is-hoverable has-background-black has-text-white">
+          <thead class="has-text-white" style="background-color:#FAE100;">
+            <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Score</th>
+            </tr>
+          </thead>
+          <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+            <td>{{ index+1 }}</td>
+            <td>{{score.hName}}</td>
+            <td>{{score.hDate}}</td>
+            <td>{{score.hScore}}</td>
+          </tr>
+        </table>
+      </div>
+      </div>
     </div>
 
     <div class="column">
-      <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile">Highscore for <br> Bots</h1>
-      <table class="table is-bordered is-striped is-narrow is-hoverable">
-        <thead style="background-color:#FAE100;">
+      <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile has-background-black has-text-success">Highscore for <br> Bots</h1>
+      <div class="gradient">
+      <table class="table is-bordered is-striped is-narrow is-hoverable has-background-black has-text-primary">
+        <thead class="has-text-white" style="background-color:#FAE100;">
           <th>Rank</th>
           <th>Bot Name</th>
           <th>Date</th>
           <th>Score</th>
         </thead>
-        <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+        <tbody v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h" class="has-text-white">
+          <tr>
           <td>{{ index+1 }}</td>
           <td>{{score.bName}}</td>
           <td>{{score.bDate}}</td>
           <td>{{score.bScore}}</td>
-        </tr>
+          </tr>
+        </tbody>
       </table>
+      </div>
     </div>
+    
   </div>
   <router-link to="/">
     <button class="button is-primary" style="margin: 20px;">Back to start page</button>
   </router-link>
 </div>
+</body>
 </template>
 
 <script>
@@ -92,9 +105,26 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: auto;
+  height: auto;
+}
+.gradient {
+  margin: 20px;
+  padding: 10px;
+  justify-content: space-around;
+  width: auto;
+  height: auto;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
+}
 h1 {
   font-family: 'Black Ops One', cursive;
-  color: white;
+  text-transform: uppercase;
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 th {
@@ -103,8 +133,12 @@ th {
 }
 
 table {
-  margin-left: auto;
-  margin-right: auto;
+  width: 99%;
+    margin-right: .5%;
+    margin-left: .5%;
+  height: 99%;
+    margin-bottom: .5%;
+    margin-top: .5%;
 }
 
 input {
@@ -112,5 +146,6 @@ input {
 }
 .column {
   margin-top: 10px;
+  justify-content: center;
 }
 </style>

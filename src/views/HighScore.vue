@@ -1,6 +1,6 @@
 <template>
   <div class="highscore">
-    <HighScoreFunction/>
+    <HighScoreFunction></HighScoreFunction>
   </div>
 </template>
 
@@ -15,6 +15,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <Lobby/>
+    <Lobby></Lobby>
   </div>
 </template>
 
@@ -15,8 +15,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-
-</style>

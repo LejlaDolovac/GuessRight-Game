@@ -1,14 +1,14 @@
-
 <template>
 <div class="brain container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div>
-    <h1 class="room">guessroom</h1>
+    <h1 class="gradient-font-big">guessroom</h1>
   </div>
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
-        <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
-        <h2 class="heading">Player</h2>
+        <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
+        <h2 class="gradient-heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
@@ -19,20 +19,20 @@
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="room">vs.</h2>
+            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
         </div>
       </div>
       <div class="bot column is-two-fifths">
         <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
-        <h2 class="heading">{{ this.$store.state.botName }}</h2>
+        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container game-div">
+    <div class="allGuessedNumbers container gradient-game-div">
       <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
       <br>
       <ul>
@@ -48,7 +48,7 @@
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -97,9 +97,13 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
       }
     },
     computed: {
+        avatarImage: function () {
+            return this.avatar
+        }
     },
     methods: {
         startCountdown: function () {
@@ -142,6 +146,10 @@ export default {
         },
         // creates what the bot guessed
         botGuessing: function () {
+            if (this.mobile == true) {
+              this.botsTurn = true;
+              this.playersTurn = false;
+            }
             // pauses the guess timer
             clearInterval(this.timerInterval)
             this.inputDisabled = true
@@ -230,6 +238,11 @@ export default {
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
+                    if (this.mobile == true) {
+                      // show players again i mobile
+                      this.playersTurn = true
+                      this.botsTurn = false
+                    }
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
@@ -389,6 +402,14 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            if(this.$store.state.imageNumber == 1) {
+                this.avatar = "homer_mindre.jpg"
+            } else if(this.$store.state.imageNumber == 2) {
+                this.avatar = "kenny.jpg"
+            } else if(this.$store.state.imageNumber == 3) {
+                this.avatar = "kermit.jpg"
+            } 
+            console.log(this.avatar)
         } else {
             window.location.href = '/'
         }
@@ -397,29 +418,31 @@ export default {
 </script>
 
 <style scoped>
-.heading {
+.gradient-heading {
   font-size: 2em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
   background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.room {
+.gradient-font-big {
   font-size: 3.5em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#094A6F,#64C6BD);
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.game-div {
-  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+.gradient-game-div {
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
   padding: 2%;
 }
 .flex {
   display: flex;
   flex-flow: column;
+  width: 125px;
+  max-width: 100%;
   justify-content: flex-end;
   padding-bottom: 40px;
 }
@@ -433,6 +456,10 @@ export default {
   width: 60%;
   height: 60%
 }
+
+.player {
+    border-radius: 50%;
+}
 #desktopDivider {
   visibility: hidden;
 }
@@ -441,7 +468,6 @@ export default {
   margin: -10px;
 }
 .column {
-  width: 80%;
   height: auto;
   margin: auto;
   text-align: center;
@@ -468,163 +494,185 @@ export default {
   padding: 5px;
 }
 
-/* nytt ovanför */
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
+    }
 
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-h3 {
-    padding: 20px 0 5px;
-    color: #351304;
-}
-p {
-    color: midnightblue;
-}
-.timer {
-    clear: left;
-    padding: 10px;
-    color: White;
-    text-align: center;
-    font-size: 2em;
-}
-.start-btn {
-    background: #351304;
-    font-weight: bold;
-    color: cornsilk;
-    margin-bottom: 20px;
-}
-.search {
-    background-color: cornsilk;
-    width: 150px;
-    height: 17px;
-    -webkit-transition: .3s ease-in-out;
-	   transition: .3s ease-in-out;
-    z-index: 10;
-    border-radius: 50px;
-    padding: 10px;
-    margin: 10px;
-}
-.search:hover {
-    box-shadow: 0px 0px 150px grey;
-    z-index: 2;
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(1.5);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.5);
-    -mozd-transition: all 200ms ease-in;
-    -moz-transform: scale(1.5);
-    transition: all 200ms ease-in;
-    transform: scale(1.8);
-}
-.btn {
-    margin-top: 10px;
-    color: cornsilk;
-    background-color: #351304;
-}
-.btn:focus {
-    outline:0;
-}
+    h3 {
+        padding: 20px 0 5px;
+        color: #351304;
+    }
+    p {
+        color: midnightblue;
+    }
+    .timer {
+        clear: left;
+        padding: 10px;
+        color: White;
+        text-align: center;
+        font-size: 2em;
+    }
+    .start-btn {
+        background: #351304;
+        font-weight: bold;
+        color: cornsilk;
+        margin-bottom: 20px;
+    }
+    .search {
+        background-color: cornsilk;
+        width: 150px;
+        height: 17px;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+        z-index: 10;
+        border-radius: 50px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .search:hover {
+        box-shadow: 0px 0px 150px grey;
+        z-index: 2;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.5);
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1.5);
+        -mozd-transition: all 200ms ease-in;
+        -moz-transform: scale(1.5);
+        transition: all 200ms ease-in;
+        transform: scale(1.8);
+    }
+    .btn {
+        margin-top: 10px;
+        color: cornsilk;
+        background-color: #351304;
+    }
+    .btn:focus {
+        outline:0;
+    }
 
-/* Balloon for bot message */
-.bot {
-    position: relative;
-}
-.speech-bubble {
-    position: absolute;
-    padding: 10px;
-    top: -80px;
-    right: 0px;
-	  border-radius: 1em;
-    max-width: 200px;
-}
+    /* Balloon for bot message */
+    .bot {
+        position: relative;
+    }
+    .speech-bubble {
+        position: absolute;
+        padding: 10px;
+        top: -80px;
+        right: 0px;
+        border-radius: 1em;
+        max-width: 200px;
+    }
 
-.speech-bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 40%;
-	width: 0;
-	border: 20px solid transparent;
-	border-top-color: #FF755F;
-	border-bottom: 0;
-	border-left: 0;
-	margin-bottom: -20px;
-}
+    .speech-bubble:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 40%;
+        width: 0;
+        border: 20px solid transparent;
+        border-top-color: #FF755F;
+        border-bottom: 0;
+        border-left: 0;
+        margin-bottom: -20px;
+    }
 
-/* större än mobil */
-@media (min-width: 600px) {
-  .column {
-    max-width: 80%;
-  }
-  #desktopDivider {
-    visibility: visible;
-    width: 50px;
-  }
-}
+    @media only screen and (max-width: 1087px) {
+        .container, .game-div {
+            width: 100%;
+        }
+    }
 
-/* större än tablet */
-@media (min-width: 992px) {
-  .column {
-    max-width: 300px;
-    max-height: 320px;
-  }
-  #desktopDivider {
-    width: 100px;
-  }
-  .no-mobile {
-    visibility: visible;
-  }
-}
+    @media only screen and (max-width: 768px) {
+        .is-medium {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #59057b;
+        }
+    }
 
-/* Mobile
-@media only screen and (max-width: 600px) {
-.container {
-    padding: 1%;
-}
-.column {
-    max-width: 300px;
-}
-.start-btn {
-    width: 90%;
-    height: 350px;
-    margin-top: 10px;
-    font-size: 60px;
-    margin-bottom: 10px;
-}
+    /* Mobile
+    @media only screen and (max-width: 600px) {
+    .container {
+        padding: 1%;
+    }
+    .column {
+        max-width: 300px;
+    }
+    .start-btn {
+        width: 90%;
+        height: 350px;
+        margin-top: 10px;
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
 
 
-.winner-loser-message {
-    padding: 20px;
-    text-align: center;
-    font-size: 15px;
-}
+    .winner-loser-message {
+        padding: 20px;
+        text-align: center;
+        font-size: 15px;
+    }
 
-.search {
-    width: 80px;
-    height: 80px;
-    border-radius: 4px;
-    font-size: 35px;
-    text-align: center;
-    margin: 10px;
-}
-.search:hover {
-    transform: scale(1.2);
-}
-#time-left-timer {
-    height: 60px;
-}
-.btn {
-    width: 210px;
-    height: 70px;
-    font-size: 25px;
-    margin: 5px;
-}
-.button {
-   background-color:black;
-   color:white;
-   width: 30%;
-   border: 3px solid purple;
-   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  }
-} */
+    .search {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        font-size: 35px;
+        text-align: center;
+        margin: 10px;
+    }
+    .search:hover {
+        transform: scale(1.2);
+    }
+    #time-left-timer {
+        height: 60px;
+    }
+    .btn {
+        width: 210px;
+        height: 70px;
+        font-size: 25px;
+        margin: 5px;
+    }
+    .button {
+    background-color:black;
+    color:white;
+    width: 30%;
+    border: 3px solid purple;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    } */
 </style>
