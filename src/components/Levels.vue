@@ -4,8 +4,7 @@
     <div class="modal-background"></div>
     <div class="container">
       <div class="has-background-black">
-      <h2 class="has-white-text"> Choose level and avatar </h2>
-      <h3>Choose an avatar</h3>
+      <h2 class="has-white-text is-size-3"> Choose level and avatar </h2>
         <figure class="image is-128x128">
           <img tabindex="0" @keyup.enter="selectedImage1()" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
         </figure>
@@ -18,40 +17,37 @@
       </div>
         
       <div class="row">
-        <h3>Choose a level</h3>
+        <h4 class="is-size-4 has-text-white">Choose a level</h4>
 
-        <div class="column" @keyup.enter="easyNumbers()"> 
+        <div class="column" @click="easyNumbers()" @keyup.enter="easyNumbers()"> 
           <router-link to="/gamepage">
           <div class="eButton easy">
-            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" type="button">
-              Easy Level 
-              <span style="margin:0 15%;"></span>
-              <span class="has-text-white is-size-6">Numbers 1-10</span>
-            </button>
+            <a class="gradient is-size-3 is-size-4-mobile has-text-white" tabindex="-1">
+              Easy
+            </a>
+              <span class="has-text-white is-pulled-right is-size-6">Numbers 1-10</span>
           </div>
           </router-link>
         </div>
 
-        <div class="column" @keyup.enter="mediumNumbers()">
+        <div class="column" @click="mediumNumbers()" @keyup.enter="mediumNumbers()">
           <router-link to="/gamepage">
           <div class="eButton medium is-dark">
-            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()" type="button">
-              Medium Level 
-             <span style="margin:0 15%;"></span>
-              <span style="margin: 0 4.5% 0 -1%;" class="has-text-white is-size-6">Numbers 1-30</span>
-            </button>
+            <a class="gradient is-size-3 is-size-4-mobile has-text-white" tabindex="-1" @keyup.enter="mediumNumbers()" @click="mediumNumbers()">
+              Medium
+            </a>
+             <span class="has-text-white is-pulled-right is-size-6">Numbers 1-30</span>
           </div>
           </router-link>
         </div>
 
-        <div class="column" @keyup.enter="hardNumbers()">
+        <div class="column" @click="hardNumbers()" @keyup.enter="hardNumbers()">
           <router-link to="/gamepage">
           <div class="eButton hard is-dark">
-            <button class="button gradient is-size-3 has-text-white" tabindex="-1" @keyup.enter="hardNumbers()" @click="hardNumbers()" type="button">
-              Hard Level 
-              <span style="margin:0 15%;"></span>
-              <span class="has-text-white is-size-6">Numbers 1-50</span>
-            </button>
+            <a class="gradient is-size-3 is-size-4-mobile has-text-white" tabindex="-1" @keyup.enter="hardNumbers()" @click="hardNumbers()">
+              Hard
+            </a>
+              <span class="has-text-white is-pulled-right is-size-6">Numbers 1-50</span>
           </div>
           </router-link>
         </div>
@@ -120,22 +116,18 @@ export default {
 </script>
 
 <style scoped>
-  .image {
-    margin: 10px;
-  }
   .container {
-    width: 60%;
+    width: 45%;
     overflow-y: scroll;
     background-color: red; /* For browsers that do not support gradients */
     background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
   }
-  .container button {
+  .container a {
+    text-align: left;
     background-color: transparent;
-    width: 100%;
     color:black;
     border: none;
-    padding: 10px;
-    cursor: pointer
+    cursor: pointer;
   }
   h2 {
     text-align: center;
@@ -149,15 +141,18 @@ export default {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  h4 {
+    font-family: 'Black Ops One', cursive;
+    color: white;
+    padding: 10px;
+  }
   .gradient {
-    font-family:  'Black Ops One', cursive;
+    font-family: 'Black Ops One', cursive;
   }
   .eButton {
     border: 1px solid rgb(185, 78, 185);
     box-shadow: 0 0 10px rgb(185, 102, 185);
-    height: auto !important;
-    margin: 0 auto !important;
-    font-size: 1.5em;
+    padding-left: 12%;
   }
   .easy:hover {
     background-color: #FFD150;
@@ -169,12 +164,11 @@ export default {
     background-color: #FF03A4;
   }
   .column {
-    max-width: 100%;
-    padding: 10px;
     float: left;
     align-items: center;
     background-color: black;
-    margin: 3px;
+    margin: 5px;
+    border-radius: 10px;
   }
   .row {
     display: flex;
@@ -182,7 +176,14 @@ export default {
     justify-content: space-around;
   }
   .has-background-black {
-    margin: 3px;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  .is-pulled-right {
+    padding-right: 7%;
+    padding-top: 3%;
+    text-align: right;
+    font-family: 'Black Ops One', cursive;
   }
   span {
     font-size: 0.5em;
@@ -191,12 +192,45 @@ export default {
     display: inline-block;
     margin: 10px;
   }
-  h3 {
-    background: -webkit-linear-gradient(#FF03A4,#F9F871);
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: black;
-  }
   img:hover {
     opacity: 0.5;
+  }
+
+  @media only screen and (max-width: 1010px) {
+    .container {
+      width: 55%;
+    }
+    .image {
+      margin: 0 auto;
+      padding: 2%;
+    }
+  }
+
+  @media only screen and (max-width: 720px) {
+    .container {
+      width: 85%;
+    }
+    .image {
+      padding: 2%;
+    }
+    .is-pulled-right {
+      padding-top: 2%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .container {
+      width: 95%;
+    }
+    .image {
+      padding: 3%;
+    }
+    .eButton {
+      padding-left: 3%;
+    }
+    .is-pulled-right {
+      padding-right: 2%;
+      padding-top: 1.5%;
+    }
   }
 </style>

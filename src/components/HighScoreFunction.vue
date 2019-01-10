@@ -6,7 +6,7 @@
     <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile has-background-black">Highscore for <br> Humans</h1>
       <div class="gradient">
         <div>
-          <table class="table is-bordered is-striped is-narrow is-hoverable has-background-black has-text-white">
+          <table class="table is-bordered is-striped is-narrow has-background-black has-text-white">
           <thead class="has-text-white" style="background-color:#FAE100;">
             <tr>
               <th>Rank</th>
@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
-            <tr>
+            <tr class="hover">
               <td>{{ index+1 }}</td>
               <td>{{score.hName}}</td>
               <td>{{score.hDate}}</td>
@@ -41,11 +41,11 @@
           </tr>
         </thead>
         <tbody v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h" class="has-text-white">
-          <tr>
-          <td>{{ index+1 }}</td>
-          <td>{{score.bName}}</td>
-          <td>{{score.bDate}}</td>
-          <td>{{score.bScore}}</td>
+          <tr class="hover">
+            <td>{{ index+1 }}</td>
+            <td>{{score.bName}}</td>
+            <td>{{score.bDate}}</td>
+            <td>{{score.bScore}}</td>
           </tr>
         </tbody>
       </table>
@@ -144,23 +144,26 @@ export default {
 
   th {
     font-family: 'Black Ops One', cursive;
-    color: black;
+    color: white;
   }
 
   table {
     width: 99%;
-      margin-right: .5%;
-      margin-left: .5%;
+    margin-right: .5%;
+    margin-left: .5%;
     height: 99%;
-      margin-bottom: .5%;
-      margin-top: .5%;
+    margin-bottom: .5%;
+    margin-top: .5%;
   }
-
   input {
     width: 20%;
   }
   .column {
     margin-top: 10px;
     justify-content: center;
+  }
+  .hover:hover {
+    background-color: white;
+    color: black;
   }
 </style>
