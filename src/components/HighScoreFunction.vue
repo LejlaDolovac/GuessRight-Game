@@ -48,7 +48,7 @@
       </table>
       </div>
     </div>
-    
+
   </div>
   <router-link to="/">
     <button class="button is-primary" style="margin: 20px;">Back to start page</button>
@@ -59,7 +59,6 @@
 
 <script>
 import {  db  } from '../firebase-config'
-
 export default {
   name: 'HighScoreFunction',
   data() {
@@ -75,20 +74,16 @@ export default {
       bRank: 1,
       bName:'',
       saveBot: '',
-
     }
   },
-
   firebase: {
     // gets the highscore from the database
     highscoreBS: db.ref('highscoreData').orderByChild('hScore').limitToLast(10),
     highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
-
   mounted() {
     if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
-
       if (this.$store.state.botWins > 0) {
         this.addHighscoreBot()
       }
@@ -96,7 +91,6 @@ export default {
      // starts the confetti
       this.$confetti.start()
     },
-
   methods: {
     // stores the player scores
     addHighscorePlayer() {
@@ -108,7 +102,6 @@ export default {
     },
     // stores the bot scores
     addHighscoreBot() {
-
       db.ref('botHighscoreData').push({
         bName: this.$store.state.botName,
         bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
@@ -117,8 +110,6 @@ export default {
     }
     }
   }
-
-
 </script>
 
 <style scoped>
@@ -143,12 +134,10 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 th {
   font-family: 'Black Ops One', cursive;
   color: black;
 }
-
 table {
   width: 99%;
     margin-right: .5%;
@@ -157,7 +146,6 @@ table {
     margin-bottom: .5%;
     margin-top: .5%;
 }
-
 input {
   width: 20%;
 }

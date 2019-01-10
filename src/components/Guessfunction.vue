@@ -10,7 +10,7 @@
         <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
         <h2 class="gradient-heading">Player</h2>
         <!-- Players input field -->
-        <input ref="guessInput" v-if="!startShow" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <input ref="guessInput" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -71,7 +71,6 @@ export default {
         readyMessage: '',
         readyTimer: 4,
         inputDisabled: true,
-        startShow: false,
         // how many games before it goes to highscore
         numberOfTries: 5,
         timerShow: false,
@@ -99,7 +98,7 @@ export default {
         botsTurn: true,
         mobile: false,
         avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
-        focusInterval: ''
+        focusInterval: '',
       }
     },
     computed: {
@@ -128,9 +127,8 @@ export default {
                 }
                 if(this.timer == 0) {
                     clearInterval(this.countdownInterval)
-                    this.startShow = false
-                    this.timer = this.$store.state.timer
                     this.inputDisabled = false
+                    this.timer = this.$store.state.timer
                     this.timerShow = true
                     this.readyTimer = 0;
                     this.timerShow = true,
@@ -228,6 +226,7 @@ export default {
                         this.inputDisabled = false
                         this.timerFunction()
                         this.guessedNumber = ''
+                        this.focus()
                     // checks if the bot's guess is too high
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
                         this.message = "The number is lower, " + this.$store.state.botName + "!";
@@ -235,6 +234,7 @@ export default {
                         this.inputDisabled = false
                         this.timerFunction()
                         this.guessedNumber = ''
+                        this.focus()
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
@@ -246,7 +246,6 @@ export default {
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
-            this.focus()
             // returns the numbers to the default state
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
@@ -320,7 +319,6 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
-            this.focus()
             this.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
@@ -338,7 +336,6 @@ export default {
                     this.botHasGuessed = false
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
-                        this.startShow = true
                         this.timerShow = false
                         setInterval(() => {
                           this.message = ''
@@ -352,7 +349,7 @@ export default {
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
-            console.log(this.allGuessedNumbers)
+
             // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
                 this.newBotGuess = this.botGuessNumber++;
@@ -387,11 +384,14 @@ export default {
           focus: function () {
               this.focusInterval = setInterval(() => {
                 clearInterval(this.focusInterval)
-                this.$refs.guessInput.focus();
-              },300)
+                if(this.inputDisabled == false) {
+                    this.$refs.guessInput.focus();
+                }
+              },500)
           }
       },
       mounted() {
+          clearInterval(this.focusInterval)
         // resets the players score each turn
         this.$store.state.correctAnswers = 0;
         this.$store.state.botWins = 0;
