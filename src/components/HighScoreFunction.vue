@@ -35,7 +35,7 @@
               <th>Score</th>
             </tr>
           </thead>
-          <tbody v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+          <tbody v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h">
             <tr>
               <td>{{ index+1 }}</td>
               <td>{{score.bName}}</td>
@@ -87,13 +87,13 @@ export default {
     console.log("mount that 2: " + this.$store.state.correctAnswers)
     if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
-
-      if (this.$store.state.botWins > 0) {
-        this.addHighscoreBot()
-      }
-    }
-     // starts the confetti
       this.$confetti.start()
+    }
+    else if (this.$store.state.botWins > 0) {
+        this.addHighscoreBot()
+        this.$confetti.start()
+      }
+     // starts the confetti
     },
 
   methods: {
@@ -107,7 +107,6 @@ export default {
     },
     // stores the bot scores
     addHighscoreBot() {
-
       db.ref('botHighscoreData').push({
         bName: this.$store.state.botName,
         bDate: this.hDate.getFullYear() + "-" + (this.hDate.getMonth() + 1) + "-" + this.hDate.getDate(),
@@ -116,7 +115,6 @@ export default {
     }
     }
   }
-
 
 </script>
 

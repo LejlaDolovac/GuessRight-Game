@@ -5,8 +5,8 @@
   </div>
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
-      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
-        <img class="is-square" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
+      <div class="player column is-two-fifths" v-show="playersTurn">
+        <img class="is-rounded" :alt="`Your profile picture`" src="https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png">
         <h2 class="heading">Player</h2>
         <input class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
@@ -71,7 +71,7 @@ export default {
         inputDisabled: true,
         startShow: true,
         // how many games before it goes to highscore
-        numberOfTries: 5,
+        numberOfTries: 1,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
@@ -560,56 +560,4 @@ export default {
             background-color: #59057b;
         }
     }
-
-    /* Mobile
-    @media only screen and (max-width: 600px) {
-    .container {
-        padding: 1%;
-    }
-    .column {
-        max-width: 300px;
-    }
-    .start-btn {
-        width: 90%;
-        height: 350px;
-        margin-top: 10px;
-        font-size: 60px;
-        margin-bottom: 10px;
-    }
-
-
-    .winner-loser-message {
-        padding: 20px;
-        text-align: center;
-        font-size: 15px;
-    }
-
-    .search {
-        width: 80px;
-        height: 80px;
-        border-radius: 4px;
-        font-size: 35px;
-        text-align: center;
-        margin: 10px;
-    }
-    .search:hover {
-        transform: scale(1.2);
-    }
-    #time-left-timer {
-        height: 60px;
-    }
-    .btn {
-        width: 210px;
-        height: 70px;
-        font-size: 25px;
-        margin: 5px;
-    }
-    .button {
-    background-color:black;
-    color:white;
-    width: 30%;
-    border: 3px solid purple;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    }
-    } */
 </style>

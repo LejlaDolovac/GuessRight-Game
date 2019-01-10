@@ -11,7 +11,7 @@
         <figure class="image is-128x128">
           <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg"> 
         </figure>
-        <figure class="image  is-128x128">
+        <figure class="image is-128x128">
           <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">  
         </figure>
       </div>
@@ -85,7 +85,7 @@ export default {
         this.$store.state.easy = false,
         this.$store.state.medium = false
         this.$store.state.levelChosen = true
-          this.$store.state.showLevels = !this.$store.state.showLevels
+        this.$store.state.showLevels = !this.$store.state.showLevels
         },
       }
      }
@@ -109,7 +109,7 @@ export default {
     border: none;
     padding: 10px;
     margin: 40px;
-    cursor: pointer
+    cursor: pointer;
   }
   h2 {
     text-align: center;
