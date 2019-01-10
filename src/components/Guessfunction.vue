@@ -387,6 +387,10 @@ export default {
           }
       },
       mounted() {
+        // resets the players score each turn
+        this.$store.state.correctAnswers = 0;
+        this.$store.state.botWins = 0;
+
         if(this.$store.state.levelChosen == true) {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
