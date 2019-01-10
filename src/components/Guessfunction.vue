@@ -320,6 +320,7 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
+            this.focus()
             this.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
@@ -348,7 +349,6 @@ export default {
                     }
                 }
               }, 1000);
-              this.focus()
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
@@ -386,9 +386,9 @@ export default {
           // focuses on the player input
           focus: function () {
               this.focusInterval = setInterval(() => {
-                this.$refs.guessInput.focus();
                 clearInterval(this.focusInterval)
-              },10)
+                this.$refs.guessInput.focus();
+              },300)
           }
       },
       mounted() {
