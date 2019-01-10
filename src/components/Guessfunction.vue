@@ -373,6 +373,7 @@ export default {
                 if (this.newBotGuess < this.lowNumber) {
                   this.newBotGuess = this.lowNumber++;
                 }
+                // checks if the bot's guess has already been guessed and changes it if that's the case
                 if (this.allGuessedNumbers.includes(this.newBotGuess)) {
                   this.newBotGuess++;
                 }
@@ -384,6 +385,7 @@ export default {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
           },
+          // focuses on the player input
           focus: function () {
               this.focusInterval = setInterval(() => {
                 this.$refs.guessInput.focus();
@@ -407,6 +409,7 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            // changes player avatar image
             if(this.$store.state.imageNumber == 1) {
                 this.avatar = "homer_mindre.jpg"
             } else if(this.$store.state.imageNumber == 2) {
