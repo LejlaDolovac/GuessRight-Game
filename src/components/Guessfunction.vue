@@ -52,7 +52,7 @@
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left ">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -401,7 +401,6 @@ export default {
         clearInterval(this.$store.state.countdownInterval)
         clearInterval(this.$store.state.timerBotInterval)
         clearInterval(this.$store.state.focusInterval)
-          console.log("WHY?!")
         // resets the players score each turn
         this.$store.state.correctAnswers = 0;
         this.$store.state.botWins = 0;
@@ -436,86 +435,86 @@ export default {
 </script>
 
 <style scoped>
-.gradient-heading {
-  font-size: 2em;
-  text-transform: uppercase;
-  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.gradient-font-big {
-  font-size: 3.5em;
-  text-transform: uppercase;
-  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.gradient-game-div {
-  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
-  padding: 2%;
-  border-radius: 10px;
-  width: 80%;
-}
-.flex {
-  display: flex;
-  flex-flow: column;
-  width: 125px;
-  max-width: 100%;
-  justify-content: flex-end;
-  /* padding-bottom: 40px; */
-}
+    .container {
+        max-width: 1280px;
+        width: 95%;
+    }
+    .gradient-heading {
+        font-size: 2em;
+        text-transform: uppercase;
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .gradient-font-big {
+        font-size: 3.5em;
+        text-transform: uppercase;
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .gradient-game-div {
+        background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
+        padding: 2%;
+    }
+    .flex {
+        display: flex;
+        flex-flow: column;
+        width: 125px;
+        max-width: 100%;
+        justify-content: flex-end;
+        padding-bottom: 40px;
+    }
 
-.border-controll {
-  border-radius: 5px;
-  opacity: 0.85;
-  border: solid 2px yellow;
-}
-/* hide the empty columns in mobile mode */
-.no-mobile {
-  visibility: hidden;
-}
-.players img {
-  width: 60%;
-  height: 60%
-}
-.player {
-    border-radius: 50%;
-}
-#desktopDivider {
-  visibility: hidden;
-}
-.high-low {
-  padding: 1%;
-  margin: -10px;
-}
-.column {
-  height: auto;
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers {
-  color: White;
-  overflow: hidden;
-}
-.allGuessedNumbers ul {
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers li {
-  list-style: none;
-  width: 25px;
-  display: inline-block;
-}
-.message-body {
-  border: none;
-  color: white;
-}
-.bot-message {
-  color: White;
-  padding: 5px;
-}
+    /* hide the empty columns in mobile mode */
+    .no-mobile {
+        visibility: hidden;
+    }
+
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+
+    .player {
+        border-radius: 50%;
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
+    }
+
     .players img {
         width: 60%;
         height: 60%
@@ -628,11 +627,6 @@ export default {
         border-left: 0;
         margin-bottom: -20px;
     }
-    @media only screen and (max-width: 1087px) {
-        .container, .game-div {
-            width: 100%;
-        }
-    }
     @media only screen and (max-width: 768px) {
         .is-medium {
             width: 100%;
@@ -640,52 +634,4 @@ export default {
             background-color: #59057b;
         }
     }
-    /* Mobile
-    @media only screen and (max-width: 600px) {
-    .container {
-        padding: 1%;
-    }
-    .column {
-        max-width: 300px;
-    }
-    .start-btn {
-        width: 90%;
-        height: 350px;
-        margin-top: 10px;
-        font-size: 60px;
-        margin-bottom: 10px;
-    }
-    .winner-loser-message {
-        padding: 20px;
-        text-align: center;
-        font-size: 15px;
-    }
-    .guessInput {
-        width: 80px;
-        height: 80px;
-        border-radius: 4px;
-        font-size: 35px;
-        text-align: center;
-        margin: 10px;
-    }
-    .guessInput:hover {
-        transform: scale(1.2);
-    }
-    #time-left-timer {
-        height: 60px;
-    }
-    .btn {
-        width: 210px;
-        height: 70px;
-        font-size: 25px;
-        margin: 5px;
-    }
-    .button {
-    background-color:black;
-    color:white;
-    width: 30%;
-    border: 3px solid purple;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    }
-    } */
 </style>

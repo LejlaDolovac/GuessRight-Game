@@ -33,7 +33,7 @@ export default new Vuex.Store({
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
-    showRules(state){
+    showRules(state) {
       state.show = !state.show;
     },
     // sätter vad nivåerna gör
