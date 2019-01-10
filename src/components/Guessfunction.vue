@@ -554,6 +554,8 @@ p {
     right: 0px;
 	  border-radius: 1em;
     max-width: 200px;
+    margin-top: 7%;
+    margin-right: 20%;
 }
 
 .speech-bubble:after {

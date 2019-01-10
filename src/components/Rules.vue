@@ -12,10 +12,10 @@
             <li>The Player selects a Level:</li>
             <li><span class="has-text-dark is-size-4">Easy 1-10</span> or<span class="has-text-success is-size-4"> Medium 1-30</span> or <span class="has-text-light is-size-4">Hard 1-50</span></li>
             <li>A countdown starts the game Ready, Set, Go!</li>
-            <li>The Player starts to type in any number between the interval of numbers for the chosen level.</li>
-            <li>The turn then goes to the next AI-bot. First to guess the right number scores a point.</li>
-            <li>Beat the BOT in best of 5 turns to earn your name on the scoreboard!</li>
-            <li>First to guess the right number gets one point. Get as many points as you can within the countdown.</li>
+            <li class="has-text-dark">The Player starts to type in any number between<br /> the interval of numbers for the chosen level.</li>
+            <li>The turn then goes to the next AI-bot.<br /> First to guess the right number scores a point.</li>
+            <li class="has-text-success">Beat the BOT in best of 5 turns <br />to earn your name on the scoreboard!</li>
+            <li>First to guess the right number gets one point.<br /> Get as many points as you can within the countdown.</li>
             <li>Compete for the #1 rank at the highscore board against other players.</li>
           </ul>
         <br>

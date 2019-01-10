@@ -4,20 +4,20 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2> Please choose level & avatar </h2>
-     <h3>Please choose an avatar</h3>
+    <h2> Choose level & avatar </h2>
+     <!-- <h3 class="is-size-4">Pick a avatar</h3> -->
          <figure class="image is-128x128">
        <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg">
          </figure>
     <figure class="image is-128x128">
     <img class="image is-rounded" :alt="`Your profile picture`" src="../assets/kenny.jpg">
     </figure>
-    <figure class="image  is-128x128">
+    <figure class="image is-128x128">
     <img class="image is-rounded " :alt="`Your profile picture`" src="../assets/kermit.jpg">
     </figure>
     </div>
     <div class="row">
-      <h3> Please choose a level</h3>
+      <h3 class="is-size-4" style="padding: 10px;">Choose a level</h3>
       <div class="column" @keyup.enter="easyNumbers()">
         <router-link to="/gamepage">
           <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
@@ -101,12 +101,9 @@ export default {
 </script>
 
 <style scoped>
-.image{
-  margin: 10px;
 
-}
 .container {
-  width: 75%;
+  width: 55%;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
 }
@@ -147,6 +144,7 @@ h2 {
   align-items: center;
   background-color: black;
   margin: 3px;
+  border-radius: 10px;
 }
 .row {
   display: flex;
@@ -166,10 +164,8 @@ figure{
 }
 
 h3{
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: black;
-
+  font-family: 'Black Ops One';
+  color: white;
 }
 
 img:hover{
