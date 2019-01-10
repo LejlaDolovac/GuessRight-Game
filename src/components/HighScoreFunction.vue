@@ -82,10 +82,6 @@ export default {
     highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
   mounted() {
-    console.log("mount this: " + this.$store.state.botName)
-    console.log("mount that: " + this.$store.state.botWins)
-    console.log("mount this 2: " + this.$store.state.currentUser)
-    console.log("mount that 2: " + this.$store.state.correctAnswers)
     if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
       if (this.$store.state.botWins > 0) {

@@ -350,7 +350,7 @@ export default {
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
-            console.log(this.allGuessedNumbers)
+
             // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
                 this.newBotGuess = this.botGuessNumber++;
@@ -404,7 +404,7 @@ export default {
             } else if(this.$store.state.imageNumber == 3) {
                 this.avatar = "kermit.jpg"
             }
-            console.log(this.avatar)
+
         } else {
             window.location.href = '/'
         }
