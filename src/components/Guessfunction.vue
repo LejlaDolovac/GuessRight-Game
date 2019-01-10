@@ -176,23 +176,14 @@ export default {
               this.botMessage = "[Concentrated bloop]";
               this.botGuessNumber = this.chooseRandom()
             }
-            // if it's wall-e
+            // if it's wall-e - easy
             else if (this.$store.state.easy == true) {
                 if (this.botFirstGuess == true) {
                     this.botGuessNumber = this.chooseOneUpDown()
-                }
-                else {
+                } else {
                     this.botGuessNumber = this.chooseRandom()
                     this.botFirstGuess = true;
                 }
-                // if it's wall-e - easy
-                else if (this.$store.state.easy == true) {
-                    if (this.botFirstGuess == true) {
-                        this.botGuessNumber = this.chooseOneUpDown()
-                    } else {
-                        this.botGuessNumber = this.chooseRandom()
-                        this.botFirstGuess = true;
-                    }
                     this.botMessage = "Eeeva?";
                 }
 
