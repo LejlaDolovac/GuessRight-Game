@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <Login></Login>
       <div class="nav is-centered">
         <figure class="image">
@@ -8,7 +9,7 @@
 
         <button class="yellow button" @click="openLevels()">Play</button>
           <Levels v-show="showLevelsPage"></Levels>
-        <a class="purple button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
+        <a class="orange button" tabindex="0" @keyup.enter="openRules" @click="openRules()">Rules</a>
           <Rules v-show="showRulesPage"></Rules>
         <router-link to="/highScore" tabindex="-1">
           <a @keyup.enter="openHighScore" tabindex="0" class="pink button">Highscore</a>
@@ -103,11 +104,12 @@
     border-width: 5px;
     margin-top: 10px;
     text-transform: uppercase;
+    font-family:  'Black Ops One', cursive;
   }
   .button:not(:last-child):not(.is-fullwidth) {margin-right: 0px;}
-  .pink {border-color: #ab0e86;}
-  .purple {border-color: #59057b;}
-  .yellow {border-color: #fae100;}
+  .pink {border-color: #FF03A4;}
+  .orange {border-color: #FF755F;}
+  .yellow {border-color: #FFD150;}
 
   @media (min-width: 992px) {
     .button {

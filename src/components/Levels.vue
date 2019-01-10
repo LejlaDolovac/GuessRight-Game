@@ -1,12 +1,12 @@
 <template>
 
 <div class="modal is-active" v-show="showLevelsPage">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2 class="has-white-text"> Please choose level and avatar </h2>
+    <h2> Please choose level & avatar </h2>
      <h3>Please choose an avatar</h3>
-     <div class="imageBorder v-bind:class={active: isActive}"> 
     <figure  class="image is-128x128">
       <img @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
     </figure>
@@ -19,11 +19,10 @@
    
     </div>
     </div>
-    </div>
     
     <div class="row">
       <h3> Please choose a level</h3>
-      <div class="column" @keyup.enter="easyNumbers()"> 
+      <div class="column" @keyup.enter="easyNumbers()">
         <router-link to="/gamepage">
           <button class="button is-medium is-dark has-text-white" tabindex="-1" @keyup.enter="easyNumbers()" @click="easyNumbers()" id="eButton" type="button"> Easy Level <br />Numbers <br />1-10</button>
         </router-link>
@@ -38,7 +37,7 @@
         <div class="column" @keyup.enter="hardNumbers()">
           <router-link to="/gamepage">
             <button class="button is-medium is-light has-text-white" tabindex="-1"  @click="hardNumbers()" id="eButton" type="button"> Hard Level <br />Numbers <br />1-50</button>
-          </router-link> 
+          </router-link>
         </div>
 
         <button class="modal-close is-large is-marginless has-background-black" @keyup.enter="close" @click="close">x</button>
@@ -64,7 +63,7 @@ export default {
         return this.$store.state.showLevels;  // opens the level page
       }
     },
-    
+
     methods: {
       closeLevels() {
         this.$store.state.closeLevels = true  // closes the level menu by clicking anywhere - behövs jobba vidare på
@@ -94,8 +93,8 @@ export default {
         this.$store.state.easy = false
         this.$store.state.levelChosen = true
           this.$store.state.showLevels = !this.$store.state.showLevels
-        
-        
+
+
       },
       hardNumbers: function() {   // function hard-level
         this.$store.state.hard = true,
@@ -106,25 +105,22 @@ export default {
         },
        }
      }
-  
+
 
 </script>
 
 <style scoped>
 
-
 .image{
   margin: 10px;
-  
-}
-.imageBorder {
-  border: 5px;
+
 }
 .container {
   width: 50%;
-  height: auto;
+  height: 100%;
+  overflow-y: scroll;
   background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last)*/
 }
 .container button {
   background-color: transparent;
@@ -139,7 +135,7 @@ h2 {
   text-align: center;
   padding: 10px;
   height: auto;
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family:  'Black Ops One', cursive;
   font-size: 2.8em;
   text-transform: uppercase;
   background-color: black;
@@ -150,10 +146,8 @@ h2 {
 #eButton {
   border: 1px solid rgb(185, 78, 185);
   box-shadow: 0 0 10px rgb(185, 102, 185);
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 5px;
+  height: auto !important;
+  margin: 0 auto !important;
   font-size: 1.5em;
 }
 .column {

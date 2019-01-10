@@ -3,7 +3,7 @@
 
     <div class="fontawesome-container has-background-primary" v-if="!loggedIn">
       <span class="is-size-5 is-size-6-mobile">Login with:</span>
-      <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="googleLogin" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
+          <a class="fontawesome is-size-6-mobile" tabindex="0" @keyup.enter="googleLogin" @click="googleLogin"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google'  }"/> Google</a>
       <span>{{ errorText }} </span>
     </div>
 
