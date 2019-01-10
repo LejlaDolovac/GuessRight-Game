@@ -1,53 +1,58 @@
-
 <template>
 <div class="brain container">
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
   <div>
-    <h1 class="room">guessroom</h1>
+    <h1 class="gradient-font-big">guessroom</h1>
   </div>
     <div class="players columns">
-      <div class="column"></div> <!-- för att få luft på sidorna -->
+      <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
-          <div class="fadeImage">
-        <img class="is-square" :alt="`Your profile picture`" src='this.$store.state.avatar'>
+          <div v-bind:class="{fadeImage: playerActive}"> <!-- makes the image fade when its not your turn -->
+        <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
           </div>
-        <h2 class="heading">Player</h2>
+        <h2 class="gradient-heading">Player</h2>
         <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
-        <div id="desktopDivider"></div> <!-- for space on the page -->
+        <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
         <div class="flex">
             <div><h3 class="has-text-white">TIME LEFT:</h3></div>
             <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
             <div v-if="numberOfTries == 0" class="message-body timer">END</div>
             <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="room" v-show="!mobile">vs.</h2>
+            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
         </div>
       </div>
-      <div id="bot" class="bot column is-two-fifths" v-show="botsTurn">
-        <div class="bot-message has-background-success speech-bubble"> {{ botMessage }} </div>
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" v-bind:src="this.$store.state.botImg">
-        <h2 class="heading">{{ this.$store.state.botName }}</h2>
+      <div class="bot column is-two-fifths">
+        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
+        <div v-bind:class="{fadeImage: botActive}">
+          <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        </div>
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
         <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
-      <div class="column"></div> <!-- for space on the page -->
+      <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container game-div">
-    <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
-    <br>
+    <div class="allGuessedNumbers container gradient-game-div">
+      <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
+      <br>
       <ul>
         <li v-for="number in allGuessedNumbers" :key="number">
           {{ number }}
         </li>
       </ul>
+      <router-link to="/highScore">
+        <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
+      </router-link>
       <br>
-      <span class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
+      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -89,24 +94,28 @@ export default {
         allGuessedNumbers: [],
         // checks if the bot has made his first guess
         botFirstGuess: false,
+        newBotGuess: 0,
         // what the bot says
         botMessage: '',
         // one show one player in movile mode
         playersTurn: true,
         botsTurn: true,
         mobile: false,
-        
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
+        // fade image
+        botActive: false,
+        playerActive: false,
       }
     },
-    created() {
-      this.$store.commit('levelNumber')
-    },
     computed: {
+        avatarImage: function () {
+            return this.avatar
+        }
     },
     methods: {
         startCountdown: function () {
             // check if screensize is mobile
-            if (screen.width < 321) {
+            if (screen.width < 601) {
              this.botsTurn = false;
              this.mobile = true;
             }
@@ -144,10 +153,13 @@ export default {
         },
         // creates what the bot guessed
         botGuessing: function () {
+            this.botActive = false;
+            this.playerActive = true;
             if (this.mobile == true) {
               this.botsTurn = true;
               this.playersTurn = false;
-            }
+              
+            } 
             // pauses the guess timer
             clearInterval(this.timerInterval)
             this.inputDisabled = true
@@ -215,10 +227,10 @@ export default {
                             this.startShow = true
                             this.$refs.timeLeft.value = ''
                             this.timerShow = false
-                            this.showHighScore = true
-                            setInterval(function() {
-                              window.location.href = '/highScore'
-                            }, 2000);
+                            setInterval(() => {
+                              this.message = ''
+                              this.showHighScore = true
+                            }, 2000)
                         } else {
                             this.startCountdown()
                         }
@@ -295,10 +307,10 @@ export default {
                     this.startShow = true
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
-                    this.showHighScore = true
-                    setInterval(function() {
-                      window.location.href = '/highScore'
-                    }, 2000);
+                    setInterval(() => {
+                      this.message = ''
+                      this.showHighScore = true
+                    }, 2000)
                 } else {
                     this.startCountdown()
                 }
@@ -320,7 +332,10 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
+             this.botActive = true;
+             this.playerActive = false;
             this.timerInterval = setInterval(() => {
+               
                 this.timer--
                 // checks if times up
                 if(this.timer == 0) {
@@ -339,9 +354,10 @@ export default {
                         this.message = "Tries up, my man!"
                         this.startShow = true
                         this.timerShow = false
-                        setInterval(function() {
-                            window.location.href = '/highScore'
-                        }, 2000);
+                        setInterval(() => {
+                          this.message = ''
+                          this.showHighScore = true
+                        }, 2000)
                     } else {
                         this.startCountdown()
                     }
@@ -351,20 +367,29 @@ export default {
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
             console.log(this.allGuessedNumbers)
+            // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber - 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess - 1;
+                this.newBotGuess = this.botGuessNumber++;
+                // if the guess is higher than the highest number guessed, go one number lower
+                if (this.newBotGuess > this.highNumber) {
+                  this.newBotGuess = this.highNumber--;
                 }
-                return newBotGuess;
+                // if the number has already been guessed, go one number lower
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess--;
+                }
               }
+            // bot needs to guess higher
               else if (this.botGuessNumber < this.$store.state.randomNumber) {
-                let newBotGuess = this.botGuessNumber + 1;
-                if (this.allGuessedNumbers.includes(newBotGuess)) {
-                  return newBotGuess + 1;
+                this.newBotGuess = this.botGuessNumber++;
+                if (this.newBotGuess < this.lowNumber) {
+                  this.newBotGuess = this.lowNumber++;
                 }
-                return newBotGuess;
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess++;
+                }
               }
+            return this.newBotGuess;
           },
           // creates a random number between highest and lowest last guess
           chooseRandom: function () {
@@ -388,70 +413,82 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            if(this.$store.state.imageNumber == 1) {
+                this.avatar = "homer_mindre.jpg"
+            } else if(this.$store.state.imageNumber == 2) {
+                this.avatar = "kenny.jpg"
+            } else if(this.$store.state.imageNumber == 3) {
+                this.avatar = "kermit.jpg"
+            } 
+            console.log(this.avatar)
         } else {
             window.location.href = '/'
         }
+
       }
     }
 </script>
 
 <style scoped>
-
-
 .fadeImage {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
+ opacity: 0.2;
+
 }
-.container:hover .fadeImage {
-  opacity: 0.3;
-}
-.container:hover .middle {
-  opacity: 1;
-}
-.heading {
+ 
+
+.gradient-heading {
   font-size: 2em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
   background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.room {
+.gradient-font-big {
   font-size: 3.5em;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background: -webkit-linear-gradient(#094A6F,#64C6BD);
+  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+  background: -webkit-linear-gradient(#FF03A4,#F9F871);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.game-div {
-  background-image: linear-gradient(to right, #1548EF , #0071FF , #008AFF, #009AE7, #00A7B5, #00B07D);
+.gradient-game-div {
+  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
   padding: 2%;
 }
 .flex {
   display: flex;
   flex-flow: column;
+  width: 125px;
+  max-width: 100%;
   justify-content: flex-end;
   padding-bottom: 40px;
 }
+
+/* hide the empty columns in mobile mode */
+.no-mobile {
+  visibility: hidden;
+}
+
 .players img {
   width: 60%;
   height: 60%
+}
+
+.player {
+    border-radius: 50%;
 }
 #desktopDivider {
   visibility: hidden;
 }
 .high-low {
-    padding: 1%;
-    margin: -10px;
+  padding: 1%;
+  margin: -10px;
 }
 .column {
-  max-width: 300px;
   height: auto;
+  margin: auto;
+  text-align: center;
 }
 .allGuessedNumbers {
   color: White;
@@ -466,9 +503,6 @@ export default {
   width: 25px;
   display: inline-block;
 }
-.bot {
-  visibility: hidden;
-}
 .message-body {
   border: none;
   color: white;
@@ -478,155 +512,185 @@ export default {
   padding: 5px;
 }
 
-/* nytt ovanför */
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
+    }
 
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-h3 {
-    padding: 20px 0 5px;
-    color: #351304;
-}
-p {
-    color: midnightblue;
-}
-.timer {
-    clear: left;
-    padding: 10px;
-    color: White;
-    text-align: center;
-    font-size: 2em;
-}
-.start-btn {
-    background: #351304;
-    font-weight: bold;
-    color: cornsilk;
-    margin-bottom: 20px;
-}
-.search {
-    background-color: cornsilk;
-    width: 150px;
-    height: 17px;
-    -webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-    z-index: 10;
-    border-radius: 50px;
-    padding: 10px;
-    margin: 10px;
-}
-.search:hover {
-    box-shadow: 0px 0px 150px grey;
-    z-index: 2;
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(1.5);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.5);
-    -mozd-transition: all 200ms ease-in;
-    -moz-transform: scale(1.5);
-    transition: all 200ms ease-in;
-    transform: scale(1.8);
-}
-.btn {
-    margin-top: 10px;
-    color: cornsilk;
-    background-color: #351304;
-}
-.btn:focus {
-    outline:0;
-}
+    h3 {
+        padding: 20px 0 5px;
+        color: #351304;
+    }
+    p {
+        color: midnightblue;
+    }
+    .timer {
+        clear: left;
+        padding: 10px;
+        color: White;
+        text-align: center;
+        font-size: 2em;
+    }
+    .start-btn {
+        background: #351304;
+        font-weight: bold;
+        color: cornsilk;
+        margin-bottom: 20px;
+    }
+    .search {
+        background-color: cornsilk;
+        width: 150px;
+        height: 17px;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+        z-index: 10;
+        border-radius: 50px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .search:hover {
+        box-shadow: 0px 0px 150px grey;
+        z-index: 2;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.5);
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1.5);
+        -mozd-transition: all 200ms ease-in;
+        -moz-transform: scale(1.5);
+        transition: all 200ms ease-in;
+        transform: scale(1.8);
+    }
+    .btn {
+        margin-top: 10px;
+        color: cornsilk;
+        background-color: #351304;
+    }
+    .btn:focus {
+        outline:0;
+    }
 
-/* Balloon for bot message */
-.speech-bubble {
-    position: absolute;
-    padding: 10px;
-    top: 20px;
-    right: 250px;
-	border-radius: 1em;
-}
+    /* Balloon for bot message */
+    .bot {
+        position: relative;
+    }
+    .speech-bubble {
+        position: absolute;
+        padding: 15px;
+        top: -80px;
+        right: 0px;
+        border-radius: 1em;
+        max-width: 200px;
+    }
 
-.speech-bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 40%;
-	width: 0;
-	border: 20px solid transparent;
-	border-top-color: #FF755F;
-	border-bottom: 0;
-	border-left: 0;
-	margin-bottom: -20px;
-}
+    .speech-bubble:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 40%;
+        width: 0;
+        border: 20px solid transparent;
+        border-top-color: #FF755F;
+        border-bottom: 0;
+        border-left: 0;
+        margin-bottom: -20px;
+    }
 
-/* större än mobil */
-@media (min-width: 600px) {
-  .bot {
-    visibility: visible;
-  }
-  #desktopDivider {
-    visibility: visible;
-    width: 50px;
-  }
-}
+    @media only screen and (max-width: 1087px) {
+        .container, .game-div {
+            width: 100%;
+        }
+    }
 
-/* större än tablet */
-@media (min-width: 992px) {
-  #desktopDivider {
-    width: 100px;
-  }
-}
+    @media only screen and (max-width: 768px) {
+        .is-medium {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #59057b;
+        }
+    }
 
-/* Mobile */
-@media only screen and (max-width: 600px) {
-.container {
-    padding: 1%;
-}
-.column {
-    max-width: 50%;
-}
-.start-btn {
-    width: 90%;
-    height: 350px;
-    margin-top: 10px;
-    font-size: 60px;
-    margin-bottom: 10px;
-}
+    /* Mobile
+    @media only screen and (max-width: 600px) {
+    .container {
+        padding: 1%;
+    }
+    .column {
+        max-width: 300px;
+    }
+    .start-btn {
+        width: 90%;
+        height: 350px;
+        margin-top: 10px;
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
 
-.bot {
-    visibility: visible;
-}
 
-.winner-loser-message {
-    padding: 20px;
-    text-align: center;
-    font-size: 15px;
-}
+    .winner-loser-message {
+        padding: 20px;
+        text-align: center;
+        font-size: 15px;
+    }
 
-.search {
-    width: 80px;
-    height: 80px;
-    border-radius: 4px;
-    font-size: 35px;
-    text-align: center;
-    margin: 10px;
-}
-.search:hover {
-    transform: scale(1.2);
-}
-#time-left-timer {
-    height: 60px;
-}
-.btn {
-    width: 210px;
-    height: 70px;
-    font-size: 25px;
-    margin: 5px;
-}
-.button {
-   background-color:black;
-   color:white;
-   width: 30%;
-   border: 3px solid purple;
-   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  }
-}
+    .search {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        font-size: 35px;
+        text-align: center;
+        margin: 10px;
+    }
+    .search:hover {
+        transform: scale(1.2);
+    }
+    #time-left-timer {
+        height: 60px;
+    }
+    .btn {
+        width: 210px;
+        height: 70px;
+        font-size: 25px;
+        margin: 5px;
+    }
+    .button {
+    background-color:black;
+    color:white;
+    width: 30%;
+    border: 3px solid purple;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    } */
 </style>

@@ -8,16 +8,14 @@ import {fb} from './firebase-config'; // Ger tillgång Firebase / Initierar Fire
 import { library } from '@fortawesome/fontawesome-svg-core'; // installerar bibliotek som skall hålla i ikonerna
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'; // laddar hem EN specifik ikon
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Vet inte riktigt, men kanske berättar att det är ett FA ikon-pack
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import VueConfetti from 'vue-confetti';
 import VueSelectImage from 'vue-select-image'; // you need this to select an image
 
 
 // Import av FontAwesome ikoner, här behövs en library.add för varje ikon man vill ha med.
-library.add(faUserSecret);
-library.add(faFacebook);
-library.add(faGoogle);
+library.add(faUserSecret)
+library.add(faGoogle)
 
 Vue.use(VueSelectImage);
 Vue.component('font-awesome-icon', FontAwesomeIcon); // skapar syntax för fontawesome. (?)
@@ -28,6 +26,7 @@ require("./assets/main.scss"); // Ger möjlighet att ändra färger i Bulma-klas
 require('vue-select-image/dist/vue-select-image.css')
         
 Vue.use(VueConfetti);
+
 let app = '';
 
 
