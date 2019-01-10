@@ -57,7 +57,7 @@ export default new Vuex.Store({
         state.number = 50;
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
         state.botName = 'Terminator';
-        state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
+        state.botImg = 'https://i.dlpng.com/static/png/328494_preview.png';
       }
     }
   },
