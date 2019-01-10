@@ -9,7 +9,8 @@
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
         <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
         <h2 class="gradient-heading">Player</h2>
-        <input v-if="!startShow" class="search" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
+        <!-- Players input field -->
+        <input ref="guessInput" v-if="!startShow" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
       <div class="column flex">
@@ -70,7 +71,7 @@ export default {
         readyMessage: '',
         readyTimer: 4,
         inputDisabled: true,
-        startShow: true,
+        startShow: false,
         // how many games before it goes to highscore
         numberOfTries: 5,
         timerShow: false,
@@ -97,7 +98,8 @@ export default {
         playersTurn: true,
         botsTurn: true,
         mobile: false,
-        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
+        avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
+        focusInterval: ''
       }
     },
     computed: {
@@ -153,21 +155,21 @@ export default {
             clearInterval(this.timerInterval)
             this.inputDisabled = true
             this.timerBotInterval = setInterval(() => {
-                // if it's the terminator
+                // if it's the terminator - hard
                 if (this.$store.state.hard == true) {
-                    if ((this.highNumber - 5) < this.$store.state.randomNumber || (this.lowNumber + 5) > this.$store.state.randomNumber) {
+                    if ((this.highNumber - 4) < this.$store.state.randomNumber || (this.lowNumber + 4) > this.$store.state.randomNumber) {
                         this.botGuessNumber = this.$store.state.randomNumber
                     } else {
                         this.botMessage = "Wrong!";
-                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-5) - (this.lowNumber+5) + 1)) + (this.lowNumber+5);
+                        this.botGuessNumber = Math.floor(Math.random() * ((this.highNumber-4) - (this.lowNumber+4) + 1)) + (this.lowNumber+4);
                     }
                 }
-                // if it's R2-D2
+                // if it's R2-D2 - medium
                 else if (this.$store.state.medium == true) {
                     this.botMessage = "[Concentrated bloop]";
                     this.botGuessNumber = this.chooseRandom()
                 }
-                // if it's wall-e
+                // if it's wall-e - easy
                 else if (this.$store.state.easy == true) {
                     if (this.botFirstGuess == true) {
                         this.botGuessNumber = this.chooseOneUpDown()
@@ -201,7 +203,6 @@ export default {
                             this.allGuessedNumbers = [];
                             this.inputDisabled = true
                             this.timer = 3
-                            this.startShow = true
                             this.lowNumber = 1
                             this.highNumber = this.$store.state.number
                             this.botGuessNumber = ''
@@ -211,7 +212,6 @@ export default {
                         // checks if the number of games is up
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
-                            this.startShow = true
                             this.$refs.timeLeft.value = ''
                             this.timerShow = false
                             setInterval(() => {
@@ -223,16 +223,18 @@ export default {
                         }
                     // checks if the bot's guess is too low
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
-                        this.message = "The number is higher, bot!";
+                        this.message = "The number is higher, " + this.$store.state.botName + "!";
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
+                        this.guessedNumber = ''
                     // checks if the bot's guess is too high
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
-                        this.message = "The number is lower, bot!";
+                        this.message = "The number is lower, " + this.$store.state.botName + "!";
                         this.highNumber = this.botGuessNumber-1
                         this.inputDisabled = false
                         this.timerFunction()
+                        this.guessedNumber = ''
                     }
                     clearInterval(this.timerBotInterval)
                     this.botHasGuessed = true
@@ -244,6 +246,7 @@ export default {
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
+            this.focus()
             // returns the numbers to the default state
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
@@ -286,12 +289,10 @@ export default {
                 this.guessedNumber = '';
                 this.inputDisabled = true
                 this.timer = 3
-                this.startShow = true
                 this.botGuessNumber = ''
                 // checks if the number of games is up
                 if(this.numberOfTries == 0) {
                     this.message = "Tries up, my man!"
-                    this.startShow = true
                     this.$refs.timeLeft.value = ''
                     this.timerShow = false
                     setInterval(() => {
@@ -319,6 +320,7 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
+            this.focus()
             this.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
@@ -369,6 +371,7 @@ export default {
                 if (this.newBotGuess < this.lowNumber) {
                   this.newBotGuess = this.lowNumber++;
                 }
+                // checks if the bot's guess has already been guessed and changes it if that's the case
                 if (this.allGuessedNumbers.includes(this.newBotGuess)) {
                   this.newBotGuess++;
                 }
@@ -380,6 +383,13 @@ export default {
               let randomUpper = this.highNumber - this.lowNumber + 1
               return Math.floor(Math.random() * randomUpper) + this.lowNumber;
           },
+          // focuses on the player input
+          focus: function () {
+              this.focusInterval = setInterval(() => {
+                clearInterval(this.focusInterval)
+                this.$refs.guessInput.focus();
+              },300)
+          }
       },
       mounted() {
         if(this.$store.state.levelChosen == true) {
@@ -397,6 +407,7 @@ export default {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
             }
+            // changes player avatar image
             if(this.$store.state.imageNumber == 1) {
                 this.avatar = "homer_mindre.jpg"
             } else if(this.$store.state.imageNumber == 2) {
@@ -542,7 +553,7 @@ export default {
         color: cornsilk;
         margin-bottom: 20px;
     }
-    .search {
+    .guessInput {
         background-color: cornsilk;
         width: 150px;
         height: 17px;
@@ -553,7 +564,7 @@ export default {
         padding: 10px;
         margin: 10px;
     }
-    .search:hover {
+    .guessInput:hover {
         box-shadow: 0px 0px 150px grey;
         z-index: 2;
         -webkit-transition: all 200ms ease-in;
@@ -629,7 +640,7 @@ export default {
         text-align: center;
         font-size: 15px;
     }
-    .search {
+    .guessInput {
         width: 80px;
         height: 80px;
         border-radius: 4px;
@@ -637,7 +648,7 @@ export default {
         text-align: center;
         margin: 10px;
     }
-    .search:hover {
+    .guessInput:hover {
         transform: scale(1.2);
     }
     #time-left-timer {
