@@ -44,7 +44,7 @@
         <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
       </router-link>
       <br>
-      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span> 
+      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
@@ -170,8 +170,8 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
-                
-                    // checks if the bot guesses right                    
+
+                    // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
                         if (this.$store.state.hard == true) {
@@ -215,7 +215,7 @@ export default {
                         } else {
                             this.startCountdown()
                         }
-                    // checks if the bot's guess is too low 
+                    // checks if the bot's guess is too low
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
                         this.message = "The number is higher, bot!";
                         this.lowNumber = this.botGuessNumber+1
@@ -371,6 +371,10 @@ export default {
           },
       },
       mounted() {
+        // resets the players score each turn
+        this.$store.state.correctAnswers = 0;
+        this.$store.state.botWins = 0;
+
         if(this.$store.state.levelChosen == true) {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')

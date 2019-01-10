@@ -29,7 +29,7 @@
           <th>Date</th>
           <th>Score</th>
         </thead>
-        <tr v-for="(score, index) in highscoreBS.slice().reverse()" :key="score.h">
+        <tr v-for="(score, index) in highscoreBDS.slice().reverse()" :key="score.h">
           <td>{{ index+1 }}</td>
           <td>{{score.bName}}</td>
           <td>{{score.bDate}}</td>
