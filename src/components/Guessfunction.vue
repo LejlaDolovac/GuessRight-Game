@@ -15,6 +15,18 @@
         <input ref="guessInput" class="guessInput is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
+
+      <!-- för att få boten över timern i mobil -->
+      <div class="bot column is-two-fifths" v-show="botsTurn && mobile">
+        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
+        <div v-bind:class="{fadeImage: botActive}">
+          <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        </div>
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
+        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
+      </div>
+
       <div class="column flex">
         <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
         <div class="flex">
@@ -26,7 +38,7 @@
             <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
         </div>
       </div>
-      <div class="bot column is-two-fifths" v-show="botsTurn">
+      <div class="bot column is-two-fifths" v-show="!mobile">
         <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
         <div v-bind:class="{fadeImage: botActive}">
           <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
@@ -115,8 +127,8 @@ export default {
         startCountdown: function () {
             // check if screensize is mobile
             if (screen.width < 601) {
-             this.botsTurn = false;
-             this.mobile = true;
+              this.botsTurn = false;
+              this.mobile = true;
             }
             this.timerShow = false
             if(this.timer == 3) {
@@ -155,8 +167,7 @@ export default {
             if (this.mobile == true) {
               this.botsTurn = true;
               this.playersTurn = false;
-              
-            } 
+            }
             // pauses the guess timer
             clearInterval(this.$store.state.timerInterval)
             this.inputDisabled = true
@@ -437,7 +448,7 @@ export default {
                 this.avatar = "kenny.jpg"
             } else if(this.$store.state.imageNumber == 3) {
                 this.avatar = "kermit.jpg"
-            } 
+            }
         } else {
             window.location.href = '/'
         }
