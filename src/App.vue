@@ -73,6 +73,6 @@
     height: 100%;
     background-color: #000;
     line-height: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 </style>
