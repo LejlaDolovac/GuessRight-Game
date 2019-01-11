@@ -84,6 +84,7 @@
       <br>
       <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
+
     <router-link to="/" tabindex="-1">
       <button class="button is-black is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
@@ -134,39 +135,10 @@ export default {
         botActive: false,
         playerActive: false,
       }
-      // how long before the game starts
-      this.countdownInterval = setInterval(() => {
-          this.timer--
-          if (this.timer == 2) {
-            this.readyMessage = 'Steady'
-          }
-          else if (this.timer == 1) {
-            this.readyMessage = 'GO!'
-          }
-          if (this.timer == 0) {
-            clearInterval(this.countdownInterval)
-            this.startShow = false
-            this.timer = this.$store.state.timer
-            this.inputDisabled = false
-            this.timerShow = true
-            this.readyTimer = 0;
-            this.timerShow = true,
-            this.timerFunction()
-            if (this.$store.state.hard == true) {
-                this.botMessage = 'I need your clothes, your boots and your motorcycle.'
-            } else if (this.$store.state.medium == true) {
-                this.botMessage = '[Neutral bleep-bloop]'
-            } else if (this.$store.state.easy == true) {
-                this.botMessage = 'Wall-e.'
-            }
-          }
-      },1000)
     },
-    // creates what the bot guessed
-    botGuessing: function () {
-      if (this.mobile == true) {
-        this.botsTurn = true;
-        this.playersTurn = false;
+    computed: {
+        avatarImage: function () {
+            return this.avatar
         }
     },
     methods: {
@@ -344,37 +316,20 @@ export default {
                 this.highNumber = this.$store.state.number
                 this.message = ''
             }
-            this.message = "Correct, my man!";
-            this.botHasGuessed = false
-            this.hideNum = !this.hideNum;
-            this.$store.state.correctAnswers++;
-            this.inputDisabled = true;
-            this.numberOfTries--;
-            this.lowNumber = 1
-            this.botFirstGuess = false;
-            this.highNumber = this.$store.state.number
-            // stops the guessing timer
-            clearInterval(this.timerInterval)
-            this.numberInterval = setInterval(() => {
-              this.message = ''
-              this.hideNum = false
-              // gives new random number
-              this.$store.commit('newRandomNumber')
-              // erases the previously guessed numbers
-              this.allGuessedNumbers = [];
-              this.guessedNumber = '';
-              this.inputDisabled = true
-              this.timer = 3
-              this.botGuessNumber = ''
-              // checks if the number of games is up
-              if(this.numberOfTries == 0) {
-                this.message = "Tries up, my man!"
-                this.$refs.timeLeft.value = ''
-                this.timerShow = false
-                setInterval(() => {
-                  this.message = ''
-                  this.showHighScore = true
-                }, 2000)
+        },
+        guessNumber: function () {
+            // checks if the player guesses outside of the guessing span
+          if(this.guessedNumber < this.lowNumber || this.guessedNumber > this.highNumber) {
+              this.message = "Number to high or to low, try again"
+              return
+              // checks if the player guesses right
+              } else if (this.$store.state.randomNumber == this.guessedNumber) {
+              if (this.$store.state.hard == true) {
+                this.botMessage = "I'll be back";
+              } else if (this.$store.state.medium == true) {
+                this.botMessage = "[Sad boop]";
+              } else if (this.$store.state.easy == true) {
+                this.botMessage = "[Sad] Eeeva?";
               }
               this.botActive = false
               this.playerActive = false
@@ -415,15 +370,15 @@ export default {
                 clearInterval(this.$store.state.numberInterval)
               }, 2000);
           // checks if the number the player guessed is lower than the right answer
-          else if (this.$store.state.randomNumber > this.guessedNumber) {
-            this.lowNumber = this.guessedNumber+1
-            this.message = "The number is higher, human!";
-            this.botGuessing()
+          } else if (this.$store.state.randomNumber > this.guessedNumber) {
+              this.lowNumber = this.guessedNumber+1
+              this.message = "The number is higher, human!";
+              this.botGuessing()
           // checks if the number the player guessed is higher than the right answer
           } else if (this.$store.state.randomNumber < this.guessedNumber) {
-            this.highNumber = this.guessedNumber-1
-            this.message = "The number is lower, human!";
-            this.botGuessing()
+              this.highNumber = this.guessedNumber-1
+              this.message = "The number is lower, human!";
+              this.botGuessing()
           }
           // puts the guessed number into an array
           this.allGuessedNumbers.push(this.guessedNumber)
@@ -463,7 +418,6 @@ export default {
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
-
             // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
                 this.newBotGuess = this.botGuessNumber++;
@@ -476,8 +430,16 @@ export default {
                   this.newBotGuess--;
                 }
               }
-              else {
-                this.startCountdown()
+            // bot needs to guess higher
+              else if (this.botGuessNumber < this.$store.state.randomNumber) {
+                this.newBotGuess = this.botGuessNumber++;
+                if (this.newBotGuess < this.lowNumber) {
+                  this.newBotGuess = this.lowNumber++;
+                }
+                // checks if the bot's guess has already been guessed and changes it if that's the case
+                if (this.allGuessedNumbers.includes(this.newBotGuess)) {
+                  this.newBotGuess++;
+                }
               }
             return this.newBotGuess;
           },
@@ -496,7 +458,6 @@ export default {
                 }
               },200)
           }
-        return this.newBotGuess;
       },
       mounted() {
         // stops every interval just in case
@@ -537,16 +498,13 @@ export default {
         } else {
             window.location.href = '/guess'
         }
-
       }
     }
-  }
 </script>
 
 <style scoped>
     .fadeImage {
         opacity: 0.2;
-
     }
     .container {
         max-width: 1280px;
@@ -582,17 +540,14 @@ export default {
         justify-content: flex-end;
         padding-bottom: 40px;
     }
-
     /* hide the empty columns in mobile mode */
     .no-mobile {
         visibility: hidden;
     }
-
     .players img {
         width: 60%;
         height: 60%
     }
-
     .player {
         border-radius: 50%;
     }
@@ -629,7 +584,6 @@ export default {
         color: White;
         padding: 5px;
     }
-
     .players img {
         width: 60%;
         height: 60%
@@ -787,7 +741,6 @@ export default {
         .is-square img {
             height: 3em;
             width: auto;
-
         }
         .speech-bubble {
             padding: 5px;
