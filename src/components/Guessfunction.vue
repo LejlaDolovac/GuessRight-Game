@@ -30,7 +30,7 @@
           </div>
         <h2 class="gradient-heading">Player</h2>
         <!-- Players input field -->
-        <input ref="guessInput" class="guessInput is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
+        <input ref="guessInput" class="guessInput is-light" type="number" placeholder="0" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
         <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
       </div>
 
