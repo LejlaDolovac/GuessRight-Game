@@ -23,7 +23,6 @@
   import Levels from './Levels.vue'
   import HighScore from '../views/HighScore.vue'
   import {db} from '../firebase-config'
-  import {fb} from '../firebase-config'
   import Login from './Login.vue'
   export default {
     name: 'Lobby',

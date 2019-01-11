@@ -13,6 +13,7 @@ export default new Vuex.Store({
     easy: false,
     medium: false,
     hard: false,
+    chuck: false,
     randomNumbers: '',
     timer: '',
     currentUser: null,
@@ -60,6 +61,13 @@ export default new Vuex.Store({
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
         state.botName = 'Terminator';
         state.botImg = 'https://i.dlpng.com/static/png/328494_preview.png';
+      }
+      else if (state.chuck == true) {
+        state.timer = 10;
+        state.number = 1000;
+        state.randomNumbers = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+        state.botName = 'Chuck Norris';
+        state.botImg = 'chucknorris.png';
       }
     }
   },

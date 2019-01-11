@@ -5,7 +5,7 @@
   <div class="modal-background"></div>
   <div class="container">
     <div class="has-background-black">
-    <h2 class="has-white-text"> CHOOSE LEVEL AND AVATAR </h2>
+    <h2 class="has-white-text"> CHOOSE LEVEL AND <router-link to="/gamepage" ><span class="has-white-text" @click="chuckNumbers()">AVATAR</span></router-link> </h2>
     <figure  class="image is-128x128">
       <img v-bind:class="{imageBorder: this.$store.state.imageBorder1}" @click="selectedImage1();" class="image is-rounded" :alt="`Your profile picture`" src="../assets/homer_mindre.jpg"> 
     </figure>
@@ -103,6 +103,7 @@ export default {
         this.$store.state.easy = true
         this.$store.state.medium = false
         this.$store.state.hard= false
+        this.$store.state.chuck = false
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -110,6 +111,7 @@ export default {
         this.$store.state.medium = true
         this.$store.state.hard = false
         this.$store.state.easy = false
+        this.$store.state.chuck = false
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
       },
@@ -117,6 +119,15 @@ export default {
         this.$store.state.hard = true,
         this.$store.state.easy = false,
         this.$store.state.medium = false
+        this.$store.state.chuck = false
+        this.$store.state.levelChosen = true
+        this.$store.state.showLevels = !this.$store.state.showLevels
+        },
+      chuckNumbers: function() {   // function hard-level
+        this.$store.state.hard = false,
+        this.$store.state.easy = false,
+        this.$store.state.medium = false
+        this.$store.state.chuck = true
         this.$store.state.levelChosen = true
         this.$store.state.showLevels = !this.$store.state.showLevels
         },
@@ -152,6 +163,9 @@ export default {
     background: -webkit-linear-gradient(#FF03A4,#F9F871);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  h2 span {
+    font-size: 1em;
   }
   h4 {
     font-family: 'Black Ops One', cursive;

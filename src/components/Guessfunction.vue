@@ -142,6 +142,15 @@ export default {
                 } else if (this.timer == 1) {
                     this.readyMessage = 'GO!'
                     this.inputDisabled = false
+                    if(this.$store.state.easy == true) {
+                      this.botMessage = "Wall-eeee...";
+                    } else if (this.$store.state.medium == true) {
+                      this.botMessage = "[Neutral bloop]"
+                    } else if (this.$store.state.hard == true) {
+                      this.botMessage = "I need your clothes, your boots and your motorcycle."
+                    } else if (this.$store.state.chuck == true) {
+                      this.botMessage = "it's time..."
+                    }
                 }
                 if(this.timer == 0) {
                     clearInterval(this.$store.state.countdownInterval)
@@ -155,7 +164,7 @@ export default {
                     } else if (this.$store.state.medium == true) {
                         this.botMessage = '[Neutral bleep-bloop]'
                     } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-e.'
+                        this.botMessage = 'Wall-eee...'
                     }
                 }
             },1000)
@@ -171,6 +180,15 @@ export default {
             // pauses the guess timer
             clearInterval(this.$store.state.timerInterval)
             this.inputDisabled = true
+            if(this.$store.state.easy == true) {
+                this.botMessage = "Eeeva..?";
+            } else if (this.$store.state.medium == true) {
+                this.botMessage = "[Concentrated bloop]"
+            } else if (this.$store.state.hard == true) {
+                this.botMessage = "Wrong!"
+            } else if (this.$store.state.chuck == true) {
+                this.botMessage = "This is Braddock. I'll go."
+            }
             this.$store.state.timerBotInterval = setInterval(() => {
                 // if it's the terminator - hard
                 if (this.$store.state.hard == true) {
@@ -196,6 +214,11 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
+                else if (this.$store.state.chuck == true) {
+                    this.botGuessNumber = this.$store.state.randomNumber
+                    this.readyMessage = 'Ready'
+                    //this.botMessage
+                }
                     // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
@@ -205,6 +228,8 @@ export default {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
                             this.botMessage = "Eeeva!";
+                        }else if (this.$store.state.chuck == true) {
+                            this.botMessage = 'when the boogie man goes to sleep he checks his closet for me'
                         }
                         this.botActive = false
                         this.playerActive = false
@@ -408,9 +433,10 @@ export default {
           },
           // focuses on the player input
           focus: function () {
+              clearInterval(this.$store.state.focusInterval)
               this.$store.state.focusInterval = setInterval(() => {
-                clearInterval(this.$store.state.focusInterval)
                 if(this.inputDisabled == false) {
+                    clearInterval(this.$store.state.focusInterval)
                     this.$refs.guessInput.focus();
                 }
               },200)
@@ -440,6 +466,9 @@ export default {
             } else if (this.$store.state.easy == true) {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
+            } else if (this.$store.state.chuck == true) {
+                this.highNumber = 1000
+                this.botMessage = "It's time..."
             }
             // changes player avatar image
             if(this.$store.state.imageNumber == 1) {
@@ -450,7 +479,7 @@ export default {
                 this.avatar = "kermit.jpg"
             }
         } else {
-            window.location.href = '/'
+            window.location.href = '/guess'
         }
 
       }
