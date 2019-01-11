@@ -4,6 +4,8 @@ package-lock.json
 package.json
 /dist
 
+firebase-config.js
+
 # local env files
 .env.local
 .env.*.local
