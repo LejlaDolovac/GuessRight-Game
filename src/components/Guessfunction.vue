@@ -4,36 +4,8 @@
   <div>
     <h1 class="gradient-font-big">guessroom</h1>
   </div>
-    <div class="players columns">
-      <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
-      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
-        <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
-        <h2 class="gradient-heading">Player</h2>
-        <!-- Players input field -->
-        <input ref="guessInput" v-if="!startShow" class="guessInput" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled"> <br>
-        <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
-      </div>
-      <div class="column flex">
-        <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
-        <div class="flex">
-            <div><h3 class="has-text-white">TIME LEFT:</h3></div>
-            <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-            <div v-if="numberOfTries == 0" class="message-body timer">END</div>
-            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
-            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
-        </div>
-      </div>
-      <div class="bot column is-two-fifths">
-        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
-        <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
-        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
-        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
-        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
-      </div>
-      <div class="column no-mobile"></div> <!-- for space on the page -->
-    </div>
-    <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container gradient-game-div">
+  <div v-if="mobile">
+      <div class="allGuessedNumbers container gradient-game-div">
       <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
       <br>
       <ul>
@@ -42,14 +14,79 @@
         </li>
       </ul>
       <router-link to="/highScore">
-        <a class="button is-primary is-fullwidth is-size-3" v-show="showHighScore">View Highscore</a>
+        <div class="has-background-black border-controll" v-show="showHighScore">
+          <a class="button is-fullwidth is-size-3 gradient-heading">View Highscore</a>
+        </div>
+      </router-link>
+      <br>
+      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
+    </div>
+    </div>
+    <div class="players columns">
+      <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
+      <div id="player" class="player column is-two-fifths" v-show="playersTurn">
+          <div v-bind:class="{fadeImage: playerActive}"> <!-- makes the image fade when its not your turn -->
+        <img class="player is-rounded" :alt="`Your profile picture`" :src="this.avatar">
+          </div>
+        <h2 class="gradient-heading">Player</h2>
+        <!-- Players input field -->
+        <input ref="guessInput" class="guessInput is-light" type="number" v-model.number="guessedNumber" @keyup.enter="guessNumber" :disabled="inputDisabled" value="Guess A Number"> <br>
+        <span class="message-body wins-correct-message">Player Score: {{ this.$store.state.correctAnswers }}</span>
+      </div>
+
+      <!-- för att få boten över timern i mobil -->
+      <div class="bot column is-two-fifths" v-show="botsTurn && mobile">
+        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
+        <div v-bind:class="{fadeImage: botActive}">
+          <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        </div>
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
+        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
+      </div>
+
+      <div class="column flex">
+        <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
+        <div class="flex">
+            <div><h3 class="has-text-white">TIME LEFT:</h3></div>
+            <div v-if="timerShow" ref="timeLeft" class="message-body timer is-size-5-mobile">{{ timer }}</div>
+            <div v-if="numberOfTries == 0" class="message-body timer is-size-5-mobile">END</div>
+            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer is-size-5-mobile">{{ readyMessage }}</div>
+            <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
+            <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
+        </div>
+      </div>
+      <div class="bot column is-two-fifths" v-show="!mobile">
+        <div class="has-background-success speech-bubble"> {{ botMessage }} </div>
+        <div v-bind:class="{fadeImage: botActive}">
+          <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
+        </div>
+        <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
+        <div class="message-body is-size-5 timer is-size-7-mobile" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
+      </div>
+      <div class="column no-mobile"></div> <!-- for space on the page -->
+    </div>
+    <!-- so that the player can see what numbers have already been guessed -->
+    <div v-if="!mobile" class="allGuessedNumbers container gradient-game-div">
+      <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
+      <br>
+      <ul>
+        <li v-for="number in allGuessedNumbers" :key="number">
+          {{ number }}
+        </li>
+      </ul>
+      <router-link to="/highScore">
+        <div class="has-background-black border-controll" v-show="showHighScore">
+          <a class="button is-fullwidth is-size-3 gradient-heading">View Highscore</a>
+        </div>
       </router-link>
       <br>
       <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
     </div>
 
     <router-link to="/" tabindex="-1">
-      <button class="button is-black is-pulled-left is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
+      <button class="button is-black is-medium is-size-5-mobile">&#8592; BACK TO LOBBY</button>
     </router-link>
 </div>
 </template>
@@ -63,21 +100,16 @@ export default {
         guessedNumber: '',
         message: '',
         hideNum: false,
-        numberInterval: '',
-        timerInterval: '',
-        countdownInterval: '',
         // shows how many seconds before the game starts and how long he/she has to guess
         timer: 3,
         readyMessage: '',
         readyTimer: 4,
         inputDisabled: true,
-        startShow: false,
         // how many games before it goes to highscore
-        numberOfTries: 5,
+        numberOfTries: 10,
         timerShow: false,
         showHighScore: false,
         // how long it takes for the bot to guess
-        timerBotInterval: '',
         levelNumber: '',
         // the number the bot guesses
         botGuessNumber: '',
@@ -99,7 +131,9 @@ export default {
         botsTurn: true,
         mobile: false,
         avatar: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png",
-        focusInterval: ''
+        // fade image
+        botActive: false,
+        playerActive: false,
       }
     },
     computed: {
@@ -111,27 +145,34 @@ export default {
         startCountdown: function () {
             // check if screensize is mobile
             if (screen.width < 601) {
-             this.botsTurn = false;
-             this.mobile = true;
+              this.botsTurn = false;
+              this.mobile = true;
             }
-
             this.timerShow = false
             if(this.timer == 3) {
                 this.readyMessage = 'Ready'
             }
             // how long before the game starts
-            this.countdownInterval = setInterval(() => {
+            this.$store.state.countdownInterval = setInterval(() => {
                 this.timer--
                 if(this.timer == 2) {
                     this.readyMessage = 'Steady'
                 } else if (this.timer == 1) {
                     this.readyMessage = 'GO!'
+                    this.inputDisabled = false
+                    if(this.$store.state.easy == true) {
+                      this.botMessage = "Wall-eeee...";
+                    } else if (this.$store.state.medium == true) {
+                      this.botMessage = "[Neutral bloop]"
+                    } else if (this.$store.state.hard == true) {
+                      this.botMessage = "I need your clothes, your boots and your motorcycle."
+                    } else if (this.$store.state.chuck == true) {
+                      this.botMessage = "it's time..."
+                    }
                 }
                 if(this.timer == 0) {
-                    clearInterval(this.countdownInterval)
-                    this.startShow = false
+                    clearInterval(this.$store.state.countdownInterval)
                     this.timer = this.$store.state.timer
-                    this.inputDisabled = false
                     this.timerShow = true
                     this.readyTimer = 0;
                     this.timerShow = true,
@@ -141,21 +182,32 @@ export default {
                     } else if (this.$store.state.medium == true) {
                         this.botMessage = '[Neutral bleep-bloop]'
                     } else if (this.$store.state.easy == true) {
-                        this.botMessage = 'Wall-e.'
+                        this.botMessage = 'Wall-eee...'
                     }
                 }
             },1000)
         },
         // creates what the bot guessed
         botGuessing: function () {
+            this.botActive = false;
+            this.playerActive = true;
             if (this.mobile == true) {
               this.botsTurn = true;
               this.playersTurn = false;
             }
             // pauses the guess timer
-            clearInterval(this.timerInterval)
+            clearInterval(this.$store.state.timerInterval)
             this.inputDisabled = true
-            this.timerBotInterval = setInterval(() => {
+            if(this.$store.state.easy == true) {
+                this.botMessage = "Eeeva..?";
+            } else if (this.$store.state.medium == true) {
+                this.botMessage = "[Concentrated bloop]"
+            } else if (this.$store.state.hard == true) {
+                this.botMessage = "Wrong!"
+            } else if (this.$store.state.chuck == true) {
+                this.botMessage = "This is Braddock. I'll go."
+            }
+            this.$store.state.timerBotInterval = setInterval(() => {
                 // if it's the terminator - hard
                 if (this.$store.state.hard == true) {
                     if ((this.highNumber - 4) < this.$store.state.randomNumber || (this.lowNumber + 4) > this.$store.state.randomNumber) {
@@ -180,7 +232,11 @@ export default {
                     }
                     this.botMessage = "Eeeva..?";
                 }
-
+                else if (this.$store.state.chuck == true) {
+                    this.botGuessNumber = this.$store.state.randomNumber
+                    this.readyMessage = 'Ready'
+                    //this.botMessage
+                }
                     // checks if the bot guesses right
                     if (this.$store.state.randomNumber == this.botGuessNumber) {
                         // changes what the bot says depandant on what bot it is
@@ -190,12 +246,16 @@ export default {
                             this.botMessage = "[Happy beep]";
                         } else if (this.$store.state.easy == true) {
                             this.botMessage = "Eeeva!";
+                        }else if (this.$store.state.chuck == true) {
+                            this.botMessage = 'when the boogie man goes to sleep he checks his closet for me'
                         }
+                        this.botActive = false
+                        this.playerActive = false
                         this.message = "Bot Wins!!!"
                         this.$store.state.botWins++
                         this.numberOfTries--;
                         // pausar spelet medan boten gissar
-                        this.numberInterval = setInterval(() => {
+                        this.$store.state.numberInterval = setInterval(() => {
                             this.message = ''
                             this.hideNum = false
                             this.$store.commit('newRandomNumber')
@@ -208,9 +268,9 @@ export default {
                             this.lowNumber = 1
                             this.highNumber = this.$store.state.number
                             this.botGuessNumber = ''
-                            clearInterval(this.numberInterval)
+                            clearInterval(this.$store.state.numberInterval)
                         },2000)
-                        clearInterval(this.timerInterval)
+                        clearInterval(this.$store.state.timerInterval)
                         // checks if the number of games is up
                         if(this.numberOfTries == 0) {
                             this.message = "Tries up, my man!"
@@ -225,20 +285,22 @@ export default {
                         }
                     // checks if the bot's guess is too low
                     } else if (this.$store.state.randomNumber > this.botGuessNumber) {
-                        this.message = "The number is higher, bot!";
+                        this.message = "The number is higher, " + this.$store.state.botName + "!";
                         this.lowNumber = this.botGuessNumber+1
                         this.inputDisabled = false
                         this.timerFunction()
                         this.guessedNumber = ''
+                        this.focus()
                     // checks if the bot's guess is too high
                     } else if (this.$store.state.randomNumber < this.botGuessNumber) {
-                        this.message = "The number is lower, bot!";
+                        this.message = "The number is lower, " + this.$store.state.botName + "!";
                         this.highNumber = this.botGuessNumber-1
                         this.inputDisabled = false
                         this.timerFunction()
                         this.guessedNumber = ''
+                        this.focus()
                     }
-                    clearInterval(this.timerBotInterval)
+                    clearInterval(this.$store.state.timerBotInterval)
                     this.botHasGuessed = true
                     if (this.mobile == true) {
                       // show players again i mobile
@@ -248,7 +310,6 @@ export default {
                     // let's the player see all the numbers already guessed
                     this.allGuessedNumbers.push(this.botGuessNumber)
             },3000)
-            this.focus()
             // returns the numbers to the default state
             if(this.$store.state.randomNumber == this.botGuessNumber) {
                 this.lowNumber = 1
@@ -270,6 +331,8 @@ export default {
               } else if (this.$store.state.easy == true) {
                 this.botMessage = "[Sad] Eeeva?";
               }
+              this.botActive = false
+              this.playerActive = false
               this.message = "Correct, my man!";
               this.botHasGuessed = false
               this.hideNum = !this.hideNum;
@@ -280,8 +343,8 @@ export default {
               this.botFirstGuess = false;
               this.highNumber = this.$store.state.number
               // stops the guessing timer
-              clearInterval(this.timerInterval)
-              this.numberInterval = setInterval(() => {
+              clearInterval(this.$store.state.timerInterval)
+              this.$store.state.numberInterval = setInterval(() => {
                 this.message = ''
                 this.hideNum = false
                 // gives new random number
@@ -304,7 +367,7 @@ export default {
                 } else {
                     this.startCountdown()
                 }
-                clearInterval(this.numberInterval)
+                clearInterval(this.$store.state.numberInterval)
               }, 2000);
           // checks if the number the player guessed is lower than the right answer
           } else if (this.$store.state.randomNumber > this.guessedNumber) {
@@ -322,11 +385,14 @@ export default {
         },
         // how long the player has to guess
         timerFunction() {
-            this.timerInterval = setInterval(() => {
+            this.focus()
+            this.botActive = true;
+            this.playerActive = false;
+            this.$store.state.timerInterval = setInterval(() => {
                 this.timer--
                 // checks if times up
                 if(this.timer == 0) {
-                    clearInterval(this.timerInterval)
+                    clearInterval(this.$store.state.timerInterval)
                     this.inputDisabled = true
                     this.timer = 3
                     this.numberOfTries--
@@ -339,7 +405,6 @@ export default {
                     this.botHasGuessed = false
                     if (this.numberOfTries == 0) {
                         this.message = "Tries up, my man!"
-                        this.startShow = true
                         this.timerShow = false
                         setInterval(() => {
                           this.message = ''
@@ -350,11 +415,10 @@ export default {
                     }
                 }
               }, 1000);
-              this.focus()
           },
           // wall-e: boten gissar på EN siffra högre eller lägre än sin senaste gissning
           chooseOneUpDown: function() {
-            console.log(this.allGuessedNumbers)
+
             // bot need to guess lower
               if (this.botGuessNumber > this.$store.state.randomNumber) {
                 this.newBotGuess = this.botGuessNumber++;
@@ -387,17 +451,25 @@ export default {
           },
           // focuses on the player input
           focus: function () {
-              this.focusInterval = setInterval(() => {
-                this.$refs.guessInput.focus();
-                clearInterval(this.focusInterval)
-              },10)
+              clearInterval(this.$store.state.focusInterval)
+              this.$store.state.focusInterval = setInterval(() => {
+                if(this.inputDisabled == false) {
+                    clearInterval(this.$store.state.focusInterval)
+                    this.$refs.guessInput.focus();
+                }
+              },200)
           }
       },
       mounted() {
+        // stops every interval just in case
+        clearInterval(this.$store.state.numberInterval)
+        clearInterval(this.$store.state.timerInterval)
+        clearInterval(this.$store.state.countdownInterval)
+        clearInterval(this.$store.state.timerBotInterval)
+        clearInterval(this.$store.state.focusInterval)
         // resets the players score each turn
         this.$store.state.correctAnswers = 0;
         this.$store.state.botWins = 0;
-
         if(this.$store.state.levelChosen == true) {
             this.$store.commit('levelNumber');
             this.$store.commit('newRandomNumber')
@@ -412,6 +484,9 @@ export default {
             } else if (this.$store.state.easy == true) {
                 this.highNumber = 10
                 this.botMessage = 'Wall-eeee...'
+            } else if (this.$store.state.chuck == true) {
+                this.highNumber = 1000
+                this.botMessage = "It's time..."
             }
             // changes player avatar image
             if(this.$store.state.imageNumber == 1) {
@@ -420,90 +495,101 @@ export default {
                 this.avatar = "kenny.jpg"
             } else if(this.$store.state.imageNumber == 3) {
                 this.avatar = "kermit.jpg"
-            } 
+            }
         } else {
-            window.location.href = '/'
+            window.location.href = '/guess'
         }
+
       }
     }
 </script>
 
 <style scoped>
-.gradient-heading {
-  font-size: 2em;
-  text-transform: uppercase;
-  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.gradient-font-big {
-  font-size: 3.5em;
-  text-transform: uppercase;
-  font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
-  background: -webkit-linear-gradient(#FF03A4,#F9F871);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.gradient-game-div {
-  background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
-  padding: 2%;
-}
-.flex {
-  display: flex;
-  flex-flow: column;
-  width: 125px;
-  max-width: 100%;
-  justify-content: flex-end;
-  padding-bottom: 40px;
-}
+    .fadeImage {
+        opacity: 0.2;
 
-/* hide the empty columns in mobile mode */
-.no-mobile {
-  visibility: hidden;
-}
+    }
+    .container {
+        max-width: 1280px;
+        width: 95%;
+    }
+    .gradient-heading {
+        font-size: 2em;
+        text-transform: uppercase;
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .gradient-font-big {
+        font-size: 3.5em;
+        text-transform: uppercase;
+        font-family: 'Black Ops One'; /*Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif*/
+        background: -webkit-linear-gradient(#FF03A4,#F9F871);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .gradient-game-div {
+        border-radius: 10px;
+        width: 80%;
+        background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871);
+        padding: 2%;
+    }
+    .flex {
+        display: flex;
+        flex-flow: column;
+        width: 125px;
+        max-width: 100%;
+        justify-content: flex-end;
+        padding-bottom: 40px;
+    }
 
-.players img {
-  width: 60%;
-  height: 60%
-}
+    /* hide the empty columns in mobile mode */
+    .no-mobile {
+        visibility: hidden;
+    }
 
-.player {
-    border-radius: 50%;
-}
-#desktopDivider {
-  visibility: hidden;
-}
-.high-low {
-  padding: 1%;
-  margin: -10px;
-}
-.column {
-  height: auto;
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers {
-  color: White;
-  overflow: hidden;
-}
-.allGuessedNumbers ul {
-  margin: auto;
-  text-align: center;
-}
-.allGuessedNumbers li {
-  list-style: none;
-  width: 25px;
-  display: inline-block;
-}
-.message-body {
-  border: none;
-  color: white;
-}
-.bot-message {
-  color: White;
-  padding: 5px;
-}
+    .players img {
+        width: 60%;
+        height: 60%
+    }
+
+    .player {
+        border-radius: 50%;
+    }
+    #desktopDivider {
+        visibility: hidden;
+    }
+    .high-low {
+        padding: 1%;
+        margin: -10px;
+    }
+    .column {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers {
+        color: White;
+        overflow: hidden;
+    }
+    .allGuessedNumbers ul {
+        margin: auto;
+        text-align: center;
+    }
+    .allGuessedNumbers li {
+        list-style: none;
+        width: 25px;
+        display: inline-block;
+    }
+    .message-body {
+        border: none;
+        color: white;
+    }
+    .bot-message {
+        color: White;
+        padding: 5px;
+    }
 
     .players img {
         width: 60%;
@@ -542,7 +628,6 @@ export default {
         color: White;
         padding: 5px;
     }
-
     h3 {
         padding: 20px 0 5px;
         color: #351304;
@@ -564,7 +649,9 @@ export default {
         margin-bottom: 20px;
     }
     .guessInput {
-        background-color: cornsilk;
+        background-color: black;
+        color: white;
+        border: 1px solid #FF03A4;
         width: 150px;
         height: 17px;
         -webkit-transition: .3s ease-in-out;
@@ -584,7 +671,7 @@ export default {
         -mozd-transition: all 200ms ease-in;
         -moz-transform: scale(1.5);
         transition: all 200ms ease-in;
-        transform: scale(1.8);
+        transform: scale(1.2);
     }
     .btn {
         margin-top: 10px;
@@ -594,20 +681,18 @@ export default {
     .btn:focus {
         outline:0;
     }
-
     /* Balloon for bot message */
     .bot {
         position: relative;
     }
     .speech-bubble {
         position: absolute;
-        padding: 10px;
+        padding: 15px;
         top: -80px;
         right: 0px;
         border-radius: 1em;
         max-width: 200px;
     }
-
     .speech-bubble:after {
         content: '';
         position: absolute;
@@ -620,70 +705,57 @@ export default {
         border-left: 0;
         margin-bottom: -20px;
     }
-
-    @media only screen and (max-width: 1087px) {
-        .container, .game-div {
-            width: 100%;
-        }
-    }
-
     @media only screen and (max-width: 768px) {
+        .columns {
+            margin-bottom: calc(0rem - 5rem);
+        }
+        .gradient-font-big {
+            font-size: 1em;
+        }
         .is-medium {
             width: 100%;
             margin-top: 20px;
             background-color: #59057b;
         }
-    }
+        .guessInput {
+            text-align: center;
+            height: 2em;
+            width: 2em;
+            font-size: 3em;
+        }
+        .gradient-heading {
+            font-size: 1.5em !important;
+        }
+        .allGuessedNumbers {
+            padding: 0;
+            max-height: 80px;
+            height: 100%;
+        }
+        .wins-correct-message {
+            height: 1%;
+            padding: 1px;
+        }
+        .is-italic {
+            padding-top: 12px;
+        }
+        .has-text-white {
+            padding: 0;
+        }
+        .player img {
+            height: 7em;
+            width: auto;
+        }
+        .is-square img {
+            height: 3em;
+            width: auto;
 
-    /* Mobile
-    @media only screen and (max-width: 600px) {
-    .container {
-        padding: 1%;
+        }
+        .speech-bubble {
+            padding: 5px;
+            top: 0px;
+        }
+        .winner-loser-message {
+            margin-bottom: 0;
+        }
     }
-    .column {
-        max-width: 300px;
-    }
-    .start-btn {
-        width: 90%;
-        height: 350px;
-        margin-top: 10px;
-        font-size: 60px;
-        margin-bottom: 10px;
-    }
-
-
-    .winner-loser-message {
-        padding: 20px;
-        text-align: center;
-        font-size: 15px;
-    }
-
-    .guessInput {
-        width: 80px;
-        height: 80px;
-        border-radius: 4px;
-        font-size: 35px;
-        text-align: center;
-        margin: 10px;
-    }
-    .guessInput:hover {
-        transform: scale(1.2);
-    }
-    #time-left-timer {
-        height: 60px;
-    }
-    .btn {
-        width: 210px;
-        height: 70px;
-        font-size: 25px;
-        margin: 5px;
-    }
-    .button {
-    background-color:black;
-    color:white;
-    width: 30%;
-    border: 3px solid purple;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    }
-    } */
 </style>

@@ -8,7 +8,7 @@
       </a>
     </div>
 
-    <div class="loggedin">
+    <div class="loggedin ">
       <span v-if="loggedIn">You are signed in as: {{ this.$store.state.currentUser }} </span>
       <span v-if="!loggedIn" class="is-italic"> {{ logoutMessage }} </span>
       <br>
@@ -32,7 +32,7 @@ export default ({
         return this.$store.state.currentUser
       },
       loggedIn() {
-        return this.$store.state.loggedIn
+        return this.$store.state.loggedIn 
       }
     },
     methods: {
@@ -44,7 +44,7 @@ export default ({
         user.providerData.forEach(function (profile) {
           alert('Welcome, ' + profile.displayName + '!');
           setInterval(function() {
-             window.location.href = '/'
+             window.location.href = '/guess'
           }, 1500);
         });
         }).catch(function(error) {
@@ -67,7 +67,6 @@ export default ({
 
 <style scoped>
 @import '~bulma/css/bulma.css';
-
   .navbar {
     width: 100%;
   }
@@ -85,28 +84,29 @@ export default ({
     color: white;
   }
   .logout {
-    margin: 1.5% 0;
+    margin: 8px 0;
+    font-family:  'Black Ops One', cursive;
   }
   .loggedin {
     margin: 1%;
     padding-top: 10px;
-    height: auto;
     margin: 0 auto;
+    font-family:  'Black Ops One', cursive;
   }
   
-@media screen and (max-width: 699px) {
-  .fontawesome-container {
-    top: 0;
-    right: 0;
-    left: 0;
-    margin: 0;
-    padding: 1.5%;
+  @media screen and (max-width: 699px) {
+    .fontawesome-container {
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      padding: 1.5%;
+    }
+    .fontawesome-container > a {
+      display: inline;
+    }
+    .fontawesome-container > span {
+      margin: 2%;
+    }
   }
-  .fontawesome-container > a {
-    display: inline;
-  }
-  .fontawesome-container > span {
-    margin: 2%;
-  }
-}
 </style>

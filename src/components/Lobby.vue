@@ -23,7 +23,6 @@
   import Levels from './Levels.vue'
   import HighScore from '../views/HighScore.vue'
   import {db} from '../firebase-config'
-  import {fb} from '../firebase-config'
   import Login from './Login.vue'
   export default {
     name: 'Lobby',
@@ -74,6 +73,12 @@
     mounted() {
       // stops the confetti from the highscore page
       this.$confetti.stop()
+      // stops every interval just in case
+      clearInterval(this.$store.state.numberInterval)
+      clearInterval(this.$store.state.timerInterval)
+      clearInterval(this.$store.state.countdownInterval)
+      clearInterval(this.$store.state.timerBotInterval)
+      clearInterval(this.$store.state.focusInterval)
     }
   }
   </script>
@@ -110,24 +115,14 @@
   .pink {border-color: #FF03A4;}
   .orange {border-color: #FF755F;}
   .yellow {border-color: #FFD150;}
-
-  @media (min-width: 992px) {
-    .button {
-      font-size: 1.6em;
-      background-color: Black;
-      color: white;
-      border-width: 5px;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
-  }
+  
   @media (max-width: 600px) {
     .button {
-      width: 300px;
+      width: 100%;
       font-size: 1.4em;
     }
     .nav {
-      max-width: 300px;
+      width: 75%;
     }
   }
   </style>

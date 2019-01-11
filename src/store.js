@@ -13,6 +13,7 @@ export default new Vuex.Store({
     easy: false,
     medium: false,
     hard: false,
+    chuck: false,
     randomNumbers: '',
     timer: '',
     currentUser: null,
@@ -21,17 +22,24 @@ export default new Vuex.Store({
     closeLevels: false,
     botName: '',
     imageNumber: 0,
-    avatar:"https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
+    focusInterval: '',
+    numberInterval: '',
+    timerInterval: '',
+    countdownInterval: '',
+    timerBotInterval: '',
+    imageBorder1: false,
+    imageBorder2: false,
+    imageBorder3: false,
   },
   mutations: {
-    // skapar ett slumpmässigt nummer som används som det rätta svaret
+    // Creates a random number that is used as the correct answer
     newRandomNumber(state) {
       state.randomNumber = Math.floor(Math.random() * (state.number - 1 + 1)) + 1;
     },
-    showRules(state){
+    showRules(state) {
       state.show = !state.show;
     },
-    // sätter vad nivåerna gör
+    // Sets what the levels do
     levelNumber(state) {
       if (state.easy == true) {
         state.timer = 10;
@@ -52,7 +60,14 @@ export default new Vuex.Store({
         state.number = 50;
         state.randomNumbers = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
         state.botName = 'Terminator';
-        state.botImg = 'http://icons.iconarchive.com/icons/iconka/persons/128/terminator-icon.png';
+        state.botImg = 'https://i.dlpng.com/static/png/328494_preview.png';
+      }
+      else if (state.chuck == true) {
+        state.timer = 10;
+        state.number = 1000;
+        state.randomNumbers = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+        state.botName = 'Chuck Norris';
+        state.botImg = 'chucknorris.png';
       }
     }
   },
