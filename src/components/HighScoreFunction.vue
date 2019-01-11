@@ -91,9 +91,9 @@ export default {
     if (screen.width < 601) {
       this.backButton = true;
     }
-    if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
+    if (this.$store.state.currentUser != null && this.$store.state.correctAnswers >= 3) {
       this.addHighscorePlayer()
-      if (this.$store.state.botWins > 0) {
+      if (this.$store.state.botWins > 3) {
         this.addHighscoreBot()
       }
     }
