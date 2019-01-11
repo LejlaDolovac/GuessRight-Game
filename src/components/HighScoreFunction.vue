@@ -4,6 +4,9 @@
   <div class="columns">
     <div class="column">
     <h1 class="is-size-1-desktop is-size-2-tablet is-size-2-mobile has-background-black">Highscore for <br> Humans</h1>
+    <router-link to="/">
+      <button v-show="backButton" class="button is-primary" style="margin: 20px;">Back to start page</button>
+    </router-link>
       <div class="gradient">
         <div>
           <table class="table is-bordered is-striped is-narrow has-background-black has-text-white">
@@ -54,7 +57,7 @@
 
   </div>
   <router-link to="/">
-    <button class="button is-primary" style="margin: 20px;">Back to start page</button>
+    <button v-show="!backButton"  class="button is-primary" style="margin: 20px;">Back to start page</button>
   </router-link>
 </div>
 </template>
@@ -76,6 +79,7 @@ export default {
       bRank: 1,
       bName:'',
       saveBot: '',
+      backButton: false
     }
   },
   firebase: {
@@ -84,6 +88,9 @@ export default {
     highscoreBDS: db.ref('botHighscoreData').orderByChild('bScore').limitToLast(10)
   },
   mounted() {
+    if (screen.width < 601) {
+      this.backButton = true;
+    }
     if (this.$store.state.currentUser != null && this.$store.state.correctAnswers > 0) {
       this.addHighscorePlayer()
       if (this.$store.state.botWins > 0) {

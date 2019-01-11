@@ -142,6 +142,7 @@ export default {
  }
   .container {
     width: 45%;
+    overflow-y: scroll;
     background-color: red; /* For browsers that do not support gradients */
     background-image: linear-gradient(to right, #FF03A4 , #FF407E , #FF755F, #FFA64C, #FFD150, #F9F871); /* Standard syntax (must be last) */
   }

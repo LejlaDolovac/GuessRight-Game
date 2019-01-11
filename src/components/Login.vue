@@ -44,7 +44,7 @@ export default ({
         user.providerData.forEach(function (profile) {
           alert('Welcome, ' + profile.displayName + '!');
           setInterval(function() {
-             window.location.href = '/'
+             window.location.href = '/guess'
           }, 1500);
         });
         }).catch(function(error) {

@@ -10,7 +10,6 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'; // Download a 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // It's an FA icon pack
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import VueConfetti from 'vue-confetti';
-import autofocus from 'vue-autofocus-directive';
 
 // Importing FontAwesome icons, here is a library.add needed for each icon you want included
 library.add(faUserSecret)
@@ -23,7 +22,6 @@ require("./assets/main.scss"); // Provides the ability to change colors in Bulma
 // add stylesheet
         
 Vue.use(VueConfetti);
-Vue.directive('autofocus', autofocus);
 
 let app = '';
 

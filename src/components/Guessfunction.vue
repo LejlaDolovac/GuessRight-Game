@@ -4,6 +4,24 @@
   <div>
     <h1 class="gradient-font-big">guessroom</h1>
   </div>
+  <div v-if="mobile">
+      <div class="allGuessedNumbers container gradient-game-div">
+      <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
+      <br>
+      <ul>
+        <li v-for="number in allGuessedNumbers" :key="number">
+          {{ number }}
+        </li>
+      </ul>
+      <router-link to="/highScore">
+        <div class="has-background-black border-controll" v-show="showHighScore">
+          <a class="button is-fullwidth is-size-3 gradient-heading">View Highscore</a>
+        </div>
+      </router-link>
+      <br>
+      <span v-if="showHighScore != true" class="message-body wins-correct-message">Tries left: {{ numberOfTries }} </span>
+    </div>
+    </div>
     <div class="players columns">
       <div class="column no-mobile"></div> <!-- för att få luft på sidorna -->
       <div id="player" class="player column is-two-fifths" v-show="playersTurn">
@@ -31,9 +49,9 @@
         <div id="desktopDivider" class="no-mobile"></div> <!-- for space on the page -->
         <div class="flex">
             <div><h3 class="has-text-white">TIME LEFT:</h3></div>
-            <div v-if="timerShow" ref="timeLeft" class="message-body timer">{{ timer }}</div>
-            <div v-if="numberOfTries == 0" class="message-body timer">END</div>
-            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer">{{ readyMessage }}</div>
+            <div v-if="timerShow" ref="timeLeft" class="message-body timer is-size-5-mobile">{{ timer }}</div>
+            <div v-if="numberOfTries == 0" class="message-body timer is-size-5-mobile">END</div>
+            <div v-if="!timerShow && numberOfTries != 0" ref="timeLeft" class="message-body timer is-size-5-mobile">{{ readyMessage }}</div>
             <h2 class="gradient-font-big" v-show="!mobile">vs.</h2>
             <p style="font-style: italic; font-size: .8em;" class="has-text-white"> Guess Numbers between 1 - {{ this.$store.state.number }}</p>
         </div>
@@ -44,13 +62,13 @@
           <img class="is-square" :alt="`Your opponent ` + this.$store.state.botName" :src="this.$store.state.botImg">
         </div>
         <h2 class="gradient-heading">{{ this.$store.state.botName }}</h2>
-        <div class="message-body is-size-5 timer" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
+        <div class="message-body is-size-5 timer is-size-7-mobile" v-show="botHasGuessed"> {{ this.$store.state.botName }}'s Guess: {{ botGuessNumber }}</div>
         <span class="message-body wins-correct-message">Bot Score: {{ this.$store.state.botWins }}</span>
       </div>
       <div class="column no-mobile"></div> <!-- for space on the page -->
     </div>
     <!-- so that the player can see what numbers have already been guessed -->
-    <div class="allGuessedNumbers container gradient-game-div">
+    <div v-if="!mobile" class="allGuessedNumbers container gradient-game-div">
       <p v-if="message != ''" class="message-body high-low is-italic is-size-6 winner-loser-message"> {{ message }} </p>
       <br>
       <ul>
@@ -653,7 +671,7 @@ export default {
         -mozd-transition: all 200ms ease-in;
         -moz-transform: scale(1.5);
         transition: all 200ms ease-in;
-        transform: scale(1.8);
+        transform: scale(1.2);
     }
     .btn {
         margin-top: 10px;
@@ -688,10 +706,56 @@ export default {
         margin-bottom: -20px;
     }
     @media only screen and (max-width: 768px) {
+        .columns {
+            margin-bottom: calc(0rem - 5rem);
+        }
+        .gradient-font-big {
+            font-size: 1em;
+        }
         .is-medium {
             width: 100%;
             margin-top: 20px;
             background-color: #59057b;
+        }
+        .guessInput {
+            text-align: center;
+            height: 2em;
+            width: 2em;
+            font-size: 3em;
+        }
+        .gradient-heading {
+            font-size: 1.5em !important;
+        }
+        .allGuessedNumbers {
+            padding: 0;
+            max-height: 80px;
+            height: 100%;
+        }
+        .wins-correct-message {
+            height: 1%;
+            padding: 1px;
+        }
+        .is-italic {
+            padding-top: 12px;
+        }
+        .has-text-white {
+            padding: 0;
+        }
+        .player img {
+            height: 7em;
+            width: auto;
+        }
+        .is-square img {
+            height: 3em;
+            width: auto;
+
+        }
+        .speech-bubble {
+        position: absolute;
+        padding: 5px;
+        top: 0px;
+        border-radius: 1em;
+        max-width: 200px;
         }
     }
 </style>
